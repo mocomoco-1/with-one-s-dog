@@ -157,4 +157,4 @@
 - https://www.figma.com/design/P6devOz4R6ubTSnxw8J6TR/TOMONI?node-id=0-1&p=f&t=iPaIaJ7Rlsp7YL1t-0
 
 ### ■ER図
-- https://drive.google.com/file/d/1AQoVC840lS86acoh6yhpIZB16-DLe_jC/view?usp=sharing
+- https://drive.google.com/file/d/1Y_xF8MzAA6Rsq63JYV_J8H0dY-_8v_5G/view?usp=sharing
