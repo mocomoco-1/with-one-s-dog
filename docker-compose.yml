@@ -30,6 +30,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: myapp_development
+    # コンテナを削除してもデータは消えずに残る設定
     volumes:
       - db_data:/var/lib/postgresql/data
     ports:
