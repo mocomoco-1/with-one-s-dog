@@ -17,7 +17,7 @@ module.exports = {
       {
         cupcake: {
           "primary": "#F6F8F7",
-          "primary-content": "#6E5448",
+          "primary-content": "oklch(74% 0.16 232.661)",
           "secondary": "#8CC9E2",
           "secondary-content": "oklch(98% 0.003 247.858)",
           "accent": "#F7F6E4",

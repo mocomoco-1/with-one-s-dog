@@ -1,0 +1,31 @@
+<div class="drawer">
+  <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
+  <div class="drawer-content flex flex-col">
+    <!-- Navbar -->
+    <div class="navbar bg-white w-full">
+      <div class="flex-none lg:hidden">
+        <label for="my-drawer-3" aria-label="open sidebar" class="btn btn-square btn-ghost">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block h-6 w-6 stroke-current">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </label>
+      </div>
+      <%= link_to '/', class: 'navbar-brand' do %>
+      <%= image_tag 'header.png', width:120 %>
+      <% end %>
+      <!-- ログイン・新規登録ボタン -->
+      <div class="flex-none flex ml-auto space-x-2">
+        <%= link_to 'ログイン', "#", class: 'btn btn-md btn-secondary' %>
+        <%= link_to '新規登録', "#", class: 'btn btn-md btn-primary' %>
+      </div>
+    </div>
+  </div>
+  <div class="drawer-side z-50">
+    <label for="my-drawer-3" aria-label="close sidebar" class="drawer-overlay"></label>
+    <ul class="menu bg-base-200 min-h-full w-80 p-4">
+      <!-- Sidebar content here -->
+      <li><a><i class="far fa-edit"></i>日記トップ</a></li>
+      <li><a><i class="far fa-comment-dots"></i>お悩み相談一覧</a></li>
+    </ul>
+  </div>
+</div>
