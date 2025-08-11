@@ -1,0 +1,60 @@
+version: '3.9'
+
+services:
+  web:
+    # # カレントディレクトリにあるDockerfileを使用してbuild
+    build: .
+    # railsのpidファイルが残っていると起動できないので削除。その後Railsサーバー起動
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
+    # ローカルのカレントディレクトリをコンテナの/appにマウント
+    volumes:
+      - .:/app
+      - bundle_data:/usr/local/bundle  # ★重要: bundle永続化
+    # ローカルの3000ポートをコンテナの3000ポートにマッピング。→localhost:3000でつながる
+    ports:
+      - "3000:3000"
+    # webはdbとRedisが起動してから起動する
+    depends_on:
+      - db
+      - redis
+    environment:
+      DATABASE_URL: postgres://postgres:password@db:5432/myapp_development
+      REDIS_URL: redis://redis:6379/0
+      RAILS_ENV: development
+    stdin_open: true
+    tty: true
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: myapp_development
+    # コンテナを削除してもデータは消えずに残る設定
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"  # 必要に応じてローカルからアクセス可能に
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"  # 必要に応じてローカルからアクセス可能に
+    # Redisのヘルスチェックも追加
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  db_data:
+  redis_data:
+  bundle_data:  # ★重要: gemを永続化するボリューム
