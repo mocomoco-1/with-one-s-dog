@@ -1,0 +1,36 @@
+<div class="card bg-white shadow-xl max-w-xl w-full mx-auto">
+  <div class="card-body">
+    <h2 class="card-title justify-center mb-6">アカウント登録</h2>
+
+    <%= form_with(model: resource, as: resource_name, url: registration_path(resource_name), local:true) do |f| %>
+    <div class="form-control mb-2">
+      <%= f.label :name, "ユーザー名" %>
+      <%= f.text_field :name, autofocus: true, class: "input w-full input-md input-secondary", placeholder: "ユーザー名を入力してください" %>
+    </div>
+
+    <div class="form-control mb-2">
+      <%= f.label :email, "メールアドレス" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input w-full input-md input-secondary", placeholder: "メールアドレスを入力してください" %>
+    </div>
+
+    <div class="form-control mb-2">
+      <%= f.label :password, "パスワード" %>
+      <% if @minimum_password_length %>
+      <em>(<%= @minimum_password_length %>文字以上)</em>
+      <% end %>
+      <%= f.password_field :password, autocomplete: "new-password", class: "input w-full input-md input-secondary", placeholder: "パスワードを入力してください" %>
+    </div>
+
+    <div class="form-control mb-2">
+      <%= f.label :password_confirmation, "パスワード確認" %>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input w-full input-md input-secondary", placeholder: "もう一度入力してください" %>
+    </div>
+
+    <button class="form-control mt-5 w-full">
+      <%= f.submit "新規登録", class:"btn btn-md btn-secondary" %>
+    </button>
+    <% end %>
+
+    <%= render "devise/shared/links" %>
+  </div>
+</div>

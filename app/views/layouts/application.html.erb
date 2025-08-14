@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title><%= content_for(:title) || "App" %></title>
+  <title><%= content_for(:title) || "TOMONI" %></title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <%= csrf_meta_tags %>
@@ -21,11 +21,12 @@
 <body>
 
   <body class="bg-gradient-to-b from-[#F6F8F7] to-[#F7F6E4] min-h-screen flex flex-col">
-    <%= render 'shared/header' %>
+    <%= render "shared/header" %>
+    <%= render "shared/flash_message" %>
     <main class="container mx-auto mt-2 px-5 flex items-start py-8 pb-10">
       <%= yield %>
     </main>
-    <%= render 'shared/footer' %>
+    <%= render "shared/footer" %>
   </body>
 
 </html>

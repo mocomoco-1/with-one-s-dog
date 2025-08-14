@@ -1,0 +1,12 @@
+<% flash.each do |key, message| %>
+<% css_class = 
+case key.to_sym
+when :notice then "alert-success"
+when :alert then "alert-error"
+else "alert-info"
+end 
+%>
+<div class="alert w-full <%= css_class %> shadow-lg transition-opacity duration-500" data-controller="flash">
+  <span><%= message %></span>
+</div>
+<% end %>
