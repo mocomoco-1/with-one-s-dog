@@ -18,15 +18,18 @@
   <%= javascript_importmap_tags %>
 </head>
 
-<body>
-
-  <body class="bg-gradient-to-b from-[#F6F8F7] to-[#F7F6E4] min-h-screen flex flex-col">
-    <%= render "shared/header" %>
-    <%= render "shared/flash_message" %>
-    <main class="container mx-auto mt-2 px-5 flex items-start py-8 pb-10">
-      <%= yield %>
-    </main>
-    <%= render "shared/footer" %>
-  </body>
+<body class="min-h-screen bg-gradient-to-b from-[#F6F8F7] to-[#F7F6E4]">
+  <div class="flex flex-col min-h-screen">
+    <%= render 'shared/header' %>
+    <div class="flex flex-1">
+      <%= render 'shared/sidebar_menu' %>
+      <main class="flex-1 px-4 py-1 mt-1">
+        <%= render "shared/flash_message" %>
+        <%= yield %>
+      </main>
+    </div>
+    <%= render 'shared/footer' %>
+  </div>
+</body>
 
 </html>
