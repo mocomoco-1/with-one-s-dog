@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :consultations, dependent: :destroy
-
+  has_many :comments, dependent: :destroy
   def own?(resource)
     id == resource&.user_id
   end
