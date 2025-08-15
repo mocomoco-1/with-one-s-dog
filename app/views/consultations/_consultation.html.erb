@@ -5,7 +5,7 @@
     <div class="flex justify-between items-center">
       <!-- 左側: アバター + 名前 -->
       <div class="flex items-center space-x-2">
-        <%= image_tag "dog", class: "w-12 h-12 rounded-full flex-shrink-0 flex items-center justify-center" %>
+        <%= image_tag "dog.jpg", class: "w-12 h-12 rounded-full flex-shrink-0 flex items-center justify-center" %>
         <span class="font-normal text-sm"><%= consultation.user.name %></span>
       </div>
       <span class="text-xs text-gray-500"><%= consultation.created_at.strftime("%-m/%-d %H:%M") %></span>
