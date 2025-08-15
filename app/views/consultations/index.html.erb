@@ -6,7 +6,7 @@
     <!-- ここに検索入れる　-->
     <h1 class="text-lg border-b border-sky-300 pt-5"> 新規お悩み相談</h1>
     <div class="flex justify-center w-full mt-3">
-      <%= link_to "お悩み相談する", "/",class: "btn btn-sm btn-secondary" %>
+      <%= link_to "お悩み相談する", new_consultation_path,class: "btn btn-sm btn-secondary" %>
     </div>
     <% unless user_signed_in? %>
     <p>※お悩み相談するにはログインか新規登録が必要です</p>
