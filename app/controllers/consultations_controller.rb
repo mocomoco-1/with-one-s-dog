@@ -20,6 +20,8 @@ class ConsultationsController < ApplicationController
 
   def show
     @consultation = Consultation.find(params[:id])
+    @comment = Comment.new
+    @comments = @consultation.comments.includes(:user).order(created_at: :desc)
   end
 
   private

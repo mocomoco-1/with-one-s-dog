@@ -18,3 +18,10 @@ ja:
   activerecord:
     models:
       consultation: "お悩み相談"
+      comment: コメント
+    attributes:
+      consultation:
+        title: タイトル
+        content: 本文
+      comment:
+        content: コメント
