@@ -1,8 +1,8 @@
 <main class="flex-1 p-1">
-  <div class="card bg-white shadow-xl w-[calc(100%-1rem)] sm:w-[calc(100%-2rem)] md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto mt-6">
+  <div class="card bg-white shadow-xl w-[calc(100%-1rem)] sm:w-[calc(100%-2rem)] md:max-w-md lg:max-w-lg xl:max-w-2xl mx-auto mt-6">
     <figure class="mt-2 mb-0">
       <%= image_tag "top.png",
-        class: "max-w-[400px] sm:max-w-[400px] md:max-w-[500px] lg:max-w-[500px] xl:max-w-[600px] mx-auto object-contain",
+        class: "max-w-[400px] sm:max-w-[400px] md:max-w-[500px] lg:max-w-[500px] xl:max-w-[500px] mx-auto object-contain",
         alt: "トップ画像" %>
     </figure>
     <div class="card-body items-center text-center p-4">
@@ -16,6 +16,52 @@
         <br>飼い主同士のコミュニティ機能、AIによる保護犬の性格や行動に合わせたアドバイス機能を通じて、
         <br>気軽に相談・共有ができます。
       </p>
+      <ul class="menu grid grid-cols-2 gap-2">
+        <li>
+          <%= link_to "#", class: "btn btn-xl btn-ghost w-full flex flex-col items-center justify-center border-2 border-blue-200 p-3 min-h-[100px]" do %>
+          <span class="flex items-center gap-2 mb-2 text-md font-bold">
+            <i class="far fa-edit"></i> うちの子日記
+          </span>
+          <span class="text-stone-400 text-sm whitespace-normal">毎日の成長を記録</span>
+          <% end %>
+        </li>
+
+        <li>
+          <%= link_to consultations_path, class: "btn btn-xl btn-ghost w-full flex flex-col items-center justify-center border-2 border-blue-200 p-3 min-h-[100px]" do %>
+          <span class="flex items-center gap-2 mb-2 text-md font-bold">
+            <i class="far fa-comment-dots"></i> お悩み相談一覧
+          </span>
+          <span class="text-stone-400 text-sm whitespace-normal">みんなに悩みを相談する</span>
+          <% end %>
+        </li>
+
+        <li>
+          <%= link_to "#", class: "btn btn-xl btn-ghost w-full flex flex-col items-center justify-center border-2 border-blue-200 p-1 min-h-[100px]" do %>
+          <span class="flex items-center gap-2 mb-2 text-md font-bold">
+            <i class="fas fa-dog"></i> AI「TOMONIくん」に相談
+          </span>
+          <span class="text-stone-400 text-sm whitespace-normal">AI「TOMONIくん」に相談する</span>
+          <% end %>
+        </li>
+
+        <li>
+          <%= link_to "#", class: "btn btn-xl btn-ghost w-full flex flex-col items-center justify-center border-2 border-blue-200 p-3 min-h-[100px]" do %>
+          <span class="flex items-center gap-2 mb-2 text-md font-bold">
+            <i class="far fa-envelope"></i> 飼い主とチャット
+          </span>
+          <span class="text-stone-400 text-sm whitespace-normal">他の飼い主さんと1対1でチャット</span>
+          <% end %>
+        </li>
+
+        <li>
+          <%= link_to "#", class: "btn btn-xl btn-ghost w-full flex flex-col items-center justify-center border-2 border-blue-200 p-3 min-h-[100px]" do %>
+          <span class="flex items-center gap-2 mb-2 text-md font-bold">
+            <i class="far fa-heart"></i> いぬのきもち診断
+          </span>
+          <span class="text-stone-400 text-sm whitespace-normal">5つの質問に答えて今の愛犬のきもちを知ろう</span>
+          <% end %>
+        </li>
+      </ul>
+
     </div>
-  </div>
 </main>
