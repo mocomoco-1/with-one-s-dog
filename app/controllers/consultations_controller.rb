@@ -1,5 +1,5 @@
 class ConsultationsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [ :index ]
+  skip_before_action :authenticate_user!, only: [ :index, :show ]
   def index
     @consultations = Consultation.includes(:user).order(created_at: :desc)
   end
@@ -16,6 +16,10 @@ class ConsultationsController < ApplicationController
       flash.now[:alert] = t("defaults.flash_message.not_created", item: Consultation.model_name.human)
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def show
+    @consultation = Consultation.find(params[:id])
   end
 
   private
