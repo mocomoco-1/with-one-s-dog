@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   }
   root "tops#index"
 
-  resources :consultations, only: [ :index, :new, :create, :show, :edit, :update, :destroy ]
+  resources :consultations, only: [ :index, :new, :create, :show, :edit, :update, :destroy ] do
+    resources :comments, only: [ :create, :edit, :destroy ], shallow: true
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

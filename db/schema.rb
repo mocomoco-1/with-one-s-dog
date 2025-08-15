@@ -10,9 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_08_14_050907) do
+ActiveRecord::Schema[7.2].define(version: 2025_08_15_060803) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "comments", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "consultation_id"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["consultation_id"], name: "index_comments_on_consultation_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "consultation_comments", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "consultation_id"
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["consultation_id"], name: "index_consultation_comments_on_consultation_id"
+    t.index ["user_id"], name: "index_consultation_comments_on_user_id"
+  end
 
   create_table "consultations", force: :cascade do |t|
     t.string "title", null: false
@@ -38,5 +58,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_14_050907) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "comments", "consultations"
+  add_foreign_key "comments", "users"
+  add_foreign_key "consultation_comments", "consultations"
+  add_foreign_key "consultation_comments", "users"
   add_foreign_key "consultations", "users"
 end
