@@ -11,9 +11,9 @@ class ConsultationsController < ApplicationController
   def create
     @consultation = current_user.consultations.build(consultation_params)
     if @consultation.save
-      redirect_to consultations_path, notice: t('defaults.flash_message.created', item: Consultation.model_name.human)
+      redirect_to consultations_path, notice: t("defaults.flash_message.created", item: Consultation.model_name.human)
     else
-      flash.now[:alert] = t('defaults.flash_message.not_created', item: Consultation.model_name.human)
+      flash.now[:alert] = t("defaults.flash_message.not_created", item: Consultation.model_name.human)
       render :new, status: :unprocessable_entity
     end
   end
