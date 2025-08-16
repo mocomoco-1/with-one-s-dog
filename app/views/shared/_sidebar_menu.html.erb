@@ -1,37 +1,55 @@
-<div class="flex min-h-screen">
-  <!-- サイドメニュー -->
-  <aside class="md:flex flex-col w-55 p-2 bg-base-200">
-    <ul class="menu">
-      <li class="mb-3">
-        <%= link_to "#", class: "btn btn-ghost w-full text-md justify-start border-b-stone-400" do %>
-        <i class="far fa-edit"></i> 日記トップ
-        <% end %>
-      </li>
-      <li class="mb-3">
-        <%= link_to consultations_path, class: "btn btn-ghost w-full text-md justify-start border-b-stone-400" do %>
-        <i class="far fa-comment-dots"></i> お悩み相談一覧
-        <% end %>
-      </li>
-      <li class="mb-3">
-        <%= link_to "#", class: "btn btn-ghost w-full text-md justify-start border-b-stone-400" do %>
-        <i class="fas fa-dog"></i>AI「TOMONIくん」に相談
-        <% end %>
-      </li>
-      <li class="mb-3">
-        <%= link_to "#", class: "btn btn-ghost w-full text-md justify-start border-b-stone-400" do %>
-        <i class="far fa-envelope"></i> 飼い主とチャット
-        <% end %>
-      </li>
-      <li class="mb-3">
-        <%= link_to "#", class: "btn btn-ghost w-full text-md justify-start border-b-stone-400" do %>
-        <i class="far fa-heart"></i>いぬのきもち診断
-        <% end %>
-      </li>
-      <li class="mb-3">
-        <%= link_to "#", class: "btn btn-ghost w-full text-md justify-start border-b-stone-400" do %>
-        <i class="far fa-id-card"></i> マイページ
-        <% end %>
-      </li>
-    </ul>
-  </aside>
+<!-- 閉じるボタン（モバイルのみ） -->
+<div class="flex justify-between items-center mb-4 lg:hidden">
+  <button data-action="click->menu-toggle#close" class="btn btn-ghost btn-sm">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+  </button>
 </div>
+<!-- サイドメニュー -->
+<aside class="w-55 p-2 bg-base-200">
+  <ul class="menu">
+    <% if user_signed_in? %>
+    <li class="mb-3">
+      <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "btn btn-ghost w-full text-md justify-start border-b-stone-400" %>
+    </li>
+    <% else %>
+    <li class="mb-3">
+      <%= link_to "ログイン", new_user_session_path, class: "btn btn-ghost w-full text-md justify-start border-b-stone-400" %>
+    </li>
+    <li class="mb-3">
+      <%= link_to "新規登録", new_user_registration_path, class: "btn btn-ghost w-full text-md justify-start border-b-stone-400" %>
+    </li>
+    <% end %>
+    <li class="mb-3">
+      <%= link_to "#", class: "btn btn-ghost w-full text-md justify-start border-b-stone-400" do %>
+      <i class="far fa-edit"></i> 日記トップ
+      <% end %>
+    </li>
+    <li class="mb-3">
+      <%= link_to consultations_path, class: "btn btn-ghost w-full text-md justify-start border-b-stone-400" do %>
+      <i class="far fa-comment-dots"></i> お悩み相談一覧
+      <% end %>
+    </li>
+    <li class="mb-3">
+      <%= link_to "#", class: "btn btn-ghost w-full text-md justify-start border-b-stone-400" do %>
+      <i class="fas fa-dog"></i>AI「TOMONIくん」に相談
+      <% end %>
+    </li>
+    <li class="mb-3">
+      <%= link_to "#", class: "btn btn-ghost w-full text-md justify-start border-b-stone-400" do %>
+      <i class="far fa-envelope"></i> 飼い主とチャット
+      <% end %>
+    </li>
+    <li class="mb-3">
+      <%= link_to "#", class: "btn btn-ghost w-full text-md justify-start border-b-stone-400" do %>
+      <i class="far fa-heart"></i>いぬのきもち診断
+      <% end %>
+    </li>
+    <li class="mb-3">
+      <%= link_to "#", class: "btn btn-ghost w-full text-md justify-start border-b-stone-400" do %>
+      <i class="far fa-id-card"></i> マイページ
+      <% end %>
+    </li>
+  </ul>
+</aside>

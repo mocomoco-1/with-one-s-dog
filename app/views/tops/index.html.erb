@@ -1,9 +1,7 @@
 <main class="flex-1 p-1">
-  <div class="card bg-white shadow-xl w-[calc(100%-1rem)] sm:w-[calc(100%-2rem)] md:max-w-md lg:max-w-lg xl:max-w-2xl mx-auto mt-6">
+  <div class="card bg-white shadow-md w-full sm:w-full md:max-w-md lg:max-w-lg xl:max-w-2xl mx-auto mt-6">
     <figure class="mt-2 mb-0">
-      <%= image_tag "top.png",
-        class: "max-w-[400px] sm:max-w-[400px] md:max-w-[500px] lg:max-w-[500px] xl:max-w-[500px] mx-auto object-contain",
-        alt: "トップ画像" %>
+      <%= image_tag "top.png", class: "w-full max-w-[500px] mx-auto object-contain", alt: "トップ画像" %>
     </figure>
     <div class="card-body items-center text-center p-4">
       <p class="card-title text-blue-300 mb-2">
@@ -18,7 +16,7 @@
       </p>
       <ul class="menu grid grid-cols-2 gap-2">
         <li>
-          <%= link_to "#", class: "btn btn-xl btn-ghost w-full flex flex-col items-center justify-center border-2 border-blue-200 p-3 min-h-[100px]" do %>
+          <%= link_to "#", class: "block w-full h-full rounded-lg border-2 border-blue-200 p-3 min-h-[140px] flex flex-col items-center justify-center text-center hover:bg-blue-50 transition" do %>
           <span class="flex items-center gap-2 mb-2 text-md font-bold">
             <i class="far fa-edit"></i> うちの子日記
           </span>
@@ -27,7 +25,7 @@
         </li>
 
         <li>
-          <%= link_to consultations_path, class: "btn btn-xl btn-ghost w-full flex flex-col items-center justify-center border-2 border-blue-200 p-3 min-h-[100px]" do %>
+          <%= link_to consultations_path, class: "block w-full h-full rounded-lg border-2 border-blue-200 p-3 min-h-[140px] flex flex-col items-center justify-center text-center hover:bg-blue-50 transition" do %>
           <span class="flex items-center gap-2 mb-2 text-md font-bold">
             <i class="far fa-comment-dots"></i> お悩み相談一覧
           </span>
@@ -36,7 +34,7 @@
         </li>
 
         <li>
-          <%= link_to "#", class: "btn btn-xl btn-ghost w-full flex flex-col items-center justify-center border-2 border-blue-200 p-1 min-h-[100px]" do %>
+          <%= link_to "#", class: "block w-full h-full rounded-lg border-2 border-blue-200 p-3 min-h-[140px] flex flex-col items-center justify-center text-center hover:bg-blue-50 transition" do %>
           <span class="flex items-center gap-2 mb-2 text-md font-bold">
             <i class="fas fa-dog"></i> AI「TOMONIくん」に相談
           </span>
@@ -45,7 +43,7 @@
         </li>
 
         <li>
-          <%= link_to "#", class: "btn btn-xl btn-ghost w-full flex flex-col items-center justify-center border-2 border-blue-200 p-3 min-h-[100px]" do %>
+          <%= link_to "#", class: "block w-full h-full rounded-lg border-2 border-blue-200 p-3 min-h-[140px] flex flex-col items-center justify-center text-center hover:bg-blue-50 transition" do %>
           <span class="flex items-center gap-2 mb-2 text-md font-bold">
             <i class="far fa-envelope"></i> 飼い主とチャット
           </span>
@@ -54,7 +52,7 @@
         </li>
 
         <li>
-          <%= link_to "#", class: "btn btn-xl btn-ghost w-full flex flex-col items-center justify-center border-2 border-blue-200 p-3 min-h-[100px]" do %>
+          <%= link_to "#", class: "block w-full h-full rounded-lg border-2 border-blue-200 p-3 min-h-[140px] flex flex-col items-center justify-center text-center hover:bg-blue-50 transition" do %>
           <span class="flex items-center gap-2 mb-2 text-md font-bold">
             <i class="far fa-heart"></i> いぬのきもち診断
           </span>
@@ -62,6 +60,6 @@
           <% end %>
         </li>
       </ul>
-
     </div>
+  </div>
 </main>
