@@ -4,7 +4,7 @@
 <head>
   <title><%= content_for(:title) || "TOMONI" %></title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
@@ -19,10 +19,17 @@
 </head>
 
 <body class="min-h-screen bg-gradient-to-b from-[#F6F8F7] to-[#F7F6E4]">
-  <div class="flex flex-col min-h-screen">
+  <div class="flex flex-col min-h-screen" data-controller="menu-toggle">
     <%= render 'shared/header' %>
-    <div class="flex flex-1">
-      <%= render 'shared/sidebar_menu' %>
+    <div class="flex relative">
+      <!-- オーバーレイ（モバイル時のみ） -->
+      <div data-menu-toggle-target="overlay" data-action="click->menu-toggle#close" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden lg:hidden"></div>
+
+      <!-- サイドバー -->
+      <aside data-menu-toggle-target="sidebar" class="fixed lg:static top-0 left-0 h-full w-64 bg-base-200 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 z-50 p-4">
+        <%= render 'shared/sidebar_menu' %>
+      </aside>
+
       <main class="flex-1 px-4 py-1 mt-1">
         <%= render "shared/flash_message" %>
         <%= yield %>
