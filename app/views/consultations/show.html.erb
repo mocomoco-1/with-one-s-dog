@@ -11,8 +11,8 @@
             <%= image_tag "dog.png", class: "w-14 h-14 rounded-full flex-shrink-0 flex items-center justify-center" %>
             <div class="flex ml-auto space-x-2">
               <% if  user_signed_in? && current_user.own?(@consultation) %>
-              <%= link_to "編集", "#", class:"btn px-2 py-1 btn-accent" %>
-              <%= link_to "削除", "#", class:"btn px-2 py-1 btn-error" %>
+              <%= link_to "編集", edit_consultation_path(@consultation), class:"btn px-2 py-1 btn-accent" %>
+              <%= link_to "削除", consultation_path(@consultation), data: { turbo_method: :delete, turco_confirm: t("defaults.delete_confirm") }, class:"btn px-2 py-1 btn-error" %>
               <% end %>
             </div>
           </div>
