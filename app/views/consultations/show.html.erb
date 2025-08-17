@@ -12,7 +12,7 @@
             <div class="flex ml-auto space-x-2">
               <% if  user_signed_in? && current_user.own?(@consultation) %>
               <%= link_to "編集", edit_consultation_path(@consultation), class:"btn px-2 py-1 btn-accent" %>
-              <%= link_to "削除", consultation_path(@consultation), data: { turbo_method: :delete, turco_confirm: t("defaults.delete_confirm") }, class:"btn px-2 py-1 btn-error" %>
+              <%= link_to "削除", consultation_path(@consultation), data: { turbo_method: :delete, turbo_confirm: t("defaults.delete_confirm") }, class:"btn px-2 py-1 btn-error" %>
               <% end %>
             </div>
           </div>
