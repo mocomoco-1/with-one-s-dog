@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   has_many :consultations, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :reactions, dependent: :destroy
   def own?(resource)
     id == resource&.user_id
   end
