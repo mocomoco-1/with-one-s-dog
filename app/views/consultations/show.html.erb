@@ -23,7 +23,12 @@
             <span class="font-small"><%= @consultation.user.name %></span>
             <span class="text-xs text-gray-500"><%= @consultation.created_at.strftime("%-m/%-d %H:%M") %></span>
           </div>
-          <h2 class="card-title text-xl font-semibold mb-2"><%= @consultation.title %></h2>
+          <div class="flex items-center mt-1">
+            <h2 class="card-title text-xl font-semibold mb-2"><%= @consultation.title %></h2>
+            <div class="flex flex-wrap gap-2 ml-auto">
+              <%= render "tag_list", tag_list: @consultation.tag_list %>
+            </div>
+          </div>
           <p class="card-text"><%= @consultation.content %></p>
         </div>
       </div>

@@ -47,6 +47,6 @@ class ConsultationsController < ApplicationController
   private
 
   def consultation_params
-    params.require(:consultation).permit(:title, :content)
+    params.require(:consultation).permit(:title, :content, :tag_list)
   end
 end

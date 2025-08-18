@@ -23,5 +23,6 @@ ja:
       consultation:
         title: タイトル
         content: 本文
+        tag_list: タグ
       comment:
         content: コメント
