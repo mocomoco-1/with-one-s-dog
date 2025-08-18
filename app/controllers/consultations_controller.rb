@@ -2,6 +2,9 @@ class ConsultationsController < ApplicationController
   skip_before_action :authenticate_user!, only: [ :index, :show ]
   def index
     @consultations = Consultation.includes(:user).order(created_at: :desc)
+    if params[:tag_name]
+      @consultations = Consultation.tagged_with("#{params[:tag_name]}")
+    end
   end
 
   def new
@@ -47,6 +50,6 @@ class ConsultationsController < ApplicationController
   private
 
   def consultation_params
-    params.require(:consultation).permit(:title, :content)
+    params.require(:consultation).permit(:title, :content, :tag_list)
   end
 end

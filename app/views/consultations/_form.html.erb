@@ -13,5 +13,9 @@
   <% end %>
   <%= f.text_area :content, class: "input w-full input-lg input-secondary p-2 h-80 resize-y", placeholder: "本文は必須です" %>
 </div>
+<div class="mb-3 p-4">
+  <%= f.label :tag_list, class: "font-bold mb-3 block"%>
+  <%= f.text_field :tag_list, value: consultation.tag_list.join('#'), class: "input w-full text-md input-lg input-secondary p-2 h-15", placeholder: "例）#吠え#散歩"%>
+</div>
 <%= f.submit "投稿する", class: "btn btn-md btn-secondary" %>
 <% end %>
