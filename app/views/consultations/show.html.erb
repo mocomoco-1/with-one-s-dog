@@ -29,21 +29,23 @@
               <%= render "tag_list", tag_list: @consultation.tag_list %>
             </div>
           </div>
-          <p class="card-text"><%= @consultation.content %></p>
+          <p class="text-left"><%= simple_format(@consultation.content) %></p>
         </div>
+        <!-- リアクションボタン -->
+        <%= render "reactions/reactions", consultation: @consultation %>
       </div>
     </div>
-    <!-- コメントフォーム -->
-    <%= render partial: "comments/form", locals: { comment: @comment, consultation: @consultation } %>
-    <div class="row">
-      <div class="col-lg-8 offset-lg-2">
-        <table class="table">
-          <tbody id="table-comment">
-            <!-- コメント一覧 -->
-            <%= render partial: "comments/comment", collection: @comments %>
-          </tbody>
-        </table>
-      </div>
+  </div>
+  <!-- コメントフォーム -->
+  <%= render partial: "comments/form", locals: { comment: @comment, consultation: @consultation } %>
+  <div class="row">
+    <div class="col-lg-8 offset-lg-2">
+      <table class="table">
+        <tbody id="table-comment">
+          <!-- コメント一覧 -->
+          <%= render partial: "comments/comment", collection: @comments %>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

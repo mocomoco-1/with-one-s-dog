@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_08_18_002344) do
+ActiveRecord::Schema[7.2].define(version: 2025_08_18_232505) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,6 +42,16 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_18_002344) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_consultations_on_user_id"
+  end
+
+  create_table "reactions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "consultation_id", null: false
+    t.integer "reaction_category"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["consultation_id"], name: "index_reactions_on_consultation_id"
+    t.index ["user_id"], name: "index_reactions_on_user_id"
   end
 
   create_table "taggings", force: :cascade do |t|
@@ -94,5 +104,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_18_002344) do
   add_foreign_key "consultation_comments", "consultations"
   add_foreign_key "consultation_comments", "users"
   add_foreign_key "consultations", "users"
+  add_foreign_key "reactions", "consultations"
+  add_foreign_key "reactions", "users"
   add_foreign_key "taggings", "tags"
 end

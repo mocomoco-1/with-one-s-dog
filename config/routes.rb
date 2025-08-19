@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   resources :consultations, only: [ :index, :new, :create, :show, :edit, :update, :destroy ] do
     resources :comments, only: [ :create, :edit, :destroy ], shallow: true
+    resources :reactions, only: [ :create ]
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
