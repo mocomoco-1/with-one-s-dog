@@ -1,11 +1,11 @@
 <div id="reactions-<%= consultation.id %>" class="flex flex-col gap-2">
-  <div class="flex gap-3 flex-wrap">
+  <div class="flex gap-3 flex-wrap mt-4">
     <% Reaction.reaction_categories.keys.each do |category| %>
     <% reacted = consultation.reactions.exists?(user: current_user, reaction_category: category) %>
     <%= button_to consultation_reactions_path(consultation, reaction_category: category),
       method: :post,
       data: { turbo_stream: true },
-      class: "btn btn-sm gap-1 transition-all duration-300 #{reacted ? "btn-primary transform scale-105" : "btn-outline hover:btn-primary"}" do %>
+      class: "btn btn-xs gap-1 transition-all duration-300 #{reacted ? "btn-primary transform scale-105" : "btn-outline hover:btn-primary"} text-xs px-2 py-1" do %>
     <i class="fa-solid <%= reaction_icons[category][0] %>"></i>
     <span><%= reaction_icons[category][1] %></span>
     <% end %>
@@ -15,7 +15,7 @@
     <% reaction_icons.each do |category, (icon_class,label)| %>
     <% count = consultation.reactions.where(reaction_category: category).count %>
     <% next if count.zero? %>
-    <span class="flex items-center gap-1">
+    <span class="flex items-center gap-1 text-xs">
       <i class="fa-solid <%= icon_class %>"></i>
       <span><%= count %></span>
     </span>

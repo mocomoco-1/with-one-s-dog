@@ -29,7 +29,7 @@
               <%= render "tag_list", tag_list: @consultation.tag_list %>
             </div>
           </div>
-          <p class="card-text"><%= @consultation.content %></p>
+          <p class="text-left"><%= simple_format(@consultation.content) %></p>
         </div>
         <!-- リアクションボタン -->
         <%= render "reactions/reactions", consultation: @consultation %>

@@ -1,21 +1,21 @@
 <%= form_with model: consultation, local: true do |f| %>
-<div class="mb-3 p-4">
+<div class="mb-3">
   <%= f.label :title, class: "font-bold mb-3 block" do %>
   タイトル
   <span class="text-red-500">*</span>
   <% end %>
-  <%= f.text_field :title, class: "input w-full text-md input-lg input-secondary p-2 h-15", placeholder: "タイトルは必須です"%>
+  <%= f.text_field :title, class: "input w-full input-secondary p-2 h-15", placeholder: "タイトルは必須です"%>
 </div>
 <div class="mb-3">
   <%= f.label :content, class: "font-bold mb-3 block" do %>
   本文
   <span class="text-red-500">*</span>
   <% end %>
-  <%= f.text_area :content, class: "input w-full input-lg input-secondary p-2 h-80 resize-y", placeholder: "本文は必須です" %>
+  <%= f.text_area :content, class: "input w-full input-secondary p-2 h-80 resize-y leading-1", placeholder: "本文は必須です" %>
 </div>
-<div class="mb-3 p-4">
+<div class="mb-3">
   <%= f.label :tag_list, class: "font-bold mb-3 block"%>
-  <%= f.text_field :tag_list, value: consultation.tag_list.join('#'), class: "input w-full text-md input-lg input-secondary p-2 h-15", placeholder: "例）#吠え#散歩"%>
+  <%= f.text_field :tag_list, value: consultation.tag_list.join('#'), class: "input w-full text-md input-secondary p-2 h-15", placeholder: "例）#吠え#散歩"%>
 </div>
 <%= f.submit "投稿する", class: "btn btn-md btn-secondary" %>
 <% end %>
