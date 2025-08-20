@@ -50,16 +50,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_19_055146) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "consultation_comments", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "consultation_id"
-    t.text "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["consultation_id"], name: "index_consultation_comments_on_consultation_id"
-    t.index ["user_id"], name: "index_consultation_comments_on_user_id"
-  end
-
   create_table "consultations", force: :cascade do |t|
     t.string "title", null: false
     t.text "content", null: false
@@ -131,8 +121,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_19_055146) do
   add_foreign_key "chat_room_users", "users"
   add_foreign_key "comments", "consultations"
   add_foreign_key "comments", "users"
-  add_foreign_key "consultation_comments", "consultations"
-  add_foreign_key "consultation_comments", "users"
   add_foreign_key "consultations", "users"
   add_foreign_key "reactions", "consultations"
   add_foreign_key "reactions", "users"

@@ -1,0 +1,24 @@
+<div class="w-full sm:w-full md:max-w-md lg:max-w-lg xl:max-w-2xl mx-auto mt-6">
+  <div class="flex flex-col text-center mb-6 w-full">
+    <h1 class=" text-xl font-semibold text-left">
+      <i class="far fa-envelope"></i> チャット一覧
+    </h1>
+    <% @chat_rooms.each do |chat_room| %>
+    <%= link_to chat_room_path(chat_room), class: "block" do %>
+    <div class="card bg-white card-compact shadow-sm p-4 flex gap-4 hover:bg-gray-50 transition-colors duration-200 mt-1">
+      <div class="flex-1 flex flex-col">
+        <div class="flex justify-between items-center">
+          <!-- 左側: アバター + 名前 -->
+          <div class="flex items-center space-x-2">
+            <%= image_tag "dog.png", class: "w-12 h-12 rounded-full flex-shrink-0 flex items-center justify-center" %>
+            <span class="font-normal text-sm"><%= chat_room.name %></span>
+          </div>
+          <span class="text-xs text-gray-500"><%= chat_room.created_at.strftime("%-m/%-d %H:%M") %></span>
+        </div>
+        <p class="text-sm text-left text-gray-700"><%= truncate(chat_room.chat_messages.last&.content.to_s, length: 20) %></p>
+      </div>
+    </div>
+    <% end %>
+    <% end %>
+  </div>
+</div>
