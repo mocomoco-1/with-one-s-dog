@@ -4,12 +4,12 @@ Rails.application.routes.draw do
     sessions: "users/sessions"
   }
   root "tops#index"
-
+  resources :users, only: [ :show ]
   resources :consultations, only: [ :index, :new, :create, :show, :edit, :update, :destroy ] do
     resources :comments, only: [ :create, :edit, :destroy ], shallow: true
     resources :reactions, only: [ :create ]
   end
-  resources :chat_rooms, only: [ :index, :show ] do
+  resources :chat_rooms, only: [ :index, :show, :create ] do
     resources :chat_messages, only: [ :create ]
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
