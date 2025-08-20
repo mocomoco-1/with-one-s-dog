@@ -25,7 +25,7 @@ end
 
 5.times do |i|
   room = ChatRoom.create!(name: "testroom#{ i + 1 }")
-  participants = [1] + user_ids.sample(rand(1..3))
+  participants = [ 1 ] + user_ids.sample(rand(1..3))
   participants.each do |user_id|
     ChatRoomUser.create!(chat_room: room, user_id: user_id)
   end
