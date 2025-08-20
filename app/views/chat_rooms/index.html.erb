@@ -11,7 +11,7 @@
           <!-- 左側: アバター + 名前 -->
           <div class="flex items-center space-x-2">
             <%= image_tag "dog.png", class: "w-12 h-12 rounded-full flex-shrink-0 flex items-center justify-center" %>
-            <span class="font-normal text-sm"><%= chat_room.name %></span>
+            <span class="font-normal text-sm"><%= chat_room.display_name(current_user) %></span>
           </div>
           <span class="text-xs text-gray-500"><%= chat_room.created_at.strftime("%-m/%-d %H:%M") %></span>
         </div>

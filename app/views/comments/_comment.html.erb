@@ -1,13 +1,13 @@
 <div id="comment-<%= comment.id %>" class="card bg-white shadow-md p-4 mb-4">
   <div class="flex items-start justify-between">
     <!-- 左側：アイコン＋本文 -->
-    <div class="flex items-start gap-2">
-      <%= image_tag "dog.png", class: "w-12 h-12 rounded-full flex-shrink-0" %>
-      <div class="flex flex-col">
-        <h3 class="font-normal text-sm whitespace-nowrap"><%= comment.user.name %></h3>
-        <p><%= simple_format(comment.content) %></p>
-      </div>
+    <%= link_to user_path(comment.user), class: "flex items-start gap-2" do %>
+    <%= image_tag "dog.png", class: "w-12 h-12 rounded-full flex-shrink-0" %>
+    <div class="flex flex-col">
+      <h3 class="font-normal text-sm whitespace-nowrap hover:underline"><%= comment.user.name %></h3>
+      <p><%= simple_format(comment.content) %></p>
     </div>
+    <% end %>
     <!-- 右側：更新日時 -->
     <div class="text-xs text-gray-500 whitespace-nowrap">
       <%= comment.updated_at.strftime('%Y/%m/%d %H:%M') %>
