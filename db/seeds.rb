@@ -9,10 +9,11 @@
 #   end
 require "faker"
 10.times do
-  User.create!(name: Faker::Name.name,
-              email: Faker::Internet.unique.email,
-              password: "password",
-              password_confirmation: "password")
+  User.find_or_create_by!(email: Faker::Internet.unique.email) do |user|
+              user.name = Faker::Name.name
+              user.password = "password"
+              user.password_confirmation = "password"
+  end
 end
 
 user_ids = User.ids
@@ -20,4 +21,20 @@ user_ids = User.ids
 10.times do |index|
   user = User.find(user_ids.sample)
   user.consultations.create!(title: "タイトル#{index}", content: "本文#{index}")
+end
+
+5.times do |i|
+  room = ChatRoom.create!(name: "testroom#{ i + 1 }")
+  participants = [1] + user_ids.sample(rand(1..3))
+  participants.each do |user_id|
+    ChatRoomUser.create!(chat_room: room, user_id: user_id)
+  end
+
+  10.times do
+    ChatMessage.create!(
+      chat_room: room,
+      user_id: participants.sample,
+      content: Faker::Lorem.sentence(word_count: 5)
+    )
+  end
 end

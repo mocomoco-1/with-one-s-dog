@@ -1,7 +1,7 @@
-<div class="row mb-3" id="comment-form">
+<div class="mb-3" id="comment-form">
   <div class="mb-3 p-4">
     <%= form_with model: comment, url: consultation_comments_path(consultation), class: "mb-2" do |f| %>
-    <%= f.label :content %>
+    <%= f.label :content, class:"font-semibold" %>
     <div class="flex mt-2 ml-auto space-x-2 items-center">
       <%= f.text_area :content, class: "input w-full text-sm input-md input-secondary p-2 h-15", placeholder: Comment.human_attribute_name(:comment) %>
       <%= f.submit "投稿", class: "btn btn-sm btn-secondary" %>
