@@ -46,6 +46,7 @@ RUN chmod +x /usr/bin/entrypoint.sh
 COPY . .
 
 # secret_key_baseを一時的に設定してアセットプリコンパイル
+RUN SECRET_KEY_BASE=dummy bundle exec rails assets:clean
 RUN SECRET_KEY_BASE=dummy bundle exec rails assets:precompile
 
 # entrypoint を設定
