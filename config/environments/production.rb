@@ -32,11 +32,6 @@ Rails.application.configure do
   config.assets.compile = false
   config.assets.digest = true
 
-  # JavaScriptの圧縮設定
-  config.assets.js_compressor = :terser
-  config.assets.css_compressor = :sass
-  # 静的ファイルの配信
-  config.serve_static_assets = true
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.asset_host = "http://assets.example.com"
 
