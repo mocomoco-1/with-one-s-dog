@@ -1,0 +1,28 @@
+<div class="flex <%= chat_message.user == current_user ? 'justify-end' : 'justify-start' %> items-start space-x-2">
+  <!-- 左側アバター（相手用） -->
+  <% unless chat_message.user == current_user %>
+  <div class="chat-image avatar">
+    <div class="flex-shrink-0 mr-3" style="width: 40px; height: 40px;">
+      <%= image_tag "dog.png", class: "rounded-full w-full h-full object-cover" %>
+    </div>
+  </div>
+  <% end %>
+  <!-- 吹き出し + 名前 -->
+  <div class="flex flex-col">
+    <div class="text-xs text-gray-500 mb-1">
+      <%= chat_message.user.name %> ・
+      <time class="text-xs opacity-50 ml-1"><%= l chat_message.created_at, format: :short %></time>
+    </div>
+    <div class="px-3 py-2 rounded-lg break-words <%= chat_message.user == current_user ? 'bg-base-200' : 'bg-accent' %> max-w-xs break-words">
+      <%= chat_message.content %>
+    </div>
+  </div>
+  <!-- 右側アバター（自分用） -->
+  <% if chat_message.user == current_user %>
+  <div class="chat-image avatar">
+    <div class="flex-shrink-0 ml-3" style="width: 40px; height: 40px;">
+      <%= image_tag "dog.png", class: "rounded-full w-full h-full object-cover" %>
+    </div>
+  </div>
+  <% end %>
+</div>
