@@ -3,13 +3,9 @@ set -e
 
 # Rails に対応したファイル server.pid が存在しているかもしれないので削除する。
 rm -f /app/tmp/pids/server.pid
-rm -rf public/assets/*
-
-# アセットをプリコンパイル（起動時に master.key が読み込まれる）
-RAILS_ENV=production bundle exec rails assets:precompile
-
-RAILS_ENV=production bundle exec rails db:prepare
-
+# データベース準備
+bundle exec rails db:prepare
+# サーバー起動
 exec bundle exec rails server -b 0.0.0.0
 
 # # PostgreSQLが完全に起動するまで待機（改良版）
@@ -28,6 +24,3 @@ exec bundle exec rails server -b 0.0.0.0
 # done
 
 # echo "PostgreSQL is accepting connections!"
-
-# 渡されたコマンドを実行
-exec "$@"

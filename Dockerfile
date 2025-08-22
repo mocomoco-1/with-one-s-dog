@@ -3,7 +3,7 @@ FROM ruby:3.2.5
 # タイムゾーンと文字コード設定
 ENV LANG C.UTF-8
 ENV TZ Asia/Tokyo
-ENV RAILS_ENV=development
+ENV RAILS_ENV=production
 
 # 必要なシステムライブラリをインストール
 RUN apt-get update -qq && apt-get install -y \
@@ -44,6 +44,9 @@ RUN chmod +x /usr/bin/entrypoint.sh
 
 # アプリケーション全体をコピー
 COPY . .
+
+# secret_key_baseを一時的に設定してアセットプリコンパイル
+RUN SECRET_KEY_BASE=dummy bundle exec rails assets:precompile
 
 # entrypoint を設定
 ENTRYPOINT ["entrypoint.sh"]
