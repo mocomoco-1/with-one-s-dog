@@ -71,7 +71,7 @@ Rails.application.configure do
   # config.cache_store = :mem_cache_store
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
-  # config.active_job.queue_adapter = :resque
+  config.active_job.queue_adapter = :async
   # config.active_job.queue_name_prefix = "app_production"
 
   # Disable caching for Action Mailer templates even if Action Controller
@@ -102,4 +102,11 @@ Rails.application.configure do
   # ]
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+  # ActionCable設定
+  config.action_cable.mount_path = "/cable"
+  config.action_cable.url = "wss://tomoni.onrender.com/cable"
+  config.action_cable.allowed_request_origins = ["https://tomoni.onrender.com"]
+
+  # データベース接続プール設定
+  config.database_configuration_pool_size = ENV.fetch("RAILS_MAX_THREADS") { 15 }.to_i
 end
