@@ -3,7 +3,7 @@ FROM ruby:3.2.5
 # タイムゾーンと文字コード設定
 ENV LANG C.UTF-8
 ENV TZ Asia/Tokyo
-ENV RAILS_ENV=development
+ENV RAILS_ENV=production
 
 # 必要なシステムライブラリをインストール
 RUN apt-get update -qq && apt-get install -y \
@@ -38,12 +38,15 @@ RUN gem install bundler:2.6.9 && bundle install
 COPY package*.json yarn.lock* ./
 RUN if [ -f "package.json" ]; then yarn install; fi
 
+# アプリケーション全体をコピー
+COPY . .
+
+# アセットをプリコンパイルする
+RUN bundle exec rake assets:precompile
+
 # entrypoint.sh をコピーして実行権限を付与
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
-
-# アプリケーション全体をコピー
-COPY . .
 
 # entrypoint を設定
 ENTRYPOINT ["entrypoint.sh"]
