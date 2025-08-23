@@ -17,7 +17,7 @@ module App
     config.autoload_lib(ignore: %w[assets tasks])
     config.i18n.default_locale = :ja
     config.time_zone = "Tokyo"
-    config.assets.paths << Rails.root.join("app", "javascript")
+    config.assets.paths << Rails.root.join("app/assets/builds")
     config.assets.precompile += %w[application.js]
     # Configuration for the application, engines, and railties goes here.
     #
