@@ -110,6 +110,4 @@ Rails.application.configure do
 
   # データベース接続プール設定
   config.database_configuration_pool_size = ENV.fetch("RAILS_MAX_THREADS") { 15 }.to_i
-  # importmap用
-  config.importmap.sweep_cache = false
 end
