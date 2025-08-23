@@ -5,7 +5,8 @@ class ChatMessageBroadcastJob < ApplicationJob
     rendered_message = render_message(chat_message)
     ChatRoomChannel.broadcast_to(
       chat_message.chat_room,
-      message: rendered_message
+      message: rendered_message,
+      sender_id: chat_message.user_id
     )
   end
 

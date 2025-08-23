@@ -11,7 +11,7 @@ module ApplicationCable
 
     def find_verified_user
       # Deviseのwarden経由でユーザーを取得
-      if verified_user = env['warden']&.user
+      if verified_user = env["warden"]&.user
         return verified_user
       end
       # クッキーからuser_idを取得する方法（フォールバック）

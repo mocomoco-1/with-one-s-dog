@@ -6,6 +6,7 @@ document.addEventListener('turbo:load', function() {
   
   const messagesElement = document.getElementById("messages")
   const roomId = messagesElement?.dataset?.roomId
+
   // ページ読み込み時に最下部にスクロール
   if (messagesElement && messagesElement.children.length > 0) {
     scrollToBottom(messagesElement)
@@ -35,8 +36,18 @@ document.addEventListener('turbo:load', function() {
               console.warn("⚠️ 無効なデータを受信しました:", data)
               return
             }
-            messagesElement.insertAdjacentHTML("beforeend", data.message)
-            messagesElement.scrollTop = messagesElement.scrollHeight          
+            const currentUserId = messagesElement.dataset.currentUserId
+            let wrapper = document.createElement("div")
+            wrapper.innerHTML = data.message
+            if (data.sender_id && currentUserId){
+              if (data.sender_id.toString() === currentUserId.toString()){
+                wrapper.firstElementChild.classList.add("message-right")
+              }else{
+                wrapper.firstElementChild.classList.add("message-left")
+              }
+            }
+            messagesElement.appendChild(wrapper.firstElementChild)
+            scrollToBottom(messages)          
             console.log("✅ メッセージをDOMに追加完了")
           } catch (error) {
             console.error("❌ メッセージ表示エラー:", error)

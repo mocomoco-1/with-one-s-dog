@@ -106,7 +106,7 @@ Rails.application.configure do
   # ActionCable設定
   config.action_cable.mount_path = "/cable"
   config.action_cable.url = "wss://tomoni.onrender.com/cable"
-  config.action_cable.allowed_request_origins = ["https://tomoni.onrender.com"]
+  config.action_cable.allowed_request_origins = [ "https://tomoni.onrender.com" ]
 
   # データベース接続プール設定
   config.database_configuration_pool_size = ENV.fetch("RAILS_MAX_THREADS") { 15 }.to_i

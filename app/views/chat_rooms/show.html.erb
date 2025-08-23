@@ -6,7 +6,7 @@
     </h1>
 
     <!-- メッセージ一覧 -->
-    <div id="messages" data-room-id="<%= @chat_room.id %>" class="card-body border rounded-lg h-96 overflow-y-scroll bg-base-100 space-y-3 p-3">
+    <div id="messages" data-room-id="<%= @chat_room.id %>" data-current-user-id="<%= current_user.id %>" class="card-body border rounded-lg h-96 overflow-y-scroll bg-base-100 space-y-3 p-3">
       <%= render @chat_messages %>
     </div>
     <!-- メッセージ送信フォーム -->
