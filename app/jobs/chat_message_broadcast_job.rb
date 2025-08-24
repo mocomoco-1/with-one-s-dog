@@ -16,7 +16,7 @@ class ChatMessageBroadcastJob < ApplicationJob
   def render_message(chat_message)
     ApplicationController.renderer.render(
       partial: "chat_messages/chat_message",
-      locals: { chat_message: chat_message, current_user: chat_message.user }
+      locals: { chat_message: chat_message }
     )
   end
 end
