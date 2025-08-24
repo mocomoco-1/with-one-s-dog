@@ -2,10 +2,9 @@ import consumer from "./consumer"
 
 // DOM読み込み完了を待つ
 document.addEventListener('turbo:load', function() {
-  // DOM読み込み完了、ActionCable初期化開始
-  
   const messagesElement = document.getElementById("messages")
   const roomId = messagesElement?.dataset?.roomId
+  const currentUserId = messagesElement?.dataset?.currentUserId
 
   // ページ読み込み時に最下部にスクロール
   if (messagesElement && messagesElement.children.length > 0) {
@@ -16,12 +15,23 @@ document.addEventListener('turbo:load', function() {
       { channel: "ChatRoomChannel", chat_room_id: roomId },
       {
         connected() {
-          console.log("✅ チャットルーム${roomId}に接続しました")
+          console.log("✅ チャットルームに接続しました")
+          messagesElement.querySelectorAll("[data-sender-id]").forEach((msg) => {
+          const senderId = msg.dataset.senderId
+          if (senderId && currentUserId) {
+            if (senderId.toString() === currentUserId.toString()) {
+              msg.classList.add("justify-end")
+              msg.querySelector(".message-bubble").classList.add("bg-base-200")
+            } else {
+              msg.classList.add("justify-start")
+              msg.querySelector(".message-bubble").classList.add("bg-accent")
+            }
+          }
+          })
           scrollToBottom(messagesElement)
         },
         disconnected() {
-          console.log("❌ チャットルーム${roomId}から切断されました")
-          
+          console.log("❌ チャットルームから切断されました")
           const statusDiv = document.getElementById('connection-status')
           if (statusDiv) {
             statusDiv.style.background = 'red'
@@ -30,24 +40,22 @@ document.addEventListener('turbo:load', function() {
         },
         received(data) {
           try {
-            console.log("📨 データ受信:", data)
-            
-            if (!data || !data.message) {
-              console.warn("⚠️ 無効なデータを受信しました:", data)
-              return
-            }
-            const currentUserId = messagesElement.dataset.currentUserId
-            let wrapper = document.createElement("div")
+            if (!data || !data.message) return
+            const wrapper = document.createElement("div")
             wrapper.innerHTML = data.message
+            const messageDiv = wrapper.firstElementChild
+
             if (data.sender_id && currentUserId){
               if (data.sender_id.toString() === currentUserId.toString()){
-                wrapper.firstElementChild.classList.add("message-right")
+                messageDiv.classList.add("justify-end")  // 右寄せ
+                messageDiv.querySelector(".message-bubble").classList.add("bg-base-200")
               }else{
-                wrapper.firstElementChild.classList.add("message-left")
+                messageDiv.classList.add("justify-start") // 左寄せ
+                messageDiv.querySelector(".message-bubble").classList.add("bg-accent")
               }
             }
-            messagesElement.appendChild(wrapper.firstElementChild)
-            scrollToBottom(messages)          
+            messagesElement.appendChild(messageDiv)
+            scrollToBottom(messagesElement)          
             console.log("✅ メッセージをDOMに追加完了")
           } catch (error) {
             console.error("❌ メッセージ表示エラー:", error)
