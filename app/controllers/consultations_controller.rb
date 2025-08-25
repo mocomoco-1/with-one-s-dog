@@ -36,7 +36,7 @@ class ConsultationsController < ApplicationController
     if @consultation.update(consultation_params)
       redirect_to consultation_path(@consultation), notice: t("defaults.flash_message.updated", item: Consultation.model_name.human)
     else
-      flash.now[:alert] = t("defaults.flash_message.mot_updated", item: Consultation.model_name.human)
+      flash.now[:alert] = t("defaults.flash_message.not_updated", item: Consultation.model_name.human)
       render :edit, status: :unprocessable_entity
     end
   end
