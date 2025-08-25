@@ -22,8 +22,8 @@
     </li>
     <% end %>
     <li class="mb-3">
-      <%= link_to "#", class: "btn btn-ghost w-full text-md justify-start border-b-stone-400" do %>
-      <i class="far fa-edit"></i> 日記トップ
+      <%= link_to diaries_path, class: "btn btn-ghost w-full text-md justify-start border-b-stone-400" do %>
+      <i class="far fa-edit"></i> うちの子日記
       <% end %>
     </li>
     <li class="mb-3">
@@ -46,10 +46,14 @@
       <i class="far fa-heart"></i>いぬのきもち診断
       <% end %>
     </li>
+    <%
+=begin%>
     <li class="mb-3">
       <%= link_to "#", class: "btn btn-ghost w-full text-md justify-start border-b-stone-400" do %>
       <i class="far fa-id-card"></i> マイページ
       <% end %>
     </li>
+    <%
+=end%>
   </ul>
 </aside>
