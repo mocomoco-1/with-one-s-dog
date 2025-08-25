@@ -17,8 +17,9 @@ ja:
       deleted: "%{item}を削除しました"
   activerecord:
     models:
-      consultation: "お悩み相談"
+      consultation: お悩み相談
       comment: コメント
+      diary: うちの子日記
     attributes:
       consultation:
         title: タイトル
@@ -26,3 +27,7 @@ ja:
         tag_list: タグ
       comment:
         content: コメント
+      diary:
+        content: 日記
+        written_on: 日付
+        image: 画像
