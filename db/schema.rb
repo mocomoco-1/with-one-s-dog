@@ -61,12 +61,14 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_24_233041) do
   end
 
   create_table "diaries", force: :cascade do |t|
-    t.text "content"
+    t.date "written_on", null: false
+    t.text "content", null: false
     t.string "image"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_diaries_on_user_id"
+    t.index ["written_on", "user_id"], name: "index_diaries_on_written_on_and_user_id", unique: true
   end
 
   create_table "reactions", force: :cascade do |t|

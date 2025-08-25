@@ -1,0 +1,34 @@
+<div class="w-full sm:w-full md:max-w-md lg:max-w-lg xl:max-w-2xl mx-auto mt-6">
+  <div class="flex flex-col text-center mb-6 w-full">
+    <h1 class=" text-xl font-semibold text-left">
+      <i class="far fa-edit"></i>日記詳細
+    </h1>
+    <div class="card bg-white shadow-md w-[calc(100%-1rem)] sm:w-[calc(100%-2rem)] md:max-w-md lg:max-w-lg xl:max-w-2xl mx-auto mt-6">
+      <div class="card-body">
+        <div class="flex-1 flex flex-col">
+          <!-- アバターとボタンを横並び -->
+          <div class="flex justify-between items-start mb-1">
+            <%= link_to user_path(@diary.user), class: "flex items-center space-x-2" do %>
+            <%= image_tag "dog.png", class: "w-14 h-14 rounded-full flex-shrink-0 flex items-center justify-center" %>
+            <span class="font-small hover:underline"><%= @diary.user.name %></span>
+            <% end %>
+
+            <div class="flex ml-auto space-x-2">
+              <% if  user_signed_in? && current_user.own?(@diary) %>
+              <%= link_to "編集", edit_diary_path(@diary), class:"btn px-2 py-1 btn-accent" %>
+              <%= link_to "削除", diary_path(@diary), data: { turbo_method: :delete, turbo_confirm: t("defaults.delete_confirm") }, class:"btn px-2 py-1 btn-error" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="flex-1 flex flex-col">
+          <!-- ユーザー名と日付を横並び -->
+          <div class="flex ml-auto mb-1">
+            <span class="text-gray-500"><%= @diary.written_on.strftime("%Y年%m月%d日(%a)") %></span>
+          </div>
+        </div>
+        <p class="text-left"><%= simple_format(@diary.content) %></p>
+      </div>
+    </div>
+  </div>
+</div>
