@@ -15,6 +15,10 @@ amazon:
   bucket: mocomoco-mocomoco
   endpoint: <%= ENV['S3_ENDPOINT'] %>
   force_path_style: true
+  upload:
+    multipart_threshold: 104857600 # 100MB
+  # チェックサム関連の設定を無効化
+  compute_checksums: false
 
 # Remember not to checkin your GCS keyfile to a repository
 # google:
