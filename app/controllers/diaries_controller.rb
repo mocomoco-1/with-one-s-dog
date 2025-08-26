@@ -27,7 +27,14 @@ class DiariesController < ApplicationController
 
   def update
     @diary = current_user.diaries.find(params[:id])
-    if @diary.update(diary_params)
+    if params[:diary][:image_ids].present?
+      @diary.images.where(id: params[:diary][:image_ids]).find_each(&:purge)
+    end
+    if diary_params[:images].present?
+    @diary.images.attach(diary_params[:images])
+    end
+
+    if @diary.update(diary_params.except(:images))
       redirect_to diary_path(@diary), notice: t("defaults.flash_message.updated", item: Diary.model_name.human)
     else
       flash.now[:alert] = t("defaults.flash_message.not_updated", item: Diary.model_name.human)
@@ -44,6 +51,6 @@ class DiariesController < ApplicationController
   private
 
   def diary_params
-    params.require(:diary).permit(:written_on, :content, :image)
+    params.require(:diary).permit(:written_on, :content, images: [])
   end
 end
