@@ -29,7 +29,7 @@
         <p class="text-left"><%= simple_format(@diary.content) %></p>
         <% if @diary.images.attached? %>
         <div class="card-body border rounded-lg overflow-y-scroll bg-base-100 p-3">
-          <div class="flex gap-2 min-w-max">
+          <div class="flex gap-2">
             <% @diary.images.each do |image| %>
             <figure class="flex-shrink-0 w-50 h-50">
               <%= image_tag image.variant(resize_to_fill: [350, 350]), class: "rounded-lg w-full h-full" %>

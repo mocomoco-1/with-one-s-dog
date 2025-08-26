@@ -3,6 +3,10 @@ class DiariesController < ApplicationController
     @diaries = Diary.includes(:user).order(created_at: :desc)
   end
 
+  def my_diaries
+    @diaries = current_user.diaries.order(created_at: :desc)
+  end
+
   def new
     @diary = Diary.new
   end

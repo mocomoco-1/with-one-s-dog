@@ -1,5 +1,5 @@
-<div class="p-2">
-  <div class="card bg-white shadow-sm p-4 flex flex-col gap-2">
+<div class="p-2 h-full">
+  <div class="card bg-white shadow-sm p-4 flex flex-col gap-2 h-full">
     <div class="flex justify-between items-center">
       <!-- 左側: アバター + 名前 -->
       <div class="flex items-center space-x-2">
@@ -8,9 +8,8 @@
         <span class="font-normal text-sm hover:underline"><%= diary.user.name %></span>
         <% end %>
       </div>
-      <!-- 右側: 日付 -->
-      <span class="text-gray-600"><%= diary.written_on.strftime("%Y年%m月%d日（%a）") %></span>
     </div>
+    <span class="text-gray-600"><%= diary.written_on.strftime("%Y年%m月%d日(%a)") %></span>
     <!-- カード全体を詳細リンク -->
     <%= link_to diary_path(diary), class: "block w-full h-full" do %>
     <!-- 本文 -->
@@ -18,7 +17,7 @@
     <% if diary.images.attached? %>
     <div class="flex flex-row gap-2 ml-8 overflow-y-scroll">
       <% diary.images.each do |image| %>
-      <%= image_tag image.variant(resize_to_limit: [100, 100]),class: "rounded-lg flex-shrink-0" %>
+      <%= image_tag image.variant(resize_to_fill: [100, 100]),class: "rounded-lg flex-shrink-0" %>
       <% end %>
     </div>
     <% end %>
