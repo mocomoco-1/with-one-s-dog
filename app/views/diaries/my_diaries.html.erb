@@ -1,0 +1,21 @@
+<div class="w-full sm:w-full md:max-w-md lg:max-w-lg xl:max-w-2xl mx-auto mt-6">
+  <div class="flex flex-col w-full">
+    <%= link_to diaries_path, class: "flex items-center gap-1" do %>
+    <i class="fas fa-arrow-left"></i>
+    <i class="text-sm font-semibold hover:underline">日記一覧へ</i>
+    <% end %>
+  </div>
+  <h1 class=" text-xl font-semibold text-center">
+    <i class="far fa-edit"></i>MY日記一覧
+  </h1>
+  <div class="grid grid-cols-2">
+    <% if @diaries.present? %>
+    <% @diaries.each do |diary| %>
+    <%= render partial: "diary", locals: { diary: diary } %>
+    <% end %>
+    <% else %>
+    <div class="mb-3 col-span-2">日記はまだありません。ぜひ書いてみてください。</div>
+    <% end %>
+  </div>
+</div>
+</div>

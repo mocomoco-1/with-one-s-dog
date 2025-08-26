@@ -1,18 +1,22 @@
 <div class="w-full sm:w-full md:max-w-md lg:max-w-lg xl:max-w-2xl mx-auto mt-2">
-  <div class="flex flex-col mb-2 w-full">
-    <!-- チャットルーム名 -->
-    <h1 class="text-lg font-semibold text-center mb-1">
-      <%= @chat_room.display_name(current_user) %>
-    </h1>
-
-    <!-- メッセージ一覧 -->
-    <div id="messages" data-room-id="<%= @chat_room.id %>" data-current-user-id="<%= current_user.id %>" class="card-body border rounded-lg h-96 overflow-y-scroll bg-base-100 space-y-3 p-3">
-      <%= render @chat_messages %>
-    </div>
-    <!-- メッセージ送信フォーム -->
-    <%= form_with model: [@chat_room, @chat_message],  data: { controller: "reset-form", action: "turbo:submit-end->reset-form#reset" }, class: "flex gap-2 mt-3" do |f| %>
-    <%= f.text_area :content, placeholder: "メッセージを入力", class: "textarea textarea-neutral flex-1 resize-none h-12" %>
-    <%= f.submit "送信", class: "btn btn-secondary" %>
+  <div class="flex flex-col w-full">
+    <%= link_to chat_rooms_path, class: "flex items-center gap-1" do %>
+    <i class="fas fa-arrow-left"></i>
+    <i class="text-sm font-semibold hover:underline">チャット一覧へ</i>
     <% end %>
   </div>
+  <!-- チャットルーム名 -->
+  <h1 class="text-lg font-semibold text-center mb-1">
+    <%= @chat_room.display_name(current_user) %>
+  </h1>
+
+  <!-- メッセージ一覧 -->
+  <div id="messages" data-room-id="<%= @chat_room.id %>" data-current-user-id="<%= current_user.id %>" class="card-body border rounded-lg h-96 overflow-y-scroll bg-base-100 space-y-3 p-3">
+    <%= render @chat_messages %>
+  </div>
+  <!-- メッセージ送信フォーム -->
+  <%= form_with model: [@chat_room, @chat_message],  data: { controller: "reset-form", action: "turbo:submit-end->reset-form#reset" }, class: "flex gap-2 mt-3" do |f| %>
+  <%= f.text_area :content, placeholder: "メッセージを入力", class: "textarea textarea-neutral flex-1 resize-none h-12" %>
+  <%= f.submit "送信", class: "btn btn-secondary" %>
+  <% end %>
 </div>

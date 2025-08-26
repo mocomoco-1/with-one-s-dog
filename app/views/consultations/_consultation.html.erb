@@ -1,5 +1,5 @@
-<div class="card bg-white card-compact shadow-sm p-4 flex flex-col gap-2 hover:bg-gray-50 transition-colors duration-200">
-  <div class="flex justify-between items-center">
+<div class="card bg-white card-compact shadow-sm p-4 flex flex-col gap-2 cursor-pointer hover:bg-gray-100">
+  <div class=" flex justify-between items-center">
     <!-- 左側: アバター + 名前 -->
     <div class="flex items-center space-x-2">
       <%= link_to user_path(consultation.user), class: "flex items-center space-x-2" do %>
@@ -10,17 +10,17 @@
     <!-- 右側: 日付 -->
     <span class="text-xs text-gray-500"><%= consultation.created_at.strftime("%-m/%-d %H:%M") %></span>
   </div>
+  <!-- タグ -->
+  <% if consultation.tag_list.any? %>
+  <div class="flex flex-wrap gap-2 right-0">
+    <%= render "tag_list", tag_list: consultation.tag_list %>
+  </div>
+  <% end %>
   <!-- カード全体を詳細リンク -->
   <%= link_to consultation_path(consultation), class: "block w-full h-full" do %>
-  <div class="flex-1 flex flex-col ml-16">
-    <div class="flex items-center mt-1">
-      <!-- タイトル -->
-      <h1 class="font-semibold text-lg"><%= consultation.title %></h1>
-      <!-- タグ -->
-      <div class="flex flex-wrap gap-2 ml-auto">
-        <%= render "tag_list", tag_list: consultation.tag_list %>
-      </div>
-    </div>
+  <div class="flex-1 flex flex-col">
+    <!-- タイトル -->
+    <h1 class="font-semibold"><%= consultation.title %></h1>
     <!-- 本文 -->
     <p class="text-sm text-gray-700 mt-1"><%= truncate(consultation.content, length: 80) %></p>
   </div>

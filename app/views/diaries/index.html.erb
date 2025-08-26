@@ -5,16 +5,15 @@
     </h1>
     <h1 class="text-lg border-b border-sky-300 pt-5"> うちの子日記新規作成</h1>
     <div class="flex justify-center w-full mt-3">
-      <%= link_to "うちの子日記を書く", new_diary_path,class: "btn btn-sm btn-secondary" %>
+      <%= link_to "うちの子日記を書く", new_diary_path, class: "btn btn-sm btn-secondary" %>
     </div>
     <h1 class="text-lg border-b border-sky-300 pt-5">うちの子日記を見る</h1>
     <div class="flex justify-center w-full mt-3 gap-2">
-      <%= link_to "MY日記一覧", "#",class: "btn btn-sm btn-secondary" %>
-      <%= link_to "ほかの子の日記を見る", "#",class: "btn btn-sm btn-secondary" %>
+      <%= link_to "MY日記一覧", my_diaries_diaries_path, class: "btn btn-sm btn-secondary" %>
     </div>
     <h1 class="text-lg border-b border-sky-300 pt-5">新着うちの子日記一覧</h1>
     <!-- 日記リスト -->
-    <div class="grid grid-cols-1 sm:grid-cols-2">
+    <div class="grid grid-cols-2">
       <% if @diaries.present? %>
       <% @diaries.each do |diary| %>
       <%= render partial: "diary", locals: { diary: diary } %>
