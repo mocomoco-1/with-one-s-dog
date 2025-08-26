@@ -7,6 +7,28 @@
   <%= f.date_field :written_on, class: "input input-secondary" %>
 </div>
 <div class="mb-3">
+  <%= f.label :images, class: "font-bold mb-3 block" %>
+  <%= f.file_field :images, multiple: true, class: "input input-secondary"%>
+  <% if diary.images.attached? %>
+  <p>選択済みの画像（削除する画像にチェックをつけてください）</p>
+  <div class="flex flex-wrap gap-4 max-w-4xl">
+    <% diary.images.each do |image| %>
+    <div class="card bg-base-100 shadow-md w-72">
+      <figure>
+        <%= image_tag image.variant(resize_to_limit: [100, 100]), class: "rounded-lg flex-shrink-0" %>
+      </figure>
+      <div class="card-body p-4 flex flex-row items-center gap-2">
+        <%= check_box_tag "diary[image_ids][]", image.id, false, id: "diary_image_ids_#{image.id}", class: "checkbox checkbox-error" %>
+        <label for="diary_image_ids_<%= image.id %>" class="label cursor-pointer">
+          <span class="label-text">削除する</span>
+        </label>
+      </div>
+    </div>
+    <% end %>
+  </div>
+  <% end %>
+</div>
+<div class="mb-3">
   <%= f.label :content, class: "font-bold mb-3 block" do %>
   日記
   <span class="text-red-500">*</span>

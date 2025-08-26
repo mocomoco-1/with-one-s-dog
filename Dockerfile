@@ -15,6 +15,8 @@ RUN apt-get update -qq && apt-get install -y \
     vim \
     nano \
     postgresql-client \
+    imagemagick \
+    libvips \
     # Node.js 20.x をインストール
     && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get install -y nodejs \

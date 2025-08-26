@@ -1,20 +1,27 @@
-<div class="card bg-white shadow-sm p-4 flex flex-col gap-2">
-  <div class="flex justify-between items-center">
-    <!-- 左側: アバター + 名前 -->
-    <div class="flex items-center space-x-2">
-      <%= link_to user_path(diary.user), class: "flex items-center space-x-2" do %>
-      <%= image_tag "dog.png", class: "w-12 h-12 rounded-full" %>
-      <span class="font-normal text-sm hover:underline"><%= diary.user.name %></span>
-      <% end %>
+<div class="p-2">
+  <div class="card bg-white shadow-sm p-4 flex flex-col gap-2">
+    <div class="flex justify-between items-center">
+      <!-- 左側: アバター + 名前 -->
+      <div class="flex items-center space-x-2">
+        <%= link_to user_path(diary.user), class: "flex items-center space-x-2" do %>
+        <%= image_tag "dog.png", class: "w-12 h-12 rounded-full" %>
+        <span class="font-normal text-sm hover:underline"><%= diary.user.name %></span>
+        <% end %>
+      </div>
+      <!-- 右側: 日付 -->
+      <span class="text-gray-600"><%= diary.written_on.strftime("%Y年%m月%d日（%a）") %></span>
     </div>
-    <!-- 右側: 日付 -->
-    <span class="text-xs text-gray-600"><%= diary.written_on.strftime("%Y年%m月%d日（%a）") %></span>
-  </div>
-  <!-- カード全体を詳細リンク -->
-  <%= link_to diary_path(diary), class: "block w-full h-full" do %>
-  <div class="flex-1 flex flex-col ml-16">
+    <!-- カード全体を詳細リンク -->
+    <%= link_to diary_path(diary), class: "block w-full h-full" do %>
     <!-- 本文 -->
     <p class="text-sm mt-1"><%= truncate(diary.content, length: 80) %></p>
+    <% if diary.images.attached? %>
+    <div class="flex flex-row gap-2 ml-8 overflow-y-scroll">
+      <% diary.images.each do |image| %>
+      <%= image_tag image.variant(resize_to_limit: [100, 100]),class: "rounded-lg flex-shrink-0" %>
+      <% end %>
+    </div>
+    <% end %>
   </div>
   <% end %>
 </div>
