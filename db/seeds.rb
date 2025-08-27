@@ -10,4 +10,3 @@
 if Rails.env.development?
   load(Rails.root.join("db/seeds/users.rb"))
 end
-load(Rails.root.join("db/seeds/diagnosis.rb"))
