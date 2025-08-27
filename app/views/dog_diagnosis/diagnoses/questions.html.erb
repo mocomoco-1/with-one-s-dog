@@ -1,0 +1,61 @@
+<div data-controller="diagnosis" data-diagnosis-total-questions-value="<%= @questions.length %>">
+  <div class="max-w-2xl mx-auto">
+    <div class="bg-white rounded-2xl shadow-lg p-8">
+      <!-- プログレスバー -->
+      <div class="mb-8">
+        <div class="flex justify-between text-sm mb-2">
+          <span data-diagnosis-target="progressText">質問 1 / <%= @questions.length %></span>
+        </div>
+        <div class="w-full rounded-full h-2" style="background-color: #d0d0caff">
+          <div data-diagnosis-target=" progressBar" class="h-2 rounded-full transition-all duration-300" style="width: 1%; background-color: #8CC9E2;">
+          </div>
+        </div>
+      </div>
+
+      <h1 class="text-xl font-bold text-center mb-8">いぬのきもち診断</h1>
+
+      <!-- エラーメッセージ -->
+      <div data-diagnosis-target="errorMessage" class="hidden rounded-lg p-4 mb-6" style="background-color: #FEE2E2; border: 1px solid #FECACA;">
+        <div class="flex items-center">
+          <span class="mr-2">⚠️</span>
+          <span data-diagnosis-target="errorText"></span>
+        </div>
+      </div>
+
+      <!-- 質問 -->
+      <div id="questions-container">
+        <% @questions.each_with_index do |question, index| %>
+        <div data-diagnosis-target="question" data-question-id="<%= question.id %>" class="<%= 'hidden' if index > 0 %>">
+          <h3 class="text-xl font-semibold mb-6 text-center">
+            <i class="fas fa-dog"></i> <%= question.text %>
+          </h3>
+          <div class="space-y-4">
+            <% question.choices.each do |choice| %>
+            <label class="flex items-center p-4 border-2 border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition-all duration-200">
+              <input type="radio" name="question_<%= question.id %>" value="<%= choice.id %>" class="radio radio-sm radio-secondary">
+              <span class="text-lg"> <%= choice.text %></span>
+            </label>
+            <% end %>
+          </div>
+        </div>
+        <% end %>
+      </div>
+
+      <!-- ナビゲーション -->
+      <div class="flex justify-between items-center mt-8">
+        <button data-diagnosis-target="prevBtn" data-action="click->diagnosis#prevQuestion" class="hidden px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition">
+          ← 前の問題
+        </button>
+
+        <button data-diagnosis-target="nextBtn" data-action="click->diagnosis#nextQuestion" class="px-8 py-3 text-white font-semibold rounded-lg transition duration-300" style="background-color: #8CC9E2; min-width: 120px;">
+          次の問題へ →
+        </button>
+      </div>
+
+      <!-- 送信用フォーム -->
+      <%= form_with url: dog_diagnosis_diagnoses_path, method: :post, local: true, id: "diagnosis-form", class: "hidden" do |f| %>
+      <input type="hidden" id="answers-data" name="answers">
+      <% end %>
+    </div>
+  </div>
+</div>

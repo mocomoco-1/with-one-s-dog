@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_08_25_042814) do
+ActiveRecord::Schema[7.2].define(version: 2025_08_26_071923) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -68,6 +68,23 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_25_042814) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "choices", force: :cascade do |t|
+    t.string "text", null: false
+    t.bigint "question_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_choices_on_question_id"
+  end
+
+  create_table "choices_diagnoses", force: :cascade do |t|
+    t.bigint "choice_id", null: false
+    t.bigint "diagnosis_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["choice_id"], name: "index_choices_diagnoses_on_choice_id"
+    t.index ["diagnosis_id"], name: "index_choices_diagnoses_on_diagnosis_id"
+  end
+
   create_table "comments", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "consultation_id"
@@ -88,6 +105,14 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_25_042814) do
     t.index ["user_id"], name: "index_consultations_on_user_id"
   end
 
+  create_table "diagnoses", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "explanation", null: false
+    t.text "dog_message", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "diaries", force: :cascade do |t|
     t.date "written_on", null: false
     t.text "content", null: false
@@ -96,6 +121,12 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_25_042814) do
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_diaries_on_user_id"
     t.index ["written_on", "user_id"], name: "index_diaries_on_written_on_and_user_id", unique: true
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.string "text"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "reactions", force: :cascade do |t|
@@ -159,6 +190,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_25_042814) do
   add_foreign_key "chat_messages", "users"
   add_foreign_key "chat_room_users", "chat_rooms"
   add_foreign_key "chat_room_users", "users"
+  add_foreign_key "choices", "questions"
+  add_foreign_key "choices_diagnoses", "choices"
+  add_foreign_key "choices_diagnoses", "diagnoses"
   add_foreign_key "comments", "consultations"
   add_foreign_key "comments", "users"
   add_foreign_key "consultations", "users"

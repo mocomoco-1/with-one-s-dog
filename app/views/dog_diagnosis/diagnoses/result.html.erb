@@ -1,0 +1,28 @@
+<div class="min-h-screen py-8">
+  <div class="max-w-2xl mx-auto px-4">
+    <div class="text-center mb-8">
+      <h1 class="text-2xl font-bold mb-2">🐾診断結果</h1>
+      <p class="text-gray-600">あなたのワンちゃんの今のきもちは。。。</p>
+      <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+        <div class="text-center mb-6">
+          <div class="text-6xl mb-4"><i class="fas fa-dog"></i></div>
+          <h2 class="text-2xl font-bold mb-2">
+            <%= @result.title %>
+          </h2>
+          <p class="text-lg text-blue-300 font-semibold">
+            <%= @result.dog_message %>
+          </p>
+        </div>
+        <div class="mb-6">
+          <h3 class="text-lg font-semibold mb-3">🦴今のきもち🦴</h3>
+          <div class="rounded-lg p-4">
+            <p class="leading-relaxed">
+              <%= simple_format(@result.explanation) %>
+            </p>
+          </div>
+        </div>
+        <%= link_to "もう一度診断する", dog_diagnosis_diagnoses_index_path, class:"btn btn-md btn-secondary" %>
+      </div>
+    </div>
+  </div>
+</div>
