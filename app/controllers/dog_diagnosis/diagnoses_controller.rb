@@ -3,12 +3,6 @@ class DogDiagnosis::DiagnosesController < ApplicationController
 
   def questions
     @questions = Question.includes(:choices).order(:id)
-    Rails.logger.info "💡 @questions: #{@questions.inspect}"
-    # 本番環境でブラウザから確認できるように debug 出力
-    @questions_count = @questions.count
-    @questions_debug = @questions.map do |q|
-      { id: q.id, text: q.text, choices: q.choices.map { |c| { id: c.id, text: c.text } } }
-    end
   end
 
   def result
