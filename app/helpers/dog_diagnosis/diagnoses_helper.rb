@@ -1,0 +1,2 @@
+module DogDiagnosis::DiagnosesHelper
+end
