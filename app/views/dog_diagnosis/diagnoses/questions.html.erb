@@ -11,7 +11,13 @@
           </div>
         </div>
       </div>
-
+      <%= debug(@questions) %>
+      <!-- debug 出力部分 -->
+      <div style="background-color: #f0f0f0; padding: 1rem; margin-bottom: 2rem; border: 1px solid #ccc;">
+        <h2>本番環境の質問デバッグ</h2>
+        <p>質問数: <%= @questions_count %></p>
+        <pre><%= @questions_debug.inspect %></pre>
+      </div>
       <h1 class="text-xl font-bold text-center mb-8">いぬのきもち診断</h1>
 
       <!-- エラーメッセージ -->
