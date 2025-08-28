@@ -1,0 +1,21 @@
+import { Controller } from "@hotwired/stimulus";
+
+export default class extends Controller {
+  static targets = ["submitButton", "loadingIndicator"]
+
+  connect(){
+    console.log("Loading controller connected")
+  }
+
+  submitStart(){
+    this.submitButtonTarget.disabled = true
+    this.submitButtonTarget.value = "考え中🐾🐾🐾"
+    this.loadingIndicatorTarget.classList.remove("hidden")
+  }
+
+  // submitEnd(){
+  //   this.submitButtonTarget.disabled = false
+  //   this.submitButtonTarget.value = "相談する"
+  //   this.loadingIndicatorTarget.classList.add("hidden") 
+  // }
+}
