@@ -1,0 +1,2 @@
+module AiConsultationsHelper
+end

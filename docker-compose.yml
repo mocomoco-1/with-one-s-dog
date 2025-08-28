@@ -8,8 +8,9 @@ services:
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
     # ローカルのカレントディレクトリをコンテナの/appにマウント
     volumes:
+      # PCの現在いるフォルダをコンテナの/appに同期させる (コードの変更が即時反映される)
       - .:/app
-      - bundle_data:/usr/local/bundle  # ★重要: bundle永続化
+      - bundle_data:/usr/local/bundle  # bundle永続化
     # ローカルの3000ポートをコンテナの3000ポートにマッピング。→localhost:3000でつながる
     ports:
       - "3000:3000"
@@ -23,6 +24,7 @@ services:
       REDIS_URL: redis://redis:6379/0
       RAILS_ENV: development
       RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
+    # コンテナ内でPryなどのデバッガを対話的に使うために必要
     stdin_open: true
     tty: true
 
@@ -37,6 +39,7 @@ services:
       - db_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"  # 必要に応じてローカルからアクセス可能に
+    # コンテナが正常に動作しているかを定期的に確認する仕組み
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
@@ -56,6 +59,7 @@ services:
       timeout: 3s
       retries: 5
 
+# volumesで定義した名前付きボリュームをDockerに作成させる
 volumes:
   db_data:
   redis_data:
