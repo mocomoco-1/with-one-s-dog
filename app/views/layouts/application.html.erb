@@ -11,9 +11,9 @@
   <%= yield :head %>
 
   <link rel="manifest" href="/manifest.json">
-  <link rel="icon" href="/icon.png" type="image/png">
-  <link rel="icon" href="/icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/icon.png">
+  <link rel="icon" href="<%= asset_path 'favicon.ico' %>" type="image/x-icon">
+  <link rel="shortcut icon" href="<%= asset_path 'favicon.ico' %>" type="image/x-icon">
+  <link rel="apple-touch-icon" href="<%= asset_path 'favicon.ico' %>">
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload", "media": "all" %>
   <%= javascript_include_tag "application", "type": "module", defer: true %>
   <%= turbo_include_tags %>
