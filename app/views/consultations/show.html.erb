@@ -45,14 +45,10 @@
   </div>
 </div>
 <!-- コメントフォーム -->
-<%= render partial: "comments/form", locals: { comment: @comment, consultation: @consultation } %>
-<div class="flex justify-center">
-  <div class="w-full lg:w-2/3">
-    <table class="table">
-      <tbody id="table-comment">
-        <!-- コメント一覧 -->
-        <%= render partial: "comments/comment", collection: @comments %>
-      </tbody>
-    </table>
-  </div>
+<div id="comment-form">
+  <%= render partial: "comments/form", locals: { comment: @comment, consultation: @consultation } %>
+</div>
+<div id="table-comment">
+  <!-- コメント一覧 -->
+  <%= render partial: "comments/comment", collection: @comments %>
 </div>
