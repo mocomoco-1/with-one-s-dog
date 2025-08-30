@@ -4,7 +4,7 @@ class DiariesController < ApplicationController
   end
 
   def my_diaries
-    @diaries = current_user.diaries.order(created_at: :desc)
+    @diaries = current_user.diaries.order(created_at: :desc).page(params[:page])
   end
 
   def new
