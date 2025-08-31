@@ -16,8 +16,11 @@
     </div>
 
     <!-- PCメニュー -->
-    <div class="flex space-x-2">
+    <div class="flex space-x-2 items-center">
       <% if user_signed_in? %>
+      <div class="text-sm font-semibold">
+        <%= "#{current_user.name}さん" %>
+      </div>
       <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "btn btn-md btn-secondary" %>
       <% else %>
       <%= link_to "ログイン", new_user_session_path, class: "btn btn-md btn-secondary" %>

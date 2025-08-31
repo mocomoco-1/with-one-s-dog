@@ -1,4 +1,5 @@
 class DogDiagnosis::DiagnosesController < ApplicationController
+  skip_before_action :authenticate_user!, only: [ :index, :questions, :result ]
   def index; end
 
   def questions

@@ -13,7 +13,7 @@
   <p>選択済みの画像（削除する画像にチェックをつけてください）</p>
   <div class="flex flex-wrap gap-4 max-w-4xl">
     <% diary.images.each do |image| %>
-    <div class="card bg-base-100 shadow-md w-72">
+    <div class="card bg-base-100 shadow-md w-40 card-compact">
       <figure>
         <%= image_tag image.variant(resize_to_limit: [100, 100]), class: "rounded-lg flex-shrink-0" %>
       </figure>
