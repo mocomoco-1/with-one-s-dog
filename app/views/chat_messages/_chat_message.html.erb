@@ -5,8 +5,8 @@
       <%= chat_message.user.name %> ・
       <time class="text-xs opacity-50 ml-1"><%= l chat_message.created_at, format: :short %></time>
     </div>
-    <div class="message-bubble px-3 py-2 rounded-lg break-words max-w-xs">
-      <%= chat_message.content %>
+    <div class="message-bubble px-3 py-2 rounded-lg whitespace-pre-wrap break-words max-w-xs">
+      <%= simple_format(chat_message.content) %>
     </div>
   </div>
 </div>

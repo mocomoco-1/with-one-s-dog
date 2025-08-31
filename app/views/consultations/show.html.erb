@@ -43,12 +43,10 @@
       <%= render "reactions/reactions", consultation: @consultation %>
     </div>
   </div>
-</div>
-<!-- コメントフォーム -->
-<div id="comment-form">
+  <!-- コメントフォーム -->
   <%= render partial: "comments/form", locals: { comment: @comment, consultation: @consultation } %>
-</div>
-<div id="table-comment">
-  <!-- コメント一覧 -->
-  <%= render partial: "comments/comment", collection: @comments %>
+  <div id="table-comment" , class="flex flex-col">
+    <!-- コメント一覧 -->
+    <%= render partial: "comments/comment", collection: @comments %>
+  </div>
 </div>

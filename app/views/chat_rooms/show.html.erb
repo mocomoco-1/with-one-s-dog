@@ -16,7 +16,7 @@
   </div>
   <!-- メッセージ送信フォーム -->
   <%= form_with model: [@chat_room, @chat_message],  data: { controller: "reset-form", action: "turbo:submit-end->reset-form#reset" }, class: "flex gap-2 mt-3" do |f| %>
-  <%= f.text_area :content, placeholder: "メッセージを入力", class: "textarea textarea-neutral flex-1 resize-none h-12" %>
+  <%= f.text_area :content, placeholder: "メッセージを入力", class: "textarea textarea-secondary flex-1 resize-none h-12" %>
   <%= f.submit "送信", class: "btn btn-secondary" %>
   <% end %>
 </div>

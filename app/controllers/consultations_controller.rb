@@ -3,7 +3,7 @@ class ConsultationsController < ApplicationController
   def index
     @consultations = Consultation.includes(:user).order(created_at: :desc).page(params[:page])
     if params[:tag_name]
-      @consultations = Consultation.tagged_with("#{params[:tag_name]}")
+      @consultations = Consultation.tagged_with("#{params[:tag_name]}").order(created_at: :desc).page(params[:page])
     end
   end
 

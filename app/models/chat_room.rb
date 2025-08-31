@@ -19,4 +19,8 @@ class ChatRoom < ApplicationRecord
       users.pluck(:name).join(", ")
     end
   end
+
+  def latest_message
+    chat_messages.order(created_at: :desc).first
+  end
 end
