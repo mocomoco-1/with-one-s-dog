@@ -24,6 +24,9 @@ ja:
       consultation: お悩み相談
       comment: コメント
       diary: うちの子日記
+      ai_consultation: AI「TOMONIくん」
+      chat_room: チャット
+      diagnosis: 犬のきもち診断
     attributes:
       consultation:
         title: タイトル
@@ -35,3 +38,47 @@ ja:
         content: 日記
         written_on: 日付
         images: 写真
+  consultations:
+    new:
+      title: お悩み相談作成
+    show:
+      title: お悩み相談詳細
+    index:
+      title: お悩み相談一覧
+    edit:
+      title: お悩み相談編集
+  diaries:
+    new:
+      title: うちの子日記作成
+    show:
+      title: うちの子日記詳細
+    index:
+      title: うちの子日記一覧
+    edit:
+      title: うちの子日記編集
+    my_diaries:
+      title: MYうちの子日記一覧
+  ai_consultations:
+    new:
+      title: AI「TOMONIくん」
+  chat_rooms:
+    show:
+      title: チャット
+    index:
+      title: チャット一覧
+  dog_diagnosis:
+    diagnoses:
+      index:
+        title: 犬のきもち診断
+      questions:
+        title: 犬のきもち診断中
+      result:
+        title: 犬のきもち診断結果
+  devise:
+    sessions:
+      new:
+        title: ログイン
+    registrations:
+      new:
+        title: 新規登録
+    
