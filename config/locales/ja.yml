@@ -74,3 +74,11 @@ ja:
         title: 犬のきもち診断中
       result:
         title: 犬のきもち診断結果
+  devise:
+    sessions:
+      new:
+        title: ログイン
+    registrations:
+      new:
+        title: 新規登録
+    
