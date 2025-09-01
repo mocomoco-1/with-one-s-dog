@@ -4,6 +4,7 @@
     <h1 class=" text-xl font-semibold text-left">
       <i class="far fa-envelope"></i> チャット一覧
     </h1>
+    <% if @chat_rooms.present? %>
     <% @chat_rooms.each do |chat_room| %>
     <%= link_to chat_room_path(chat_room), class: "block" do %>
     <div class="card bg-white card-compact shadow-sm p-4 flex gap-4 cursor-pointer hover:bg-gray-100 mt-1">
@@ -20,6 +21,10 @@
       </div>
     </div>
     <% end %>
+    <% end %>
+    <% else %>
+    <p>まだチャットしているユーザーさんはいません。<br>
+      お悩み相談や日記でチャットしたいユーザーさんがいれば名前をクリックしてください。</p>
     <% end %>
   </div>
 </div>
