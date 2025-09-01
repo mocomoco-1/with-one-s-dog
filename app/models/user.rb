@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   validates :name, presence: true
-
+  validate :email_uniqueness_custom
   has_many :consultations, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :reactions, dependent: :destroy
@@ -15,5 +15,13 @@ class User < ApplicationRecord
 
   def own?(resource)
     id == resource&.user_id
+  end
+
+  private
+
+  def email_uniqueness_custom
+    if User.exists?(email: email)
+      errors.add(:email, "入力内容を確認してください")
+    end
   end
 end

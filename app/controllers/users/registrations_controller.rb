@@ -14,6 +14,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     super do |resource|
       # エラーがある場合 resource.errors を flash にコピー
       if resource.errors.any?
+        customize_email_errors(resource)
         flash.now[:alert] = resource.errors.full_messages.join(", ")
       end
     end
@@ -67,5 +68,25 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # サインアップしたが、アカウントがアクティブでないときにリダイレクトされるパスを指定するメソッド
   def after_inactive_sign_up_path_for(resource)
     super(resource)
+  end
+
+  def customize_email_errors(resource)
+    email_errors = resource.errors[:email]
+    duplicate_patterns = [
+      "taken", 
+      "already been taken",
+      "has already been taken",
+      "既に使用されています", 
+      "使用されています",
+      "すでに存在します",
+      "既に存在します"
+    ]
+    has_duplicate_error = email_errors.any? do |msg| 
+      duplicate_patterns.any? { |pattern| msg.include?(pattern) }
+    end
+    if has_duplicate_error
+      resource.errors.delete(:email)
+      resource.errors.add(:base, "登録できません。入力内容を確認してください。")
+    end
   end
 end
