@@ -2,7 +2,7 @@
 <div class="w-full sm:w-full md:max-w-md lg:max-w-lg xl:max-w-2xl mx-auto mt-6">
   <div class="flex flex-col text-center mb-6 w-full">
     <h1 class=" text-xl font-semibold text-left">
-      <i class="far fa-edit"></i>うちの子日記
+      <i class="far fa-edit"></i>日記
     </h1>
     <h1 class="text-lg border-b border-sky-300 pt-5"> うちの子日記新規作成</h1>
     <div class="flex justify-center w-full mt-3">
@@ -10,9 +10,9 @@
     </div>
     <h1 class="text-lg border-b border-sky-300 pt-5">うちの子日記を見る</h1>
     <div class="flex justify-center w-full mt-3 gap-2">
-      <%= link_to "MY日記一覧", my_diaries_diaries_path, class: "btn btn-sm btn-secondary" %>
+      <%= link_to "うちの子日記一覧", my_diaries_diaries_path, class: "btn btn-sm btn-secondary" %>
     </div>
-    <h1 class="text-lg border-b border-sky-300 pt-5">新着うちの子日記一覧</h1>
+    <h1 class="text-lg border-b border-sky-300 pt-5">新着日記一覧</h1>
     <!-- 日記リスト -->
     <div class="grid grid-cols-2">
       <% if @diaries.present? %>
