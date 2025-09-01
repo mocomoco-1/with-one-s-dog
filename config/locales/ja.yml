@@ -28,6 +28,8 @@ ja:
       chat_room: チャット
       diagnosis: 犬のきもち診断
     attributes:
+      user:
+        name: ユーザー名
       consultation:
         title: タイトル
         content: 本文
