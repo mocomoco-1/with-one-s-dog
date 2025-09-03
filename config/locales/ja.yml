@@ -20,10 +20,17 @@ ja:
       not_updated: "%{item}を更新出来ませんでした"
       deleted: "%{item}を削除しました"
   activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            name:
+              blank: "を入力してください"
+              taken: "を変更してください"
     models:
       consultation: お悩み相談
       comment: コメント
-      diary: うちの子日記
+      diary: 日記
       ai_consultation: AI「TOMONIくん」
       chat_room: チャット
       diagnosis: 犬のきもち診断
