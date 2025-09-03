@@ -5,17 +5,17 @@
 
     <%= form_with(model: resource, as: resource_name, url: registration_path(resource_name), local:true) do |f| %>
     <div class="form-control mb-2">
-      <%= f.label :name, "ユーザー名" %>
-      <%= f.text_field :name, autofocus: true, class: "input w-full input-md input-secondary", placeholder: "ユーザー名を入力してください" %>
+      <%= f.label :name %>
+      <%= f.text_field :name, autofocus: true, class: "input w-full input-md input-secondary", placeholder: "ユーザー名を入力してください(他の方のユーザー名と重複はできません)" %>
     </div>
 
     <div class="form-control mb-2">
-      <%= f.label :email, "メールアドレス" %>
+      <%= f.label :email %>
       <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input w-full input-md input-secondary", placeholder: "メールアドレスを入力してください" %>
     </div>
 
     <div class="form-control mb-2">
-      <%= f.label :password, "パスワード" %>
+      <%= f.label :password %>
       <% if @minimum_password_length %>
       <em>(<%= @minimum_password_length %>文字以上)</em>
       <% end %>
@@ -23,7 +23,7 @@
     </div>
 
     <div class="form-control mb-2">
-      <%= f.label :password_confirmation, "パスワード確認" %>
+      <%= f.label :password_confirmation %>
       <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input w-full input-md input-secondary", placeholder: "もう一度入力してください" %>
     </div>
 
