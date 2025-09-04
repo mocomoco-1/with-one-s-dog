@@ -3,9 +3,11 @@ class ConsultationsController < ApplicationController
   def index
     @q = Consultation.ransack(params[:q])
     @consultations = @q.result(distinct: true).includes(:user).order(created_at: :desc).page(params[:page])
-    if params[:tag_name]
+    if params[:tag_name].present?
       @consultations = Consultation.tagged_with("#{params[:tag_name]}").order(created_at: :desc).page(params[:page])
+      @selected_tag = params[:tag_name]
     end
+    @tags = Consultation.tag_counts_on(:tags).most_used(20).order("count DESC")
   end
 
   def new
