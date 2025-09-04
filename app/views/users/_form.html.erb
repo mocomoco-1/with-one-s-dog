@@ -1,0 +1,12 @@
+<div class="items-center">
+  <%= form_with model: @user do |f| %>
+  <div class="flex-wrap mb-2">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: "input input-md input-secondary", placeholder: "ユーザー名を入力してください(他の方のユーザー名と重複はできません)" %>
+  </div>
+
+  <div class="form-control mt-5">
+    <%= f.submit "変更", class:"btn btn-md btn-secondary" %>
+  </div>
+  <% end %>
+</div>
