@@ -5,7 +5,8 @@ Rails.application.routes.draw do
     sessions: "users/sessions"
   }
   root "tops#index"
-  resources :users, only: [ :show ]
+  resources :users, only: [ :show, :edit, :update ]
+  get "/mypage", to: "users#mypage"
   resources :consultations, only: [ :index, :new, :create, :show, :edit, :update, :destroy ] do
     resources :comments, only: [ :create, :edit, :destroy ], shallow: true
     resources :reactions, only: [ :create ]

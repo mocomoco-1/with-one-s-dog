@@ -1,0 +1,19 @@
+<div data-controller="preview">
+  <%= form_with model: @user do |f| %>
+  <div class="flex-wrap mb-2">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: "w-full input input-md input-secondary", placeholder: "ユーザー名を入力してください(他の方のユーザー名と重複はできません)" %>
+  </div>
+  <div class="flex-wrap mb-2">
+    <%= f.label :image %><br>
+    <%= f.file_field :image, class: "input input-secondary", accept: "image/*", data: { preview_target: "input", action: "change->preview#preview" } %>
+  </div>
+  <!-- プレビュー表示エリア -->
+  <div class="flex justify-center mb-4">
+    <%= render "users/icon", user: @user, size: 150 %>
+  </div>
+  <div class="form-control mt-5">
+    <%= f.submit "変更", class:"btn btn-md btn-secondary" %>
+  </div>
+  <% end %>
+</div>

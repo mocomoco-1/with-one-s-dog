@@ -3,8 +3,11 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
   validates :name, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 20 }
-  validate :email_uniqueness_custom
+  validates :email, uniqueness: { case_sensitive: false }
+
+  has_one_attached :image
   has_many :consultations, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :reactions, dependent: :destroy

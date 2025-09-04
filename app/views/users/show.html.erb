@@ -1,15 +1,25 @@
 <div class="w-full sm:w-full md:max-w-md lg:max-w-lg xl:max-w-2xl mx-auto mt-6">
   <div class="flex flex-col text-center mb-6 w-full">
+    <% if user_signed_in? && @user == current_user %>
+    <h1 class=" text-xl font-semibold text-left">
+      <i class="far fa-id-card"></i>マイページ
+    </h1>
+    <% else %>
     <h1 class=" text-xl font-semibold text-left">
       <i class="far fa-id-card"></i>プロフィール
     </h1>
+    <% end %>
     <!-- アイコン -->
-    <%= image_tag "dog.png", class: "w-24 h-24 rounded-full mx-auto mb-4" %>
+    <div class="flex justify-center">
+      <%= render "users/icon", user: @user, size: 150 %>
+    </div>
     <!-- 名前 -->
     <h2 class="text-xl font-bold mb-2"><%= @user.name %></h2>
     <!-- チャットリンク（自分以外の場合のみ） -->
-    <% if @user != current_user %>
-    <%= button_to "このユーザーとチャットする", chat_rooms_path(opponent_id: @user.id), method: :post, class: "btn btn-lg btn-secondary" %>
+    <% if user_signed_in? && @user == current_user %>
+    <%= link_to "マイページ編集", edit_user_path(current_user), class:"btn btn-md btn-secondary" %>
+    <% else %>
+    <%= button_to "このユーザーとチャットする", chat_rooms_path(opponent_id: @user.id), method: :post, class: "btn btn-md btn-secondary" %>
     <% end %>
   </div>
 </div>

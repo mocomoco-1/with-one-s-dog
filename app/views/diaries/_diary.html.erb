@@ -4,7 +4,7 @@
       <!-- 左側: アバター + 名前 -->
       <div class="flex items-center space-x-2">
         <%= link_to user_path(diary.user), class: "flex items-center space-x-2" do %>
-        <%= image_tag "dog.png", class: "w-12 h-12 rounded-full" %>
+        <%= render "users/icon", user: diary.user, size: 50 %>
         <span class="font-normal text-sm hover:underline"><%= diary.user.name %></span>
         <% end %>
       </div>

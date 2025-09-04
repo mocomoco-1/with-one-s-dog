@@ -15,7 +15,7 @@
         <!-- アバターとボタンを横並び -->
         <div class="flex justify-between items-start mb-1">
           <%= link_to user_path(@consultation.user), class: "flex items-center space-x-2" do %>
-          <%= image_tag "dog.png", class: "w-14 h-14 rounded-full flex-shrink-0 flex items-center justify-center" %>
+          <%= render "users/icon", user: @consultation.user, size: 50 %>
           <span class="font-small hover:underline"><%= @consultation.user.name %></span>
           <% end %>
 

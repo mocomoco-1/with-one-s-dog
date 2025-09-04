@@ -2,13 +2,13 @@
   <div class="flex items-start justify-between">
     <!-- 左側：アイコン＋本文 -->
     <%= link_to user_path(comment.user), class: "flex items-start gap-2" do %>
-    <%= image_tag "dog.png", class: "w-12 h-12 rounded-full flex-shrink-0" %>
+    <%= render "users/icon", user: comment.user, size: 50 %>
     <div class="flex flex-col">
       <h3 class="font-normal text-sm whitespace-nowrap hover:underline"><%= comment.user.name %></h3>
       <p class="whitespace-pre-wrap break-words"><%= simple_format(comment.content) %></p>
     </div>
     <% end %>
-    <!-- 右側：更新日時/アイコン -->
+    <!-- 右側：更新日時 -->
     <div class="flex flex-col items-end space-y-1 text-right">
       <div class="text-xs text-gray-500 mb-2">
         <%= comment.updated_at.strftime('%Y/%m/%d %H:%M') %>
