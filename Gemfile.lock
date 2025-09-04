@@ -137,6 +137,8 @@ GEM
     drb (2.2.3)
     erb (5.0.2)
     erubi (1.13.1)
+    et-orbi (1.3.0)
+      tzinfo
     event_stream_parser (1.0.0)
     execjs (2.10.0)
     faker (3.5.2)
@@ -157,8 +159,18 @@ GEM
     ffi (1.17.2-x86_64-darwin)
     ffi (1.17.2-x86_64-linux-gnu)
     ffi (1.17.2-x86_64-linux-musl)
+    fugit (1.11.2)
+      et-orbi (~> 1, >= 1.2.11)
+      raabro (~> 1.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    good_job (4.11.2)
+      activejob (>= 6.1.0)
+      activerecord (>= 6.1.0)
+      concurrent-ruby (>= 1.3.1)
+      fugit (>= 1.11.0)
+      railties (>= 6.1.0)
+      thor (>= 1.0.0)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     image_processing (1.14.0)
@@ -257,6 +269,7 @@ GEM
     public_suffix (6.0.2)
     puma (6.6.1)
       nio4r (~> 2.0)
+    raabro (1.4.0)
     racc (1.8.1)
     rack (3.1.16)
     rack-session (2.1.1)
@@ -423,6 +436,7 @@ DEPENDENCIES
   devise
   devise-i18n
   faker
+  good_job
   image_processing
   jbuilder
   jsbundling-rails

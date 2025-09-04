@@ -14,6 +14,7 @@ class DiariesController < ApplicationController
   def create
     @diary = current_user.diaries.build(diary_params)
     if @diary.save
+      DiaryImagesResizeJob.perform_later(@diary) if @diary.images.attached?
       redirect_to diary_path(@diary), notice: t("defaults.flash_message.created", item: Diary.model_name.human)
     else
       flash.now[:alert] = t("defaults.flash_message.not_created", item: Diary.model_name.human)
@@ -34,11 +35,8 @@ class DiariesController < ApplicationController
     if params[:diary][:image_ids].present?
       @diary.images.where(id: params[:diary][:image_ids]).find_each(&:purge)
     end
-    if diary_params[:images].present?
-    @diary.images.attach(diary_params[:images])
-    end
-
-    if @diary.update(diary_params.except(:images))
+    if @diary.update(diary_params)
+      DiaryImagesResizeJob.perform_later(@diary) if diary_params[:images].present?
       redirect_to diary_path(@diary), notice: t("defaults.flash_message.updated", item: Diary.model_name.human)
     else
       flash.now[:alert] = t("defaults.flash_message.not_updated", item: Diary.model_name.human)
