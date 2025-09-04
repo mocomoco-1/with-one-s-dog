@@ -6,4 +6,12 @@ class Consultation < ApplicationRecord
   belongs_to :user
   has_many :comments, dependent: :destroy
   has_many :reactions, dependent: :destroy
+
+  def self.ransackable_attributes(auth_object = nil)
+    %w[title content created_at updated_at]
+  end
+  # include(:user)と記載しているため必要
+  def self.ransackable_associations(auth_object = nil)
+    %w[user]
+  end
 end
