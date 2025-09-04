@@ -11,13 +11,7 @@
     <% end %>
     <!-- アイコン -->
     <div class="flex justify-center">
-      <% if @user.image.attached? %>
-      <figure class="flex-shrink-0">
-        <%= image_tag @user.image.variant(resize_to_fill: [150,150]), class: "rounded-full" %>
-      </figure>
-      <% else %>
-      <%= image_tag "dog.png", class: "w-24 h-24 rounded-full mx-auto mb-4" %>
-      <% end %>
+      <%= render "users/icon", user: @user, size: 150 %>
     </div>
     <!-- 名前 -->
     <h2 class="text-xl font-bold mb-2"><%= @user.name %></h2>

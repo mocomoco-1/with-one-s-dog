@@ -1,0 +1,7 @@
+<% if user.image.attached? %>
+<figure class="flex-shrink-0">
+  <%= image_tag user.image.variant(resize_to_fill: [size,size]), class: "rounded-full object-cover", alt: "#{user.name}のアイコン" %>
+</figure>
+<% else %>
+<%= image_tag "dog.png", class: "rounded-full object-cover", size: "#{size}x#{size}", alt: "デフォルトアイコン" %>
+<% end %>

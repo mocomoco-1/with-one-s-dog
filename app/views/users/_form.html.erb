@@ -10,11 +10,7 @@
   </div>
   <!-- プレビュー表示エリア -->
   <div class="flex justify-center mb-4">
-    <% if @user.image.attached? %>
-    <%= image_tag @user.image.variant(resize_to_fill: [150, 150]), id: "preview", class: "rounded-full w-36 h-36 object-cover", data: { preview_target: "image" } %>
-    <% else %>
-    <%= image_tag "dog.png", id: "preview", class: "rounded-full w-36 h-36 object-cover", data: { preview_target: "image" } %>
-    <% end %>
+    <%= render "users/icon", user: @user, size: 150 %>
   </div>
   <div class="form-control mt-5">
     <%= f.submit "変更", class:"btn btn-md btn-secondary" %>

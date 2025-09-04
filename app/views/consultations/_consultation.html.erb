@@ -1,9 +1,9 @@
 <div class="card bg-white card-compact shadow-sm p-4 flex flex-col gap-2 cursor-pointer hover:bg-gray-100">
   <div class=" flex justify-between items-center">
-    <!-- 左側: アバター + 名前 -->
+    <!-- 左側: アイコン + 名前 -->
     <div class="flex items-center space-x-2">
       <%= link_to user_path(consultation.user), class: "flex items-center space-x-2" do %>
-      <%= image_tag "dog.png", class: "w-12 h-12 rounded-full" %>
+      <%= render "users/icon", user: consultation.user, size: 50 %>
       <span class="font-normal text-sm hover:underline"><%= consultation.user.name %></span>
       <% end %>
     </div>

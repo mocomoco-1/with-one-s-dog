@@ -20,6 +20,10 @@ class ChatRoom < ApplicationRecord
     end
   end
 
+  def other_user(current_user)
+    users.where.not(id: current_user.id).first
+  end
+
   def latest_message
     chat_messages.order(created_at: :desc).first
   end
