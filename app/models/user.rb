@@ -7,6 +7,7 @@ class User < ApplicationRecord
   validates :name, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 20 }
   validates :email, uniqueness: { case_sensitive: false }
 
+  has_one_attached :image
   has_many :consultations, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :reactions, dependent: :destroy

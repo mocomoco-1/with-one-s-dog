@@ -37,6 +37,7 @@ ja:
     attributes:
       user:
         name: ユーザー名
+        image: アイコン
       consultation:
         title: タイトル
         content: 本文

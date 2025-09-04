@@ -10,14 +10,22 @@
     </h1>
     <% end %>
     <!-- アイコン -->
-    <%= image_tag "dog.png", class: "w-24 h-24 rounded-full mx-auto mb-4" %>
+    <div class="flex justify-center">
+      <% if @user.image.attached? %>
+      <figure class="flex-shrink-0">
+        <%= image_tag @user.image.variant(resize_to_fill: [150,150]), class: "rounded-full" %>
+      </figure>
+      <% else %>
+      <%= image_tag "dog.png", class: "w-24 h-24 rounded-full mx-auto mb-4" %>
+      <% end %>
+    </div>
     <!-- 名前 -->
     <h2 class="text-xl font-bold mb-2"><%= @user.name %></h2>
     <!-- チャットリンク（自分以外の場合のみ） -->
     <% if user_signed_in? && @user == current_user %>
-    <%= link_to "マイページ編集", edit_user_path(current_user), class:"btn btn-sm btn-secondary" %>
+    <%= link_to "マイページ編集", edit_user_path(current_user), class:"btn btn-md btn-secondary" %>
     <% else %>
-    <%= button_to "このユーザーとチャットする", chat_rooms_path(opponent_id: @user.id), method: :post, class: "btn btn-lg btn-secondary" %>
+    <%= button_to "このユーザーとチャットする", chat_rooms_path(opponent_id: @user.id), method: :post, class: "btn btn-md btn-secondary" %>
     <% end %>
   </div>
 </div>
