@@ -1,0 +1,4 @@
+<%= search_form_for @q, url: url do |f| %>
+<%= f.search_field :title_or_content_cont, class: "input input-sm input-secondary", placeholder: "検索ワード" %>
+<%= f.submit "検索", class: "btn btn-sm gap-2" %>
+<% end %>
