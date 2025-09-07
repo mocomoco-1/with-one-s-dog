@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  name: MyString
+  comehome_date: 2025-09-06
+  birthday: 2025-09-06
+  age: 1
+  breed: MyString
+
+two:
+  user: two
+  name: MyString
+  comehome_date: 2025-09-06
+  birthday: 2025-09-06
+  age: 1
+  breed: MyString
