@@ -13,7 +13,7 @@
       <%= link_to "マイページ編集", edit_user_path(current_user), class:"btn btn-md btn-secondary mb-4" %>
     </div>
     <div class="w-full max-w-5xl mx-auto">
-      <%= render "dog_profiles/dog_profiles", dog_profile: @dog_profile %>
+      <%= render "dog_profiles/dog_profiles", dog_profiles: @dog_profiles %>
     </div>
     <%= link_to "＋うちの子追加する", new_user_dog_profile_path(current_user), class: "btn btn-md btn-primary mt-4" %>
   </div>

@@ -10,7 +10,7 @@
     </div>
     <% end %>
     <div class="card-body text-left">
-      <%= form_with model: [@user, dog_profile], data: { turbo: false }, multipart: true, local: true do |f| %>
+      <%= form_with model: [current_user, dog_profile], data: { turbo: false }, multipart: true, local: true do |f| %>
       <div class="flex-wrap mb-2">
         <%= f.label :name %><span class="text-red-500">*</span>
         <%= f.text_field :name, class: "w-full input input-md input-secondary", placeholder: "うちの子の名前を入力してください" %>
