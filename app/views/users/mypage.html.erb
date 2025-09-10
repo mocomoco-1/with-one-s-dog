@@ -3,14 +3,19 @@
     <h1 class=" text-xl font-semibold text-left">
       <i class="far fa-id-card"></i>マイページ
     </h1>
-    <!-- アイコン -->
-    <div class="flex justify-center">
-      <%= render "users/icon", user: current_user, size: 150 %>
-    </div>
-    <!-- 名前 -->
-    <h2 class="font-bold mb-2"><%= current_user.name %></h2>
-    <div>
-      <%= link_to "マイページ編集", edit_user_path(current_user), class:"btn btn-md btn-secondary mb-4" %>
+    <div class="card bg-white shadow-sm max-w-xl w-full mx-auto">
+      <div class="card-body">
+        <!-- アイコン -->
+        <div class="flex justify-center">
+          <%= render "users/icon", user: current_user, size: 150 %>
+        </div>
+        <!-- 名前 -->
+        <h2 class="font-bold mb-2"><%= current_user.name %></h2>
+        <div>
+          <%= link_to "マイページ編集", edit_user_path(current_user), class:"btn btn-md btn-secondary mb-2" %>
+        </div>
+        <%= render "link", user: @user %>
+      </div>
     </div>
     <div class="w-full max-w-5xl mx-auto">
       <%= render "dog_profiles/dog_profiles", dog_profiles: @dog_profiles %>

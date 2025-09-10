@@ -15,8 +15,8 @@
     <%= render partial: "diary", locals: { diary: diary } %>
     <% end %>
     <% else %>
-    <div class="mb-3 col-span-2">日記はまだありません。ぜひ書いてみてください。</div>
+    <div class="mb-3 col-span-2">日記はまだありません。</div>
     <% end %>
   </div>
-</div>
+  <%= paginate @diaries %>
 </div>

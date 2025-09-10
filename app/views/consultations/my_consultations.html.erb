@@ -1,0 +1,16 @@
+<% content_for(:title, t('.title')) %>
+<div class="w-full sm:w-full md:max-w-md lg:max-w-lg xl:max-w-2xl mx-auto mt-6">
+  <h1 class=" text-xl font-semibold text-left">
+    <i class="far fa-comment-dots"></i>お悩み相談一覧
+  </h1>
+  <div class="flex flex-col gap-4">
+    <% if @consultations.present? %>
+    <% @consultations.each do |consultation| %>
+    <%= render partial: "consultation", locals: { consultation: consultation } %>
+    <% end %>
+    <% else %>
+    <div class="mb-3">お悩みはまだありません。ぜひ書いてみてください。</div>
+    <% end %>
+  </div>
+  <%= paginate @consultations %>
+</div>

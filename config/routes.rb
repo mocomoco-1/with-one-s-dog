@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   end
   get "/mypage", to: "users#mypage"
   resources :consultations, only: [ :index, :new, :create, :show, :edit, :update, :destroy ] do
+    collection do
+      get :my_consultations
+    end
     resources :comments, only: [ :create, :edit, :destroy ], shallow: true
     resources :reactions, only: [ :create ]
   end
