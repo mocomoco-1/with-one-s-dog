@@ -1,0 +1,5 @@
+<% if dog_profile.persisted? && dog_profile.image.attached? %>
+<%= image_tag dog_profile.image.variant(resize_to_fill: [size,size]), class: "rounded-full object-cover", alt: "#{dog_profile.name}のアイコン" %>
+<% else %>
+<%= image_tag "dog.png", class: "rounded-full object-cover", size: "#{size}x#{size}", alt: "デフォルトアイコン" %>
+<% end %>

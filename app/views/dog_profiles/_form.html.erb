@@ -1,0 +1,52 @@
+<div data-controller="preview">
+  <div class="card bg-white shadow-xl max-w-xl w-full mx-auto">
+    <% if dog_profile.errors.any? %>
+    <div class="alert alert-error">
+      <ul>
+        <% dog_profile.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+    <% end %>
+    <div class="card-body text-left">
+      <%= form_with model: [@user, dog_profile], data: { turbo: false }, multipart: true, local: true do |f| %>
+      <div class="flex-wrap mb-2">
+        <%= f.label :name %><span class="text-red-500">*</span>
+        <%= f.text_field :name, class: "w-full input input-md input-secondary", placeholder: "うちの子の名前を入力してください" %>
+      </div>
+      <div class="flex-wrap mb-2">
+        <%= f.label :breed %>
+        <%= f.text_field :breed, class: "w-full input input-md input-secondary", placeholder: "犬種を入力してください" %>
+      </div>
+      <div class="flex-wrap mb-2">
+        <%= f.label :birthday %>
+        <%= f.date_field :birthday, class: "w-full input input-secondary" %>
+      </div>
+      <div class="flex-wrap mb-2">
+        <%= f.label :birthday_unknown %>
+        <%= f.check_box :birthday_unknown %>
+      </div>
+      <div class="flex-wrap mb-2">
+        <%= f.label :comehome_date %>
+        <%= f.date_field :comehome_date, class: "w-full input input-secondary" %>
+      </div>
+      <div class="flex-wrap mb-2">
+        <%= f.label :age %>
+        <%= f.text_field :age, class: "w-full input input-secondary", placeholder: "誕生日が不明の場合のみ推定年齢を入力してください" %>
+      </div>
+      <div class="flex-wrap mb-2">
+        <%= f.label :image %><br>
+        <%= f.file_field :image, class: "w-full input input-secondary", accept: "image/*", data: { preview_target: "input", action: "change->preview#preview" } %>
+      </div>
+      <!-- プレビュー表示エリア -->
+      <div class="flex justify-center mb-4 icon-preview" data-preview-target="images">
+      </div>
+      <%= f.submit "登録する", class: "w-full btn btn-secondary mb-2" %>
+      <% end %>
+      <% if dog_profile.persisted? %>
+      <%= link_to "削除する", user_dog_profile_path(current_user, dog_profile), data: { turbo_method: :delete, turbo_confirm: t("defaults.delete_confirm") }, class:"btn px-2 py-1 btn-error" %>
+      <% end %>
+    </div>
+  </div>
+</div>
