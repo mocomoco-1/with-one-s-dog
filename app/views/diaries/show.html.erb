@@ -14,11 +14,7 @@
       <div class="flex-1 flex flex-col">
         <!-- アバターとボタンを横並び -->
         <div class="flex justify-between items-start mb-1">
-          <%= link_to user_path(@diary.user), class: "flex items-center space-x-2" do %>
-          <%= render "users/icon", user: @diary.user, size: 50 %>
-          <span class="font-small hover:underline"><%= @diary.user.name %></span>
-          <% end %>
-
+          <%= render "shared/name_icon", user: @diary.user %>
           <div class="flex ml-auto space-x-2">
             <% if  user_signed_in? && current_user.own?(@diary) %>
             <%= link_to "編集", edit_diary_path(@diary), class:"btn px-2 py-1 btn-accent" %>

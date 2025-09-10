@@ -1,10 +1,16 @@
 class DiariesController < ApplicationController
   def index
-    @diaries = Diary.includes(:user).order(created_at: :desc)
+    @diaries = Diary.includes(:user).order(created_at: :desc).page(params[:page])
   end
 
   def my_diaries
-    @diaries = current_user.diaries.order(created_at: :desc).page(params[:page])
+    if params[:user_id].present? && params[:user_id].to_i != current_user.id
+      @user = User.find(params[:user_id])
+      @diaries = @user.diaries.order(created_at: :desc).page(params[:page])
+    else
+      @user = current_user
+      @diaries = current_user.diaries.order(created_at: :desc).page(params[:page])
+    end
   end
 
   def new

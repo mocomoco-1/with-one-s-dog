@@ -2,10 +2,7 @@
   <div class=" flex justify-between items-center">
     <!-- 左側: アイコン + 名前 -->
     <div class="flex items-center space-x-2">
-      <%= link_to user_path(consultation.user), class: "flex items-center space-x-2" do %>
-      <%= render "users/icon", user: consultation.user, size: 50 %>
-      <span class="font-normal text-sm hover:underline"><%= consultation.user.name %></span>
-      <% end %>
+      <%= render "shared/name_icon", user: consultation.user %>
     </div>
     <!-- 右側: 日付 -->
     <span class="text-xs text-gray-500"><%= consultation.created_at.strftime("%-m/%-d %H:%M") %></span>

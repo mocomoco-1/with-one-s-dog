@@ -10,6 +10,16 @@ class ConsultationsController < ApplicationController
     @tags = Consultation.tag_counts_on(:tags).most_used(20).order("count DESC")
   end
 
+  def my_consultations
+    if params[:user_id].present? && params[:user_id].to_i != current_user.id
+      @user = User.find(params[:user_id])
+      @consultations = @user.consultations.order(created_at: :desc).page(params[:page])
+    else
+      @user = current_user
+      @consultations = current_user.consultations.order(created_at: :desc).page(params[:page])
+    end
+  end
+
   def new
     @consultation = Consultation.new
   end

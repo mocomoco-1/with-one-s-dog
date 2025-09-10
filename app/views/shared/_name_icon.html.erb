@@ -1,0 +1,4 @@
+<%= link_to (user == current_user ? mypage_path : user_path(user)), class: "flex items-center space-x-2" do %>
+<%= render "users/icon", user: user, size: 50 %>
+<span class="font-normal text-sm hover:underline"><%= user.name %></span>
+<% end %>
