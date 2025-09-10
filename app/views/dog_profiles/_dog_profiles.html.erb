@@ -1,0 +1,17 @@
+<h2 class="font-bold text-left text-xl">うちの子プロフィール</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+  <% if current_user.dog_profiles.present? %>
+  <% current_user.dog_profiles.each do |dog_profile| %>
+  <div class="bg-white shadow-md rounded-lg p-4 w-64 mx-auto">
+    <div class="flex justify-center">
+      <%= render "dog_profiles/dog_icon", dog_profile: dog_profile, size:150 %>
+    </div>
+    <p class=" font-bold"><%= dog_profile.name %></p>
+    <p><%= dog_profile.breed %>・<%= dog_profile.display_age %></p>
+    <%= link_to "うちの子編集", edit_user_dog_profile_path(current_user, dog_profile), class:"btn btn-sm btn-secondary" %>
+  </div>
+  <% end %>
+  <% else %>
+  <p>まだ登録はありません。ぜひうちの子を登録してみてください🐕</p>
+  <% end %>
+</div>

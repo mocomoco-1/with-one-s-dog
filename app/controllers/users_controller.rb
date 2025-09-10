@@ -5,21 +5,23 @@ class UsersController < ApplicationController
 
   def edit
     unless @user == current_user
-      redirect_to user_path(@user)
+      redirect_to user_path(current_user)
     end
   end
 
   def update
     if current_user.update(user_params)
-      redirect_to user_path(current_user), notice: "更新しました"
+      redirect_to mypage_path, notice: "マイページの内容を更新しました"
     else
+      Rails.logger.debug current_user.errors.full_messages.inspect
       flash.now[:alert] = current_user.errors.full_messages.join(", ")
       render :edit
     end
   end
 
   def mypage
-    redirect_to user_path(current_user)
+    @user = current_user
+    @dog_profiles = @user.dog_profiles
   end
 
   private

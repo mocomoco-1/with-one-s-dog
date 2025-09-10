@@ -1,0 +1,20 @@
+<div class="w-full sm:w-full md:max-w-md lg:max-w-lg xl:max-w-2xl mx-auto mt-6">
+  <div class="flex flex-col text-center mb-6">
+    <h1 class=" text-xl font-semibold text-left">
+      <i class="far fa-id-card"></i>マイページ
+    </h1>
+    <!-- アイコン -->
+    <div class="flex justify-center">
+      <%= render "users/icon", user: current_user, size: 150 %>
+    </div>
+    <!-- 名前 -->
+    <h2 class="font-bold mb-2"><%= current_user.name %></h2>
+    <div>
+      <%= link_to "マイページ編集", edit_user_path(current_user), class:"btn btn-md btn-secondary mb-4" %>
+    </div>
+    <div class="w-full max-w-5xl mx-auto">
+      <%= render "dog_profiles/dog_profiles", dog_profile: @dog_profile %>
+    </div>
+    <%= link_to "＋うちの子追加する", new_user_dog_profile_path(current_user), class: "btn btn-md btn-primary mt-4" %>
+  </div>
+</div>

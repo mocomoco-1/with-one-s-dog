@@ -34,6 +34,7 @@ ja:
       ai_consultation: AI「TOMONIくん」
       chat_room: チャット
       diagnosis: 犬のきもち診断
+      dog_profile: 犬のプロフィール
     attributes:
       user:
         name: ユーザー名
@@ -48,6 +49,14 @@ ja:
         content: 日記
         written_on: 日付
         images: 写真
+      dog_profile:
+        name: うちの子の名前
+        breed: 犬種
+        birthday: 誕生日
+        birthday_unknown: 誕生日わからない
+        comehome_date: うちの子記念日
+        age: 年齢
+        image: うちの子写真
   consultations:
     new:
       title: お悩み相談作成

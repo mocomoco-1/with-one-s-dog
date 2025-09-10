@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_09_04_122707) do
+ActiveRecord::Schema[7.2].define(version: 2025_09_06_064900) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -121,6 +121,19 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_04_122707) do
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_diaries_on_user_id"
     t.index ["written_on", "user_id"], name: "index_diaries_on_written_on_and_user_id", unique: true
+  end
+
+  create_table "dog_profiles", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "name", null: false
+    t.date "comehome_date"
+    t.date "birthday"
+    t.boolean "birthday_unknown", default: false
+    t.integer "age"
+    t.string "breed"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_dog_profiles_on_user_id"
   end
 
   create_table "good_job_batches", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -287,6 +300,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_04_122707) do
   add_foreign_key "comments", "users"
   add_foreign_key "consultations", "users"
   add_foreign_key "diaries", "users"
+  add_foreign_key "dog_profiles", "users"
   add_foreign_key "reactions", "consultations"
   add_foreign_key "reactions", "users"
   add_foreign_key "taggings", "tags"
