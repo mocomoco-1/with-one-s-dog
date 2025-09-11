@@ -10,3 +10,5 @@
 if Rails.env.development?
   load(Rails.root.join("db/seeds/users.rb"))
 end
+
+require_relative "seeds/diagnosis"
