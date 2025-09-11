@@ -5,7 +5,7 @@ class Consultation < ApplicationRecord
 
   belongs_to :user
   has_many :comments, dependent: :destroy
-  has_many :reactions, dependent: :destroy
+  has_many :reactions, as: :reactable, dependent: :destroy
 
   def self.ransackable_attributes(auth_object = nil)
     %w[title content created_at updated_at]

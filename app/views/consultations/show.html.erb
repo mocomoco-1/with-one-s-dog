@@ -37,7 +37,7 @@
         <p class="text-left"><%= simple_format(@consultation.content) %></p>
       </div>
       <!-- リアクションボタン -->
-      <%= render "reactions/reactions", consultation: @consultation %>
+      <%= render "reactions/reactions", reactable: @consultation %>
     </div>
   </div>
   <!-- コメントフォーム -->
