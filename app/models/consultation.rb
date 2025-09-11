@@ -4,7 +4,7 @@ class Consultation < ApplicationRecord
   validates :content, presence: true, length: { maximum: 65_535 }
 
   belongs_to :user
-  has_many :comments, dependent: :destroy
+  has_many :comments, as: :commentable, dependent: :destroy
   has_many :reactions, as: :reactable, dependent: :destroy
 
   def self.ransackable_attributes(auth_object = nil)
