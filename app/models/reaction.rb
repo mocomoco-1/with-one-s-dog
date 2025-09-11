@@ -1,6 +1,6 @@
 class Reaction < ApplicationRecord
   validates :reaction_category, presence: true
-  validates :user_id, uniqueness: { scope: [ :consultation_id, :reaction_category ] }
+  validates :user_id, uniqueness: { scope: [ :reactable_id, :reactable_type, :reaction_category ] }
   belongs_to :user
   belongs_to :reactable, polymorphic: true
 

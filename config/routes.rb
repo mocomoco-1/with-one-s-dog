@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     collection do
       get :my_diaries
     end
+    resources :reactions, only: [ :create ]
   end
   resources :ai_consultations, only: [ :new, :create ] # :index, :showを付け足す
   namespace :dog_diagnosis do
