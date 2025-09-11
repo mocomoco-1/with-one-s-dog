@@ -1,7 +1,7 @@
 <div id="comment-form">
   <div class="mb-3">
     <div class="mb-3 p-4">
-      <%= form_with model: comment, url: consultation_comments_path(consultation), data: { turbo: true }, class: "mb-2" do |f| %>
+      <%= form_with model: [commentable, Comment.new], data: { turbo: true }, class: "mb-2" do |f| %>
       <%= f.label :content, class:"font-semibold" %>
       <div class="flex mt-2 ml-auto space-x-2 items-center">
         <%= f.text_area :content, class: "input w-full text-sm input-md input-secondary p-2 h-15", placeholder: "コメントを入力" %>

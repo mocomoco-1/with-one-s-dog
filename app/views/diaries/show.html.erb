@@ -43,4 +43,11 @@
       <%= render "reactions/reactions", reactable: @diary %>
     </div>
   </div>
+  <%= render "comments/form", comment: @comment, commentable: @commentable %>
+  <div id="table-comment" class="flex flex-col">
+    <!-- コメント一覧 -->
+    <% @comments.each do |comment| %>
+    <%= render "comments/comment", comment: comment %>
+    <% end %>
+  </div>
 </div>

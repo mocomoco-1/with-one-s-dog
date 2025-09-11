@@ -1,12 +1,12 @@
 <% if @comment.errors.present? %>
   <%= turbo_stream.replace "comment-form" do %>
-    <%= render 'comments/form', comment: @comment, consultation: @comment.consultation %>
+    <%= render 'comments/form', comment: @comment, commentable: @commentable %>
   <% end %>
 <% else %>
   <%= turbo_stream.prepend "table-comment" do %>
     <%= render 'comments/comment', comment: @comment %>
   <% end %>
   <%= turbo_stream.replace "comment-form" do %>
-    <%= render 'comments/form', comment: Comment.new, consultation: @comment.consultation %>
+    <%= render 'comments/form', comment: Comment.new, commentable: @commentable %>
   <% end %>
 <% end %>

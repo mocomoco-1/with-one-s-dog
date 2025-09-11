@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
+  before_action :set_commentable, only: [ :create ]
   def create
-    @comment = current_user.comments.build(comment_params)
+    @comment = @commentable.comments.build(comment_params.merge(user: current_user))
     @comment.save
   end
 
@@ -12,6 +13,14 @@ class CommentsController < ApplicationController
   private
 
   def comment_params
-    params.require(:comment).permit(:content).merge(consultation_id: params[:consultation_id])
+    params.require(:comment).permit(:content)
+  end
+
+  def set_commentable
+    if params[:consultation_id]
+      @commentable = Consultation.find(params[:consultation_id])
+    elsif params[:diary_id]
+      @commentable = Diary.find(params[:diary_id])
+    end
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_09_10_074320) do
+ActiveRecord::Schema[7.2].define(version: 2025_09_11_054301) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -87,11 +87,12 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_10_074320) do
 
   create_table "comments", force: :cascade do |t|
     t.bigint "user_id"
-    t.bigint "consultation_id"
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["consultation_id"], name: "index_comments_on_consultation_id"
+    t.string "commentable_type"
+    t.bigint "commentable_id"
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
@@ -297,7 +298,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_10_074320) do
   add_foreign_key "choices", "questions"
   add_foreign_key "choices_diagnoses", "choices"
   add_foreign_key "choices_diagnoses", "diagnoses"
-  add_foreign_key "comments", "consultations"
   add_foreign_key "comments", "users"
   add_foreign_key "consultations", "users"
   add_foreign_key "diaries", "users"

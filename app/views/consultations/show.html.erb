@@ -41,9 +41,11 @@
     </div>
   </div>
   <!-- コメントフォーム -->
-  <%= render partial: "comments/form", locals: { comment: @comment, consultation: @consultation } %>
-  <div id="table-comment" , class="flex flex-col">
+  <%= render "comments/form", comment: @comment, commentable: @commentable %>
+  <div id="table-comment" class="flex flex-col">
     <!-- コメント一覧 -->
-    <%= render partial: "comments/comment", collection: @comments %>
+    <% @comments.each do |comment| %>
+    <%= render "comments/comment", comment: comment %>
+    <% end %>
   </div>
 </div>

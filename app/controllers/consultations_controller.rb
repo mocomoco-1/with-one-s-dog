@@ -36,8 +36,9 @@ class ConsultationsController < ApplicationController
 
   def show
     @consultation = Consultation.find(params[:id])
+    @commentable = @consultation
     @comment = Comment.new
-    @comments = @consultation.comments.includes(:user).order(created_at: :desc)
+    @comments = @commentable.comments.includes(:user).order(created_at: :desc)
   end
 
   def edit
