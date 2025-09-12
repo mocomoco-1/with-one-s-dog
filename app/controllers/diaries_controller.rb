@@ -1,12 +1,12 @@
 class DiariesController < ApplicationController
   def index
-    @diaries = Diary.includes(:user).status_published.order(created_at: :desc).page(params[:page])
+    @diaries = Diary.includes(:user).order(created_at: :desc).page(params[:page])
   end
 
   def my_diaries
     if params[:user_id].present? && params[:user_id].to_i != current_user.id
       @user = User.find(params[:user_id])
-      @diaries = @user.diaries.status_published.order(created_at: :desc).page(params[:page])
+      @diaries = @user.diaries.order(created_at: :desc).page(params[:page])
     else
       @user = current_user
       @diaries = current_user.diaries.order(created_at: :desc).page(params[:page])
@@ -30,9 +30,6 @@ class DiariesController < ApplicationController
 
   def show
     @diary = Diary.find(params[:id])
-    unless @diary.status_published? || @diary.user == current_user
-      redirect_to diaries_path, alert: "この日記は閲覧できません"
-    end
     @commentable = @diary
     @comment = Comment.new
     @comments = @commentable.comments.includes(:user).order(created_at: :desc)
@@ -68,6 +65,6 @@ class DiariesController < ApplicationController
   private
 
   def diary_params
-    params.require(:diary).permit(:written_on, :content, :status, images: [])
+    params.require(:diary).permit(:written_on, :content, images: [])
   end
 end

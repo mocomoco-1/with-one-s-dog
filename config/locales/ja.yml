@@ -49,7 +49,6 @@ ja:
         content: 日記
         written_on: 日付
         images: 写真
-        status: 表示
       dog_profile:
         name: うちの子の名前
         breed: 犬種
