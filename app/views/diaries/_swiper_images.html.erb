@@ -1,0 +1,12 @@
+<div data-controller="swiper" class="swiper">
+  <div class="swiper-wrapper">
+    <% diary.images.each do |image| %>
+    <div class="swiper-slide">
+      <%= image_tag image.variant(resize_to_fill: [350, 350]), class: "rounded-lg w-full h-full" %>
+    </div>
+    <% end %>
+  </div>
+  <div class="swiper-pagination"></div>
+  <div class="swiper-button-prev"></div>
+  <div class="swiper-button-next"></div>
+</div>
