@@ -8,7 +8,7 @@ class ReactionsController < ApplicationController
       @reaction.save
     end
     respond_to do |format|
-      format.turbo_stream  # これを明示的に指定
+      format.turbo_stream
       format.html { redirect_to @reactable }
     end
   end

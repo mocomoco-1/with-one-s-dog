@@ -1,0 +1,10 @@
+<div id="comment-<%= comment.id %>-like">
+  <div class="flex items-center space-x-1">
+    <%= button_to comment_like_path(comment), method: :post, data: { turbo_stream: true }, class: "flex items-center text-red-500" do %>
+    <i class="<%= comment.likes.exists?(user: current_user) ? 'fas' : 'far' %> fa-heart mr-1"></i>
+    <% end %>
+    <% if comment.likes.count.positive? %>
+    <span class="text-sm"><%= comment.likes.count %></span>
+    <% end %>
+  </div>
+</div>

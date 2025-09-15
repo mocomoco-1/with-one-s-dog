@@ -1,10 +1,9 @@
 import { Controller } from "@hotwired/stimulus"
 import Swiper from "swiper"
 import { Navigation, Pagination } from 'swiper/modules'
-console.log("=== SwiperController loaded ===")
+
 export default class extends Controller {
   connect() {
-    console.log("Swiper connect:", this.element)
     this.swiper = new Swiper(this.element, {
       modules: [Navigation, Pagination],
       loop: true,
