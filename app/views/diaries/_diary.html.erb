@@ -6,7 +6,14 @@
         <%= render "shared/name_icon", user: diary.user %>
       </div>
     </div>
-    <span class="text-gray-600"><%= diary.written_on.strftime("%Y年%m月%d日(%a)") %></span>
+    <div class="flex justify-between items-center">
+      <span class="text-gray-600"><%= diary.written_on.strftime("%Y年%m月%d日(%a)") %></span>
+      <% if diary.status_published? %>
+      <span class="btn btn-xs btn-success">公開中</span>
+      <% else %>
+      <span class="btn btn-xs">非公開</span>
+      <% end %>
+    </div>
     <!-- カード全体を詳細リンク -->
     <%= link_to diary_path(diary), class: "block w-full h-full" do %>
     <!-- 本文 -->
