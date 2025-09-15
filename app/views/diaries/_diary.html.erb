@@ -17,12 +17,10 @@
     <!-- カード全体を詳細リンク -->
     <%= link_to diary_path(diary), class: "block w-full h-full" do %>
     <!-- 本文 -->
-    <p class="text-sm mt-1"><%= truncate(diary.content, length: 80) %></p>
+    <p class="text-sm mt-1 mb-0"><%= truncate(diary.content, length: 30) %></p>
     <% if diary.images.attached? %>
-    <div class="flex flex-row gap-2 ml-8 overflow-y-scroll">
-      <% diary.images.each do |image| %>
-      <%= image_tag image.variant(resize_to_fill: [100, 100]),class: "rounded-lg flex-shrink-0" %>
-      <% end %>
+    <div data-controller="swiper" class="swiper">
+      <%= render "swiper_images", diary: diary, size: 200 %>
     </div>
     <% end %>
   </div>

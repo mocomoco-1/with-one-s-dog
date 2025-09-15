@@ -1,12 +1,10 @@
-<div data-controller="swiper" class="swiper">
-  <div class="swiper-wrapper">
-    <% diary.images.each do |image| %>
-    <div class="swiper-slide">
-      <%= image_tag image.variant(resize_to_fill: [350, 350]), class: "rounded-lg w-full h-full" %>
-    </div>
-    <% end %>
+<div class="swiper-wrapper">
+  <% diary.images.each do |image| %>
+  <div class="swiper-slide flex justify-center items-center shrink-0">
+    <%= image_tag image.variant(resize_to_fill: [size, size]), class: "items-center justify-center max-w-[#{size}px] max-h-[#{size}px]" %>
   </div>
-  <div class="swiper-pagination"></div>
-  <div class="swiper-button-prev"></div>
-  <div class="swiper-button-next"></div>
+  <% end %>
 </div>
+<div class="custom-prev-btn"><i class="fas fa-chevron-left"></i></div>
+<div class="custom-next-btn"><i class="fas fa-chevron-right"></i></div>
+<div class="swiper-pagination"></div>
