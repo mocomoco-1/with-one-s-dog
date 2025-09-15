@@ -39,21 +39,17 @@
   </div>
   <div class="mb-3">
     <%= f.label :status, "公開設定", class: "font-bold block mb-2" %>
-
     <div class="flex justify-center">
       <label class="flex items-center w-32 justify-center space-x-2">
         <%= f.radio_button :status, "private", class: "radio radio-lg radio-secondary" %>
         <span>非公開</span>
       </label>
-
       <label class="flex items-center w-32 justify-center space-x-2">
         <%= f.radio_button :status, "published", class: "radio radio-lg radio-secondary" %>
         <span>公開</span>
       </label>
     </div>
   </div>
-
-
   <%= f.submit "投稿する", class: "btn btn-md btn-secondary" %>
   <% end %>
 </div>

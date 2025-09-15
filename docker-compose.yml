@@ -5,7 +5,7 @@ services:
     # # カレントディレクトリにあるDockerfileを使用してbuild
     build: .
     # railsのpidファイルが残っていると起動できないので削除。その後Railsサーバー起動
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
+    # command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
     # ローカルのカレントディレクトリをコンテナの/appにマウント
     volumes:
       # PCの現在いるフォルダをコンテナの/appに同期させる (コードの変更が即時反映される)
