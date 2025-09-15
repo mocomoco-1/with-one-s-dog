@@ -13,13 +13,14 @@
       <div class="text-xs text-gray-500 mb-2">
         <%= comment.updated_at.strftime('%Y/%m/%d %H:%M') %>
       </div>
-      <% if user_signed_in? && current_user.own?(comment) %>
-      <div class="flex gap-2 text-sm justify-center">
+      <div class="flex gap-2 text-sm justify-end">
+        <%= render "likes/like", comment: comment %>
+        <% if user_signed_in? && current_user.own?(comment) %>
         <%= link_to comment_path(comment), class: "hover:underline", data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
         <i class="fas fa-trash-alt"></i>
         <% end %>
+        <% end %>
       </div>
-      <% end %>
     </div>
   </div>
 </div>

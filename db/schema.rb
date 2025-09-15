@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_09_12_002939) do
+ActiveRecord::Schema[7.2].define(version: 2025_09_15_022555) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -228,6 +228,15 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_12_002939) do
     t.index ["scheduled_at"], name: "index_good_jobs_on_scheduled_at", where: "(finished_at IS NULL)"
   end
 
+  create_table "likes", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "comment_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["comment_id"], name: "index_likes_on_comment_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
   create_table "questions", force: :cascade do |t|
     t.string "text"
     t.datetime "created_at", null: false
@@ -303,6 +312,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_12_002939) do
   add_foreign_key "consultations", "users"
   add_foreign_key "diaries", "users"
   add_foreign_key "dog_profiles", "users"
+  add_foreign_key "likes", "comments"
+  add_foreign_key "likes", "users"
   add_foreign_key "reactions", "users"
   add_foreign_key "taggings", "tags"
 end

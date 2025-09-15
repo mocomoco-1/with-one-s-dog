@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "comment-#{@comment.id}-like" do %>
+<%= render "likes/like", comment: @comment %>
+<% end %>

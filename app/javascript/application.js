@@ -1,5 +1,6 @@
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
 // app/javascript/application.js
+import "@hotwired/turbo-rails"
 const application = Application.start()
 import { Application } from "@hotwired/stimulus"
 import SwiperController from "./controllers/swiper_controller"

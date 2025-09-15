@@ -13,7 +13,9 @@ Rails.application.routes.draw do
     collection do
       get :my_consultations
     end
-    resources :comments, only: [ :create, :destroy ], shallow: true
+    resources :comments, only: [ :create, :destroy ], shallow: true do
+      resource :like, only: [ :create ]
+    end
     resources :reactions, only: [ :create ]
   end
   resources :chat_rooms, only: [ :index, :show, :create ] do
@@ -23,7 +25,9 @@ Rails.application.routes.draw do
     collection do
       get :my_diaries
     end
-    resources :comments, only: [ :create, :destroy ], shallow: true
+    resources :comments, only: [ :create, :destroy ], shallow: true do
+      resource :like, only: [ :create ]
+    end
     resources :reactions, only: [ :create ]
   end
   resources :ai_consultations, only: [ :new, :create ] # :index, :showを付け足す

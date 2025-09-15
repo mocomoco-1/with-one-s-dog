@@ -16,6 +16,7 @@ class User < ApplicationRecord
   has_many :chat_messages, dependent: :destroy
   has_many :diaries, dependent: :destroy
   has_many :dog_profiles, dependent: :destroy
+  has_many :likes, dependent: :destroy
 
   def own?(resource)
     id == resource&.user_id
