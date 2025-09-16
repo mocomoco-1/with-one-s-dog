@@ -76,6 +76,10 @@ Rails.application.configure do
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
   config.active_job.queue_adapter = :good_job
+  config.good_job.execution_mode = :async
+  config.good_job.max_threads = 2
+  config.good_job.poll_interval = 10  # 10秒間隔でジョブをチェック
+  config.good_job.max_cache = 10000   # キャッシュサイズ
   # config.active_job.queue_name_prefix = "app_production"
 
   # Disable caching for Action Mailer templates even if Action Controller
