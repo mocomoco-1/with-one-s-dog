@@ -6,7 +6,7 @@ class ChatMessage < ApplicationRecord
 
   # メッセージ作成時に自動でブロードキャスト
   after_create_commit do
-  Rails.logger.info "🔄 ChatMessage created - id=#{self.id}"
+  # Rails.logger.info "🔄 ChatMessage created - id=#{self.id}"
   ChatMessageBroadcastJob.perform_now(self)
     # if image.attached?
     #   Rails.logger.info "📸 Image attached - processing in background"

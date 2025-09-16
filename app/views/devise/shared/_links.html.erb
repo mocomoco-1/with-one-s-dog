@@ -23,7 +23,17 @@
 <% end %>
 
 <%- if devise_mapping.omniauthable? %>
-<%- resource_class.omniauth_providers.each do |provider| %>
-<%= button_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), data: { turbo: false } %><br />
-<% end %>
+<div class="omniauth-buttons space-y-2">
+  <%- resource_class.omniauth_providers.each do |provider| %>
+  <% if provider == :line %>
+  <%= link_to omniauth_authorize_path(resource_name, provider), class: "line-login-button flex items-center justify-center", data: { turbo: false } do %>
+  <img src="<%= asset_path('line_icon2.png') %>" alt="LINE">
+  <% end %>
+  <% else %>
+  <%= link_to omniauth_authorize_path(resource_name, provider), class: "other-login-button px-4 py-2 border rounded", data: { turbo: false } do %>
+  Sign in with <%= OmniAuth::Utils.camelize(provider) %>
+  <% end %>
+  <% end %>
+  <% end %>
+</div>
 <% end %>
