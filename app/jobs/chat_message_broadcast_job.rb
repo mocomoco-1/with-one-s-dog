@@ -2,12 +2,14 @@ class ChatMessageBroadcastJob < ApplicationJob
   queue_as :default
 
   def perform(chat_message)
+    Rails.logger.info "🚀 ChatMessageBroadcastJob perform start - chat_message_id=#{chat_message.id}"
     rendered_message = render_message(chat_message)
     ChatRoomChannel.broadcast_to(
       chat_message.chat_room,
       message: rendered_message,
       sender_id: chat_message.user_id
     )
+    Rails.logger.info "✅ ChatMessageBroadcastJob perform finished - chat_message_id=#{chat_message.id}"
   end
 
   private

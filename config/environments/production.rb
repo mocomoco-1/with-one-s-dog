@@ -113,4 +113,13 @@ Rails.application.configure do
 
   # データベース接続プール設定
   config.database_configuration_pool_size = ENV.fetch("RAILS_MAX_THREADS") { 15 }.to_i
+
+  config.after_initialize do
+    begin
+      redis = Redis.new(url: ENV["REDIS_URL"])
+      Rails.logger.info "✅ Connected to Redis: #{redis.ping}"
+    rescue => e
+      Rails.logger.error "❌ Redis connection failed: #{e.message}"
+    end
+  end
 end

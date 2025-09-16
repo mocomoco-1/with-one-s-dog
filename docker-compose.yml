@@ -21,7 +21,7 @@ services:
       - redis
     environment:
       DATABASE_URL: postgres://postgres:password@db:5432/myapp_development
-      REDIS_URL: redis://redis:6379/0
+      REDIS_URL: rediss://default:AedoAAIncDEzODRjYmQwZmRjZTc0YzFjOTI2MmUzNmM4NTE5YjYyNXAxNTkyNDA@on-walrus-59240.upstash.io:6379
       RAILS_ENV: development
       RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
     # コンテナ内でPryなどのデバッガを対話的に使うために必要
