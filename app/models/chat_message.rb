@@ -8,10 +8,10 @@ class ChatMessage < ApplicationRecord
   after_create_commit do
   Rails.logger.info "🔄 ChatMessage created - id=#{self.id}"
   ChatMessageBroadcastJob.perform_now(self)
-    if image.attached?
-      Rails.logger.info "📸 Image attached - processing in background"
-      # 画像処理は非同期で実行
-      ImageProcessingJob.perform_later(self)
-    end
+    # if image.attached?
+    #   Rails.logger.info "📸 Image attached - processing in background"
+    #   # 画像処理は非同期で実行
+    #   ImageProcessingJob.perform_later(self)
+    # end
   end
 end
