@@ -7,12 +7,11 @@ class ChatMessage < ApplicationRecord
   # メッセージ作成時に自動でブロードキャスト
   after_create_commit do
   Rails.logger.info "🔄 ChatMessage created - id=#{self.id}"
-    if Rails.env.production?
-      # 一時的に同期実行でテスト
-      ChatMessageBroadcastJob.perform_now(self)
-      Rails.logger.info "🚀 Job executed synchronously"
-    else
-      ChatMessageBroadcastJob.perform_later(self)
+  ChatMessageBroadcastJob.perform_now(self)
+    if image.attached?
+      Rails.logger.info "📸 Image attached - processing in background"
+      # 画像処理は非同期で実行
+      ImageProcessingJob.perform_later(self)
     end
   end
 end
