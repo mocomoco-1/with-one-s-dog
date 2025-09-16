@@ -24,6 +24,9 @@ services:
       REDIS_URL: rediss://default:AedoAAIncDEzODRjYmQwZmRjZTc0YzFjOTI2MmUzNmM4NTE5YjYyNXAxNTkyNDA@on-walrus-59240.upstash.io:6379
       RAILS_ENV: development
       RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
+      LINE_KEY: ${LINE_KEY}
+      LINE_SECRET: ${LINE_SECRET}
+      LINE_CALLBACK_URL: ${LINE_CALLBACK_URL}
     # コンテナ内でPryなどのデバッガを対話的に使うために必要
     stdin_open: true
     tty: true

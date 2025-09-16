@@ -313,4 +313,6 @@ Devise.setup do |config|
   config.warden do |manager|
     manager.failure_app = Devise::Delegator.new
   end
+
+  config.omniauth :line, ENV["LINE_KEY"], ENV["LINE_SECRET"], callback_url: ENV["LINE_CALLBACK_URL"]
 end

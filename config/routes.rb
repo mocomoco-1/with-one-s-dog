@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-  mount GoodJob::Engine => "/good_job"
   mount ActionCable.server => "/cable"
   devise_for :users, controllers: {
     registrations: "users/registrations",
-    sessions: "users/sessions"
+    sessions: "users/sessions",
+    omniauth_callbacks: "users/omniauth_callbacks"
   }
   root "tops#index"
   resources :users, only: [ :show, :edit, :update ] do
