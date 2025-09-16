@@ -313,6 +313,12 @@ Devise.setup do |config|
   config.warden do |manager|
     manager.failure_app = Devise::Delegator.new
   end
-
-  config.omniauth :line, ENV["LINE_KEY"], ENV["LINE_SECRET"], callback_url: "https://tomoni.onrender.com/users/auth/line/callback"
+puts "=== LINE OAuth Debug ==="
+puts "LINE_KEY: #{ENV['LINE_KEY'].present? ? 'SET' : 'NOT SET'}"
+puts "LINE_SECRET: #{ENV['LINE_SECRET'].present? ? 'SET' : 'NOT SET'}"
+puts "========================"
+  config.omniauth :line,
+    ENV["LINE_KEY"],
+    ENV["LINE_SECRET"],
+    callback_url: "https://tomoni.onrender.com/users/auth/line/callback"
 end
