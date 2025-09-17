@@ -11,6 +11,9 @@
   <ul class="menu">
     <% if user_signed_in? %>
     <li class="mb-3">
+      <%= link_to "マイページ", mypage_path, class: "btn btn-ghost w-full text-md justify-start border-b-stone-400" %>
+    </li>
+    <li class="mb-3">
       <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "btn btn-ghost w-full text-md justify-start border-b-stone-400" %>
     </li>
     <% else %>
