@@ -1,0 +1,15 @@
+<div class="card bg-white shadow-md w-[calc(100%-1rem)] sm:w-[calc(100%-2rem)] md:max-w-md lg:max-w-lg xl:max-w-2xl mx-auto mt-6">
+  <div class="card-body">
+    <ul>
+      <% @users.each do |u| %>
+      <div class="flex justify-between py-2">
+        <li><%= link_to u.name, user_path(u), class:"text-md hover:underline" %></li>
+        <div class="flex gap-2">
+          <%= button_to "チャットする", chat_rooms_path(opponent_id: @user.id), method: :post, class: "btn btn-xs" %>
+          <%= render "relationships/btn", user: u %>
+        </div>
+      </div>
+      <% end %>
+    </ul>
+  </div>
+</div>

@@ -11,6 +11,7 @@
         </div>
         <!-- 名前 -->
         <h2 class="font-bold mb-2"><%= current_user.name %></h2>
+        <%= render "relationships/follow", user: @user %>
         <div>
           <%= link_to "マイページ編集", edit_user_path(current_user), class:"btn btn-md btn-secondary mb-2" %>
         </div>

@@ -18,6 +18,10 @@ class User < ApplicationRecord
   has_many :diaries, dependent: :destroy
   has_many :dog_profiles, dependent: :destroy
   has_many :likes, dependent: :destroy
+  has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
+  has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
+  has_many :followings, through: :active_relationships, source: :followed
+  has_many :followers, through: :passive_relationships, source: :follower
 
   def own?(resource)
     id == resource&.user_id
@@ -40,6 +44,18 @@ class User < ApplicationRecord
   def set_values_by_raw_info(raw_info)
     self.raw_info = raw_info.to_json
     self.save!
+  end
+
+  def follow(other_user)
+    followings << other_user unless self == other_user
+  end
+
+  def unfollow(other_user)
+    followings.delete(other_user)
+  end
+
+  def following?(other_user)
+    followings.include?(other_user)
   end
 
   private

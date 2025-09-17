@@ -4,6 +4,9 @@
     <h1 class=" text-xl font-semibold text-left">
       <i class="far fa-envelope"></i> チャット一覧
     </h1>
+    <%= link_to followings_user_path(current_user), class: "text-md hover:underline font-semibold" do %>
+    <i class="fas fa-plus-circle"></i>フォロー中一覧から新しくチャットする
+    <% end %>
     <% if @chat_rooms.present? %>
     <% @chat_rooms.each do |chat_room| %>
     <%= link_to chat_room_path(chat_room), class: "block" do %>

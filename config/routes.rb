@@ -7,6 +7,12 @@ Rails.application.routes.draw do
   }
   root "tops#index"
   resources :users, only: [ :show, :edit, :update ] do
+    member do
+      post "follow", to: "relationships#create"
+      delete "unfollow", to: "relationships#destroy"
+      get :followings
+      get :followers
+    end
     resources :dog_profiles, only: [ :show, :new, :create, :edit, :update, :destroy ]
   end
   get "/mypage", to: "users#mypage"
