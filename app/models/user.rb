@@ -21,7 +21,7 @@ class User < ApplicationRecord
   has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
   has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
   has_many :followings, through: :active_relationships, source: :followed
-  has_many :followers, through: :passive_relationship, source: :follower
+  has_many :followers, through: :passive_relationships, source: :follower
 
   def own?(resource)
     id == resource&.user_id
@@ -46,14 +46,6 @@ class User < ApplicationRecord
     self.save!
   end
 
-  private
-
-  def email_uniqueness_custom
-    if User.exists?(email: email)
-      errors.add(:email, "入力内容を確認してください")
-    end
-  end
-
   def follow(other_user)
     followings << other_user unless self == other_user
   end
@@ -64,5 +56,13 @@ class User < ApplicationRecord
 
   def following?(other_user)
     followings.include?(other_user)
+  end
+
+  private
+
+  def email_uniqueness_custom
+    if User.exists?(email: email)
+      errors.add(:email, "入力内容を確認してください")
+    end
   end
 end

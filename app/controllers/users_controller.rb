@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [ :show, :edit, :update ]
+  before_action :set_user, only: [ :show, :edit, :update, :followings, :followers ]
   def show
     @dog_profiles = @user.dog_profiles
   end
@@ -23,6 +23,14 @@ class UsersController < ApplicationController
   def mypage
     @user = current_user
     @dog_profiles = @user.dog_profiles
+  end
+
+  def followings
+    @users = @user.followings
+  end
+
+  def followers
+    @users = @user.followers
   end
 
   private

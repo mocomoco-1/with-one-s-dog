@@ -1,0 +1,8 @@
+<div>
+  <% btn_class = local_assigns[:size_class] || "btn-xs" %>
+  <% if current_user.following?(user) %>
+  <%= button_to "フォロー中", unfollow_user_path(user.id), method: :delete, class: "btn #{btn_class} btn-secondary" %>
+  <% else %>
+  <%= button_to "フォローする", follow_user_path(user.id), method: :post, class: "btn #{btn_class} btn-primary border-2 border-sky-300" %>
+  <% end %>
+</div>

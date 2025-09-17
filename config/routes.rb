@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     member do
       post "follow", to: "relationships#create"
       delete "unfollow", to: "relationships#destroy"
-      get :following
+      get :followings
       get :followers
     end
     resources :dog_profiles, only: [ :show, :new, :create, :edit, :update, :destroy ]

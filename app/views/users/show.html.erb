@@ -4,14 +4,18 @@
       <i class="far fa-id-card"></i>プロフィール
     </h1>
     <div class="card bg-white shadow-sm max-w-xl w-full mx-auto relative">
+      <!-- フォローボタン（右上） -->
+      <div class="ml-auto px-4">
+        <%= render "relationships/btn", user: @user, size_class: "btn-sm" %>
+      </div>
       <div class="card-body">
-        <!-- フォローボタン（右上） -->
         <!-- アイコン -->
-        <div class="flex justify-center">
+        <div class="flex justify-center mt-0">
           <%= render "users/icon", user: @user, size: 150 %>
         </div>
         <!-- 名前 -->
         <h2 class="text-lg font-bold mb-2"><%= @user.name %></h2>
+        <%= render "relationships/follow", user: @user %>
         <!-- チャットリンク -->
         <%= button_to "このユーザーとチャットする", chat_rooms_path(opponent_id: @user.id), method: :post, class: "btn btn-md btn-secondary" %>
         <%= render "link", user: @user%>

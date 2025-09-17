@@ -1,0 +1,4 @@
+<div class="flex justify-center gap-4">
+  <%= link_to "フォロー中  #{user.followings.count}", followings_user_path(user), class: "text-md hover:underline font-semibold" %>
+  <%= link_to "フォロワー  #{user.followers.count}", followers_user_path(user), class: "text-md hover:underline font-semibold" %>
+</div>

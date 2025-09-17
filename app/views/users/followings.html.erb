@@ -1,0 +1,6 @@
+<div class="w-full sm:w-full md:max-w-md lg:max-w-lg xl:max-w-2xl mx-auto mt-6">
+  <h1 class=" text-xl font-semibold text-center">
+    <%= @user.name %> さんの<br>フォロー中一覧
+  </h1>
+  <%= render "users/index_follow", user: @user %>
+</div>
