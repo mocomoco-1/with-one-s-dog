@@ -313,14 +313,21 @@ Devise.setup do |config|
   config.warden do |manager|
     manager.failure_app = Devise::Delegator.new
   end
-  puts "=== LINE OAuth Debug (Initializer) ==="
-  puts "LINE_KEY: #{ENV['LINE_KEY'].present? ? 'SET' : 'NOT SET'}"
-  puts "LINE_SECRET: #{ENV['LINE_SECRET'].present? ? 'SET' : 'NOT SET'}"
-  puts "OmniAuth providers: #{Devise.omniauth_configs.keys.inspect}"
-  puts "======================================"
-  config.omniauth :line,
-    ENV["LINE_KEY"],
-    ENV["LINE_SECRET"],
-    scope: "profile openid email",
-    callback_url: "https://tomoni.onrender.com/users/auth/line/callback"
+  Rails.logger.info "=== OmniAuth Configuration Check ==="
+  Rails.logger.info "LINE_KEY: #{ENV['LINE_KEY'].present? ? 'SET' : 'NOT SET'}"
+  Rails.logger.info "LINE_SECRET: #{ENV['LINE_SECRET'].present? ? 'SET' : 'NOT SET'}"
+
+  if ENV["LINE_KEY"].present? && ENV["LINE_SECRET"].present?
+    config.omniauth :line,
+      ENV["LINE_KEY"],
+      ENV["LINE_SECRET"],
+      callback_url: "https://tomoni.onrender.com/users/auth/line/callback"
+
+    Rails.logger.info "LINE OAuth configured successfully"
+  else
+    Rails.logger.error "LINE OAuth configuration failed - missing credentials"
+  end
+
+  Rails.logger.info "OmniAuth providers: #{Devise.omniauth_providers}"
+  Rails.logger.info "============================================"
 end
