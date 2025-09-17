@@ -1,26 +1,34 @@
 # frozen_string_literal: true
 
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+  def passthru
+    Rails.logger.error "=== PASSTHRU CALLED - THIS SHOULD NOT HAPPEN ==="
+    Rails.logger.error "Request path: #{request.path}"
+    Rails.logger.error "Request method: #{request.method}"
+    Rails.logger.error "Params: #{params}"
+    # 強制的にLINEメソッドを呼ぶ
+    if request.path.include?("/auth/line") && !request.path.include?("callback")
+      redirect_to user_line_omniauth_authorize_path
+    else
+      super
+    end
+  end
+
   def line
-    Rails.logger.info "=== LINE Callback Called ==="
-    Rails.logger.info "Auth info: #{request.env['omniauth.auth']}"
-
+    Rails.logger.info "=== LINE Method Called Successfully ==="
+    Rails.logger.info "Auth info: #{request.env["omniauth.auth"]}"
     @user = User.from_omniauth(request.env["omniauth.auth"])
-
     if @user.persisted?
-      Rails.logger.info "User successfully created/found: #{@user.email}"
       sign_in_and_redirect @user, event: :authentication
       set_flash_message(:notice, :success, kind: "LINE") if is_navigational_format?
     else
-      Rails.logger.error "User creation failed: #{@user.errors.full_messages}"
       session["devise.line_data"] = request.env["omniauth.auth"].except(:extra)
-      redirect_to new_user_registration_url, alert: 'LINEアカウントでの登録に失敗しました。'
+      redirect_to new_user_registration_url
     end
   end
 
   def failure
-    Rails.logger.error "OAuth failure: #{params[:message]}"
-    redirect_to root_path, alert: 'ログインに失敗しました。再度お試しください。'
+    redirect_to root_path, alert: "ログインに失敗しました"
   end
   # You should configure your model like this:
   # devise :omniauthable, omniauth_providers: [:twitter]
