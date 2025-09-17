@@ -230,6 +230,12 @@ Devise.setup do |config|
   # reset. Defaults to true, so a user is signed in automatically after a reset.
   # config.sign_in_after_reset_password = true
 
+  config.omniauth :line,
+    ENV["LINE_KEY"],
+    ENV["LINE_SECRET"],
+    scope: "profile openid email",
+    callback_url: "https://tomoni.onrender.com/users/auth/line/callback"
+
   # ==> Configuration for :encryptable
   # Allow you to use another hashing or encryption algorithm besides bcrypt (default).
   # You can use :sha1, :sha512 or algorithms from others authentication tools as
@@ -313,21 +319,4 @@ Devise.setup do |config|
   config.warden do |manager|
     manager.failure_app = Devise::Delegator.new
   end
-  Rails.logger.info "=== OmniAuth Configuration Check ==="
-  Rails.logger.info "LINE_KEY: #{ENV['LINE_KEY'].present? ? 'SET' : 'NOT SET'}"
-  Rails.logger.info "LINE_SECRET: #{ENV['LINE_SECRET'].present? ? 'SET' : 'NOT SET'}"
-
-  if ENV["LINE_KEY"].present? && ENV["LINE_SECRET"].present?
-    config.omniauth :line,
-      ENV["LINE_KEY"],
-      ENV["LINE_SECRET"],
-      callback_url: "https://tomoni.onrender.com/users/auth/line/callback"
-
-    Rails.logger.info "LINE OAuth configured successfully"
-  else
-    Rails.logger.error "LINE OAuth configuration failed - missing credentials"
-  end
-
-  Rails.logger.info "OmniAuth providers: #{Devise.omniauth_providers}"
-  Rails.logger.info "============================================"
 end
