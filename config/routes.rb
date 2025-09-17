@@ -5,7 +5,6 @@ Rails.application.routes.draw do
     sessions: "users/sessions",
     omniauth_callbacks: "users/omniauth_callbacks"
   }
-  get "/users/auth/:provider/callback", to: "users/omniauth_callbacks#line"
   root "tops#index"
   resources :users, only: [ :show, :edit, :update ] do
     resources :dog_profiles, only: [ :show, :new, :create, :edit, :update, :destroy ]

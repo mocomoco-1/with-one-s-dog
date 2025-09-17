@@ -233,8 +233,7 @@ Devise.setup do |config|
   config.omniauth :line,
     ENV["LINE_KEY"],
     ENV["LINE_SECRET"],
-    scope: "profile openid email",
-    callback_url: "https://tomoni.onrender.com/users/auth/line/callback"
+    scope: "profile openid"
 
   # ==> Configuration for :encryptable
   # Allow you to use another hashing or encryption algorithm besides bcrypt (default).
