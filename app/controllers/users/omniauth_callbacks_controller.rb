@@ -2,6 +2,9 @@
 
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def line
+  Rails.logger.info "=== LINE Callback Debug ==="
+  Rails.logger.info "Auth info: #{request.env['omniauth.auth']}"
+  Rails.logger.info "=========================="
     basic_action
   end
 
