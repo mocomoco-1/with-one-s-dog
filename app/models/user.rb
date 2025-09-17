@@ -23,21 +23,23 @@ class User < ApplicationRecord
     id == resource&.user_id
   end
 
-  def self.from_omniauth(auth)
-    Rails.logger.info "=== Creating user from omniauth ==="
-    Rails.logger.info "Auth info: #{auth.info}"
-    Rails.logger.info "Email: #{auth.info.email}"
-    Rails.logger.info "Name: #{auth.info.name}"
-    
-    # メールアドレスでユーザーを検索または作成
-    where(email: auth.info.email).first_or_create do |user|
-      user.email = auth.info.email
-      user.name = auth.info.name || "LINE User"
-      user.password = Devise.friendly_token[0, 20]
-      # LINE固有の情報を保存（必要に応じて）
-      user.provider = auth.provider
-      user.uid = auth.uid
-    end
+  def social_profile(provider)
+    social_profiles.select{ |sp| sp.provider == provider.to_s }.first
+  end
+
+  def set_values(omniauth)
+    return if provider.to_s != omniauth["provider"].to_s || uid != omniauth["uid"]
+    credentials = omniauth["credentials"]
+    info = omniauth["info"]
+    access_token = credentials["refresh_token"]
+    access_secret = credentials["secret"]
+    credentials = credentials.to_json
+    name = info["name"]
+  end
+
+  def set_values_by_raw_info(raw_info)
+    self.raw_info = raw_info.to_json
+    self.save!
   end
 
   private
