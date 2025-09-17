@@ -19,12 +19,6 @@ module App
     config.time_zone = "Tokyo"
     config.assets.paths << Rails.root.join("app/assets/builds")
     config.assets.precompile += %w[application.js]
-    config.middleware.use OmniAuth::Builder do
-      provider :line,
-        ENV["LINE_KEY"],
-        ENV["LINE_SECRET"],
-        scope: "profile openid email"
-    end
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

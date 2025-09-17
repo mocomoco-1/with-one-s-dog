@@ -1,19 +1,6 @@
 # frozen_string_literal: true
 
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  def passthru
-    Rails.logger.error "=== PASSTHRU CALLED - THIS SHOULD NOT HAPPEN ==="
-    Rails.logger.error "Request path: #{request.path}"
-    Rails.logger.error "Request method: #{request.method}"
-    Rails.logger.error "Params: #{params}"
-    # 強制的にLINEメソッドを呼ぶ
-    if request.path.include?("/auth/line") && !request.path.include?("callback")
-      redirect_to user_line_omniauth_authorize_path
-    else
-      super
-    end
-  end
-
   def line
     Rails.logger.info "=== LINE Method Called Successfully ==="
     Rails.logger.info "Auth info: #{request.env["omniauth.auth"]}"
