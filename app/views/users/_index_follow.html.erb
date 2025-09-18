@@ -3,10 +3,14 @@
     <ul>
       <% @users.each do |u| %>
       <div class="flex justify-between py-2">
-        <li><%= link_to u.name, user_path(u), class:"text-md hover:underline" %></li>
-        <div class="flex gap-2">
-          <%= button_to "チャットする", chat_rooms_path(opponent_id: @user.id), method: :post, class: "btn btn-xs" %>
+        <li>
+          <%= render "shared/name_icon", user: u %>
+        </li>
+        <div class="flex gap-2 items-center">
+          <% if @user == current_user %>
+          <%= button_to "チャットする", chat_rooms_path(opponent_id: u.id), method: :post, class: "btn btn-xs" %>
           <%= render "relationships/btn", user: u %>
+          <% end %>
         </div>
       </div>
       <% end %>
