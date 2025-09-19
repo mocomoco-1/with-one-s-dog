@@ -1,0 +1,43 @@
+<% if advice.present? %>
+<div class="mt-8 p-4 bg-white rounded-lg ">
+  <h2 class="font-bold text-xl flex items-center gap-2">
+    <i class="fas fa-dog"></i>「TOMONIくん」の回答
+  </h2>
+  <div class="mt-2">
+    <h3 class="text-lg font-semibold flex items-center gap-2">
+      お悩みの要約🌿
+    </h3>
+    <p class="mt-2 leading-relaxed"><%= advice["summary"] %></p>
+  </div>
+  <div class="mt-2">
+    <h3 class="text-lg font-semibold flex items-center gap-2">
+      共感メッセージ🤝
+    </h3>
+    <p class="mt-2 leading-relaxed"><%= advice["empathy"] %></p>
+  </div>
+  <div class="mt-2">
+    <h3 class="text-lg font-semibold flex items-center gap-2">
+      短期的にできる工夫🎈
+    </h3>
+    <ul class="mt-2 list-disc list-inside space-y-2 leading-relaxed">
+      <% advice["advice"]["short_term"].each do |advice| %>
+      <li><%= advice %></li>
+      <% end %>
+    </ul>
+    <h3 class="text-lg font-semibold flex items-center gap-2">
+      長期的な改善ステップ🌷
+    </h3>
+    <ul class="mt-2 list-disc list-inside space-y-2 leading-relaxed">
+      <% advice["advice"]["long_term"].each do |advice| %>
+      <li><%= advice %></li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="mt-2">
+    <h3 class="text-lg font-semibold flex items-center gap-2">
+      応援🏳‍🌈
+    </h3>
+    <p class="mt-2 leading-relaxed font-medium"><%= advice["cheer"] %></p>
+  </div>
+</div>
+<% end %>

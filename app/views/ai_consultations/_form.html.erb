@@ -1,0 +1,28 @@
+<%= turbo_frame_tag "ai_consultation_form" do %>
+<%= form_with url: ai_consultations_path, method: :post, data: { controller: "loading", action: "submit->loading#submitStart" } do |f| %>
+<div class="mb-4">
+  <%= f.label :category, "1.愛犬のどんなことに悩んでいますか？", class: "font-bold" %>
+  <%= f.text_field :category, placeholder: "例:吠え、噛み、トイレ、食欲、怖がり、分離不安、散歩など", class: "input w-full input-secondary" %>
+</div>
+<div class="mb-4">
+  <%= f.label :situation, "2.いつ起こりますか？", class: "font-bold" %><br>
+  <%= f.text_field :situation, placeholder: "例:散歩中に他の犬とあったとき", class: "input w-full input-secondary" %>
+</div>
+<div class="mb-4">
+  <%= f.label :dog_reaction, "3.愛犬の様子はどうですか？", class: "font-bold" %><br>
+  <%= f.text_area :dog_reaction, placeholder: "例:吠えて飛びかかろうとする", class: "input w-full input-secondary p-2 h-16" %>
+</div>
+<div class="mb-4">
+  <%= f.label :goal, "4.愛犬にどうなってほしいですか？一緒に何がしたいですか？", class: "font-bold" %><br>
+  <%= f.text_area :goal, placeholder: "例:落ち着いてすれ違えるようにしたい。今はお散歩に行くのが少し苦痛になってしまっているので一緒に散歩を楽しみたい。", class: "input w-full input-secondary p-2 h-16" %>
+</div>
+<div class="mb-4">
+  <%= f.label :details, "5.その他補足", class: "font-bold" %><br>
+  <%= f.text_area :details, class: "input w-full input-secondary h-12 p-2" %>
+</div>
+<%= f.submit "相談する", id: "advice-submit-button", class: "btn btn-md btn-secondary", data: { "loading-target": "submitButton" } %>
+<div id="loading-indicator" class="hidden text-center mt-4" data-loading-target="loadingIndicator">
+  <p class="text-gray-600"><i class="fas fa-spinner fa-spin"></i>「TOMONIくん」が考えています...</p>
+</div>
+<% end %>
+<% end %>

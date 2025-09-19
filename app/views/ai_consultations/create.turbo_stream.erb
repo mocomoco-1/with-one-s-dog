@@ -1,0 +1,6 @@
+<%= turbo_stream.replace "advice_container" do %>
+<%= render "advice", advice: @advice %>
+<% end %>
+<%= turbo_stream.replace "ai_followup_form" do %>
+<%= render "ai_followups/form", ai_consultation: @ai_consultation %>
+<% end %>

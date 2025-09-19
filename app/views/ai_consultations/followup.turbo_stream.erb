@@ -1,0 +1,6 @@
+<%= turbo_stream.append "chat-container" do %>
+<%= render "ai_followups/response", followup: @followup %>
+<% end %>
+<%= turbo_stream.replace "ai_followup_form" do %>
+<%= render "ai_followups/form", ai_consultation: @ai_consultation %>
+<% end %>
