@@ -10,6 +10,7 @@ import ResetFormController from "./controllers/reset_form_controller"
 import DiagnosisController from "./controllers/diagnosis_controller"
 import LoadingController from "./controllers/loading_controller"
 import PreviewController from "./controllers/preview_controller"
+import ScrollController from "./controllers/scroll_controller"
 
 application.register("swiper", SwiperController)
 application.register("hello", HelloController)
@@ -18,5 +19,6 @@ application.register("reset-form", ResetFormController)
 application.register("diagnosis", DiagnosisController)
 application.register("loading", LoadingController)
 application.register("preview", PreviewController)
+application.register("scroll", ScrollController)
 
 import "./channels"

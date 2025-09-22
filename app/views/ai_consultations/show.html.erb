@@ -1,0 +1,18 @@
+<% content_for(:title, t('.title')) %>
+<div class="w-full sm:w-full md:max-w-md lg:max-w-lg xl:max-w-2xl mx-auto mt-6">
+  <div class="flex flex-col text-center mb-6 w-full">
+    <%= link_to ai_consultations_path, class: "flex items-center gap-1" do %>
+    <i class="fas fa-arrow-left"></i>
+    <i class="text-sm font-semibold hover:underline">一覧へ</i>
+    <% end %>
+    <h1 class=" text-xl font-semibold text-center mb-4">
+      <i class="fas fa-dog"></i>相談詳細
+    </h1>
+    <h3 class="font-medium"><%= @ai_consultation.title %></h3>
+    <div class="text-sm text-gray-500 ml-2">
+      <%= @ai_consultation.created_at.strftime("%Y/%m/%d %H:%M") %>
+    </div>
+    <%= render "ai_followups/all_response", ai_consultation: @ai_consultation %>
+  </div>
+  <%= render "ai_followups/form", ai_consultation: @ai_consultation %>
+</div>
