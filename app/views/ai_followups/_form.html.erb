@@ -1,8 +1,8 @@
 <div class="mt-4 w-full">
   <%= turbo_frame_tag "ai_followup_form" do %>
-  <%= form_with url: followup_ai_consultation_path(@ai_consultation), method: :post, data: { controller: "loading", action: "submit->loading#submitStart" }, class: "w-full flex flex-col" do |f| %>
+  <%= form_with url: followup_ai_consultation_path(@ai_consultation), method: :post, data: { controller: "loading", action: "submit->loading#submitStart" }, class: "flex flex-col" do |f| %>
   <%= f.text_area :question, class: "input input-secondary w-full h-12 p-2", placeholder: "追加で聞きたいことを入力…" %>
-  <%= f.submit "送信", id: "advice-submit-button", class: "btn btn-sm btn-secondary", data: { "loading-target": "submitButton" } %>
+  <%= f.submit "送信", id: "advice-submit-button", class: "flex justify-center mt-2 mx-auto w-auto btn btn-md btn-secondary", data: { "loading-target": "submitButton" } %>
   <div id="loading-indicator" class="hidden text-center mt-4" data-loading-target="loadingIndicator">
     <p class="text-gray-600"><i class="fas fa-spinner fa-spin"></i>「TOMONIくん」が考えています...</p>
   </div>

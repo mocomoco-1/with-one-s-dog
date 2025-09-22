@@ -1,5 +1,9 @@
 require 'json'
 class AiConsultationsController < ApplicationController
+  def index
+    @ai_consultations = AiConsultation.order(created_at: :desc)
+  end
+  
   def new
     @advice = nil
     @ai_consultation = AiConsultation.new
@@ -53,7 +57,7 @@ class AiConsultationsController < ApplicationController
         )
         raw_response = response.dig("choices", 0, "message", "content")
         @advice = JSON.parse(raw_response)
-        @ai_consultation.update(initial_response: @advice.to_json)
+        @ai_consultation.update(initial_response: @advice)
       rescue OpenAI::Error => e
         # APIエラーが発生した場合の処理
         @error_message = "AIとの通信中にエラーが発生しました: #{e.message}"
@@ -70,17 +74,21 @@ class AiConsultationsController < ApplicationController
     end
   end
 
+  def show
+    @ai_consultation = AiConsultation.find(params[:id])
+  end
   def followup
     @ai_consultation = AiConsultation.find(params[:id])
     question = params[:question]
+    content_str = @ai_consultation.initial_response.to_json
 
     messages = [
       { role: "system", content: "あなたは保護犬専門のトレーナー兼アドバイザーです。
       自由形式の自然な文章で、改行や箇条書きで見やすい回答してください。
-      Markdown形式を一切使わず、テキストのみで書いてください。絵文字は使用してください。
+      Markdown形式を一切使わないでください。絵文字は必ず使用して見やすく回答してください。
       自由形式では、飼い主の具体的な状況に合わせた補足や追加アドバイスを柔軟に提供してください。
       ただし、必ず飼い主への共感と励ましの言葉を含めること、保護犬特有の背景を考慮すること、最新の犬の行動科学の知見を参考にすることは含めてください。" },
-      { role: "assistant", content: @ai_consultation.initial_response },
+      { role: "assistant", content: content_str },
       { role: "user", content: question }
     ]
 

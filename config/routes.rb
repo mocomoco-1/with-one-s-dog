@@ -37,7 +37,7 @@ Rails.application.routes.draw do
     end
     resources :reactions, only: [ :create ]
   end
-  resources :ai_consultations, only: [ :new, :create ] do
+  resources :ai_consultations, only: [ :new, :create, :index, :show ] do
     post :followup, on: :member
   end
   namespace :dog_diagnosis do

@@ -1,11 +1,14 @@
 <div id="chat-container" class="flex flex-col gap-4">
+  <!-- 初回質問,回答 -->
+  <%= render "ai_consultations/advice", ai_consultation: ai_consultation %>
+  <!-- フォローアップ -->
   <% @ai_consultation.ai_followups.each do |followup| %>
-  <div class="p-4 bg-gray-50 rounded-lg border shadow">
-    <p class="font-semibold">あなたの質問:</p>
+  <div class="mt-2 p-2 bg-white rounded-lg border border-2 border-primary">
     <p class="mt-1"><%= followup.question %></p>
-
+  </div>
+  <div class="card mt-2 p-2 bg-white rounded-lg border border-2 border-secondary text-left">
     <p class="font-semibold mt-2">「TOMONIくん」:</p>
-    <p class="mt-1"><%= followup.response %></p>
+    <div class="mt-1 whitespace-pre-line"><%= simple_format(followup.response) %></div>
   </div>
   <% end %>
 </div>
