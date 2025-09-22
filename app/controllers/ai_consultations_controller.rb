@@ -3,10 +3,11 @@ class AiConsultationsController < ApplicationController
   def index
     @ai_consultations = AiConsultation.order(created_at: :desc)
   end
-  
+
   def new
     @advice = nil
     @ai_consultation = AiConsultation.new
+    @past_consultations = current_user.ai_consultations.exists?
   end
 
   def create
