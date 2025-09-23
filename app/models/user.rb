@@ -23,6 +23,8 @@ class User < ApplicationRecord
   has_many :followings, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
   has_many :ai_consultations, dependent: :destroy
+  has_many :sent_notifications, class_name: "Notification", foreign_key: "send_id", dependent: :nullify
+  has_many :received_notifications, class_name: "Notification", foreign_key: "recipient_id", dependent: :destroy
 
   def own?(resource)
     id == resource&.user_id
