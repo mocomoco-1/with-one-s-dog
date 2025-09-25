@@ -1,0 +1,7 @@
+<%= turbo_stream.replace "list" do %>
+  <%= render "list", notifications: @notifications %>
+<% end %>
+
+<%= turbo_stream.replace "count" do %>
+  <%= render "count", notifications: @notifications %>
+<% end %>

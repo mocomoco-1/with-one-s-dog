@@ -4,7 +4,7 @@ class ChatMessage < ApplicationRecord
   belongs_to :user
   belongs_to :chat_room
   has_many :notifications, as: :notifiable, dependent: :destroy
-
+  after_create :notify_chat_room_users
   # メッセージ作成時に自動でブロードキャスト
   after_create_commit do
   # Rails.logger.info "🔄 ChatMessage created - id=#{self.id}"
@@ -18,14 +18,10 @@ class ChatMessage < ApplicationRecord
 
   private
 
-  def create_notification
-    recipient = chat_room_users.where.not(id: user.id).first
-    return unless recipient
-
-    Notification.create!(
-      sender: user,
-      recipient: recipient,
-      notifiable: self
-    )
+  def notify_chat_room_users
+    recipients = chat_room.users.where.not(id: user.id)
+    recipients.each do |recipient|
+      NotificationService.create(sender: user, recipient: recipient, notifiable: self)
+    end
   end
 end

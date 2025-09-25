@@ -1,0 +1,10 @@
+<li id="<%= dom_id(notification) %>" class="px-4 py-2 border-b hover:bg-stone-200">
+  <% sender = notification.sender %>
+  <% notifiable = notification.notifiable %>
+  <%= link_to notification_path_for(notifiable) do %>
+  <div class="flex gap-3">
+    <span><%= NotificationService.message(notifiable, sender) %></span>
+    <span class="text-xs text-gray-500"><%= time_ago_in_words(notification.created_at) %>前</span>
+  </div>
+  <% end %>
+</li>

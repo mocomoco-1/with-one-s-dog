@@ -1,0 +1,13 @@
+<div class="w-full sm:w-full md:max-w-md lg:max-w-lg xl:max-w-2xl mx-auto mt-6">
+  <h1 class=" text-xl font-semibold text-left">
+    <i class="far fa-bell fa-lg"></i>通知一覧
+  </h1>
+  <div class="card bg-white shadow-md w-[calc(100%-1rem)] sm:w-[calc(100%-2rem)] md:max-w-md lg:max-w-lg xl:max-w-2xl mx-auto mt-6">
+    <div class="p-4">
+      <%= render "notifications/full_list", notifications: @notifications %>
+      <div class="mt-2 text-center text-sm hover:underline">
+        <%= link_to "次へ", notifications_path(page: @notifications.next_page), data: { turbo_frame: "notifications_list" } if @notifications.next_page %>
+      </div>
+    </div>
+  </div>
+</div>

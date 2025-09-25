@@ -1,0 +1,4 @@
+<%= turbo_stream.remove dom_id(@notification) %>
+<%= turbo_stream.replace "count" do %>
+<%= render "notifications/count", notifications: current_user.received_notifications %>
+<% end %>

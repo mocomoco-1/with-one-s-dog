@@ -21,7 +21,22 @@
       <div class="text-sm font-semibold">
         <%= link_to "#{current_user.name}さん", mypage_path, class:"btn btn-sm btn-ghost" %>
       </div>
-      <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "btn btn-md btn-secondary" %>
+      <div data-controller="notification-dropdown" class="dropdown dropdown-end relative">
+        <div data-action="click->notification-dropdown#toggle" tabindex="0" role="button" class="btn btn-md m-1 relative">
+          <i class="far fa-bell fa-lg"></i>
+          <div id="count" class="indicator-item">
+            <%= render "notifications/count", notifications: current_user.received_notifications %>
+          </div>
+        </div>
+        <div tabindex="0" data-notification-dropdown-target="menu" id="list" class="dropdown-content menu bg-base-100 rounded-box w-80 shadow-lg mt-3 p-2 absolute right-0 z-50">
+          <%= render "notifications/full_list", notifications: current_user.received_notifications.order(created_at: :desc).limit(10) %>
+          <% if current_user.received_notifications.count > 10 %>
+          <div class="text-center mt-2">
+            <%= link_to "通知一覧を見る", notifications_path, class:"text-sm hover:underline"%>
+          </div>
+          <% end %>
+        </div>
+      </div>
       <% else %>
       <%= link_to "ログイン", new_user_session_path, class: "btn btn-md btn-secondary" %>
       <%= link_to "新規登録", new_user_registration_path, class: "btn btn-md" %>

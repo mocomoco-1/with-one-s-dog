@@ -1,0 +1,8 @@
+<% if notifications.any? %>
+<%= render "notifications/list", notifications: notifications %>
+<div class="text-center mt-2">
+  <%= button_to "すべて既読にする", mark_all_as_read_notifications_path, method: :delete, class: "text-sm hover:underline" %>
+</div>
+<% else %>
+<p id="no_notification" class="p-4 text-center">通知はありません</p>
+<% end %>
