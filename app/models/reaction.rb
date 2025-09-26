@@ -5,4 +5,11 @@ class Reaction < ApplicationRecord
   belongs_to :reactable, polymorphic: true
 
   enum reaction_category: { cheer: 0, empathy: 1, amazing: 2, cry: 3, laugh: 4 }
+  after_create :notify_reaction
+
+  private
+
+  def notify_reaction
+    NotificationService.create(sender: user, recipient: reactable.user, notifiable: self)
+  end
 end

@@ -1,0 +1,9 @@
+<%= turbo_stream.replace "count" do %>
+<%= render "notifications/count", notifications: current_user.received_notifications %>
+<% end %>
+<%= turbo_stream.replace "full_list" do %>
+  <div style="background-color: red; padding: 10px;">
+    <h3>🔄 リストが更新されました！</h3>
+    <%= render "notifications/full_list", notifications: current_user.received_notifications.order(created_at: :desc).limit(10) %>
+  </div>
+<% end %>

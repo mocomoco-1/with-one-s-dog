@@ -45,6 +45,12 @@ Rails.application.routes.draw do
     get "questions", to: "diagnoses#questions"
     post "diagnoses", to: "diagnoses#result"
   end
+
+  resources :notifications, only: [ :index, :update ] do
+    collection do
+      delete :mark_all_as_read
+    end
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
