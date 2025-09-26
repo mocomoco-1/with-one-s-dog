@@ -6,7 +6,7 @@
     <div class="p-4">
       <%= render "notifications/full_list", notifications: @notifications %>
       <div class="mt-2 text-center text-sm hover:underline">
-        <%= link_to "次へ", notifications_path(page: @notifications.next_page), data: { turbo_frame: "notifications_list" } if @notifications.next_page %>
+        <%= link_to "次へ", notifications_path(page: @notifications.next_page), data: { turbo_frame: "list" } if @notifications.next_page %>
       </div>
     </div>
   </div>
