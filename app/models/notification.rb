@@ -24,6 +24,7 @@ class Notification < ApplicationRecord
 
   def redirect_path_with_notification_id
     base_path = redirect_path
+    return nil unless base_path
     if base_path.include?("?")
       "#{base_path}&notification_id=#{id}"
     else
