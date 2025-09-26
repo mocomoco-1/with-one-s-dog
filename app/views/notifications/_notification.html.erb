@@ -2,7 +2,8 @@
   <li id="<%= dom_id(notification) %>" class="px-4 py-2 border-b hover:bg-stone-200">
     <% sender = notification.sender %>
     <% notifiable = notification.notifiable %>
-    <% if notification.redirect_path_with_notification_id.present? %>
+    <% redirect_path = notification.redirect_path_with_notification_id %>
+    <% if redirect_path.present? %>
     <div class="flex gap-3">
       <%= link_to notification.redirect_path_with_notification_id,
         data: {
