@@ -1,22 +1,20 @@
 <div data-controller="notification">
-  <li id="<%= dom_id(notification) %>" class="px-4 py-2 border-b hover:bg-stone-200">
+  <li id="<%= dom_id(notification) %>" class="px-4 py-2 border-b">
     <% sender = notification.sender %>
     <% notifiable = notification.notifiable %>
     <% redirect_path = notification.redirect_path_with_notification_id %>
     <% if redirect_path.present? %>
-    <div class="flex gap-3">
-      <%= link_to notification.redirect_path_with_notification_id,
+    <%= link_to notification.redirect_path_with_notification_id,
         data: {
           turbo_frame: "_top",
           action: "click->notification#markAsRead",
           notification_id: notification.id,
           update_url: notification_path(notification)
         },
-        class: "block w-full text-left" do %>
-      <span><%= NotificationService.message(notifiable, sender) %></span>
-      <span class="text-xs text-gray-500"><%= time_ago_in_words(notification.created_at) %>前</span>
-      <% end %>
-    </div>
+        class: "flex justify-between block w-full text-left hover:bg-stone-200" do %>
+    <span><%= NotificationService.message(notifiable, sender) %></span>
+    <span class="text-xs text-gray-500"><%= time_ago_in_words(notification.created_at) %>前</span>
+    <% end %>
     <% end %>
   </li>
 </div>
