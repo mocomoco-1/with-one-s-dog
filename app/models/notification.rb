@@ -6,20 +6,30 @@ class Notification < ApplicationRecord
   scope :unread, -> { where(unread: true) }
 
   def redirect_path
+    Rails.logger.info "Notification #{id} notifiable: #{notifiable.inspect}"
     case notifiable
     when ChatMessage
+      return nil if notifiable.blank? || notifiable.chat_room.blank?
       Rails.application.routes.url_helpers.chat_room_path(notifiable.chat_room)
     when Relationship
+      return nil if notifiable.blank? || notifiable.followed.blank?
       Rails.application.routes.url_helpers.followers_user_path(notifiable.followed)
     when Reaction
+      return nil if notifiable.blank? || notifiable.reactable.blank?
       Rails.application.routes.url_helpers.polymorphic_path(notifiable.reactable)
     when Comment
+      return nil if notifiable.blank? || notifiable.commentable.blank?
       Rails.application.routes.url_helpers.polymorphic_path(notifiable.commentable)
     when Like
+      return nil if notifiable.blank? || notifiable.comment.blank? || notifiable.comment.commentable.blank?
       Rails.application.routes.url_helpers.polymorphic_path(notifiable.comment.commentable)
     else
-      Rails.application.routes.url_helpers.polymorphic_path(notifiable)
+      Rails.application.routes.url_helpers.root_path
     end
+  rescue => e
+    # エラーが発生した場合はルートパスにリダイレクト
+    Rails.logger.error "Error generating redirect_path for notification #{id}: #{e.message}"
+    Rails.application.routes.url_helpers.root_path
   end
 
   def redirect_path_with_notification_id
