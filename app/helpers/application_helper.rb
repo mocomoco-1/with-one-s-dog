@@ -4,44 +4,29 @@ module ApplicationHelper
     title.present? ? "#{title} | #{base_title}" : base_title
   end
 
-  def show_meta_tags
-    assign_meta_tags if display_meta_tags.blank?
-    display_meta_tags
-  end
-
-  def assign_meta_tags(options = {})
-    defaults = t("meta_tags.defaults")
-    options.reverse_merge!(defaults)
-    site = options[:site]
-    title = options[:title]
-    description = options[:description]
-    keywords = options[:keywords]
-    image = options[:image].presence || image_url("top.png")
-    configs = {
-      separator: "|",
+  def default_meta_tags
+    {
+      site: "TOMONI",
+      title: "TOMONI",
       reverse: true,
-      site:,
-      title:,
-      description:,
-      keywords:,
+      charset: "utf-8",
+      description: "保護犬とその飼い主がともに幸せに暮らせるようにサポートしていきます",
+      keywords: "保護犬, 犬, しつけ, 悩み",
       canonical: request.original_url,
-      icon: {
-        href: image_url("top.png")
-      },
+      separator: "|",
+      image: image_url("ogp.png"),
       og: {
         type: "website",
-        title: title.presence || site,
-        description:,
+        title: :title,
+        description: :description,
         url: request.original_url,
-        image:,
-        site_name: site
+        image: image_url("ogp.png"),
+        site_name: :site
       },
-      twitter: {
-        site:,
+      twitter:{
         card: "summary_large_image",
-        image:
+        image: image_url("ogp.png")
       }
     }
-    set_meta_tags(configs)
   end
 end
