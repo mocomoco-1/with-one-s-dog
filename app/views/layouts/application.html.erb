@@ -17,6 +17,7 @@
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload", "media": "all" %>
   <%= javascript_include_tag "application", "type": "module", defer: true %>
   <%= turbo_include_tags %>
+  <%= display_meta_tags(default_meta_tags) %>
 </head>
 
 <body class="min-h-screen bg-gradient-to-b from-[#F6F8F7] to-[#F7F6E4]">
