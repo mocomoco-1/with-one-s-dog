@@ -220,6 +220,9 @@ GEM
       net-smtp
     marcel (1.0.4)
     matrix (0.4.3)
+    meta_tags (0.3.0)
+      sanitize
+      truncate_html
     mini_magick (5.3.1)
       logger
     mini_mime (1.1.5)
@@ -404,6 +407,9 @@ GEM
       ffi (~> 1.12)
       logger
     rubyzip (3.0.2)
+    sanitize (7.0.0)
+      crass (~> 1.0.2)
+      nokogiri (>= 1.16.8)
     securerandom (0.4.1)
     selenium-webdriver (4.35.0)
       base64 (~> 0.2)
@@ -429,6 +435,7 @@ GEM
       execjs (>= 0.3.0, < 3)
     thor (1.4.0)
     timeout (0.4.3)
+    truncate_html (0.9.3)
     turbo-rails (2.0.16)
       actionpack (>= 7.1.0)
       railties (>= 7.1.0)
@@ -484,6 +491,7 @@ DEPENDENCIES
   jbuilder
   jsbundling-rails
   kaminari
+  meta_tags
   omniauth
   omniauth-line
   omniauth-rails_csrf_protection

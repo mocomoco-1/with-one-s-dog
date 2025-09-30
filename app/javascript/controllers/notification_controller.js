@@ -2,9 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   markAsRead(event) {
-    console.log("=== markAsRead called ===")
     const updateUrl = event.currentTarget.dataset.updateUrl
-    console.log("Update URL:", updateUrl)
     fetch(updateUrl,{
       method: "PATCH",
       headers: {

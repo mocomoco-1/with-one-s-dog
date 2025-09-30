@@ -1,7 +1,7 @@
 class NotificationsController < ApplicationController
-  before_action :mark_notification_as_read_if_needed
+  before_action :mark_notification_as_read_if_needed, :set_unread_notifications
   def index
-    @notifications = current_user.received_notifications.unread.order(created_at: :desc).page(params[:page]).per(10)
+    @notifications = @notifications.page(params[:page]).per(10)
     respond_to do |format|
       format.html
       format.turbo_stream
@@ -27,6 +27,10 @@ class NotificationsController < ApplicationController
   end
 
   private
+
+  def set_unread_notifications
+    @notifications = current_user.received_notifications.unread.order(created_at: :desc).limit(10)
+  end
 
   def mark_notification_as_read_if_needed
     return unless params[:notification_id] && current_user
