@@ -8,12 +8,18 @@ class ChatMessage < ApplicationRecord
   # メッセージ作成時に自動でブロードキャスト
   after_create_commit do
   # Rails.logger.info "🔄 ChatMessage created - id=#{self.id}"
-  ChatMessageBroadcastJob.perform_now(self)
+  ChatMessageBroadcastJob.perform_later(self)
     # if image.attached?
     #   Rails.logger.info "📸 Image attached - processing in background"
     #   # 画像処理は非同期で実行
     #   ImageProcessingJob.perform_later(self)
     # end
+  end
+
+  def read_by?(user)
+    chat_room_user = chat_room.chat_room_users.find_by(user: user)
+    return false unless chat_room_user&.last_read_message_id
+    id <= chat_room_user.last_read_message_id
   end
 
   private

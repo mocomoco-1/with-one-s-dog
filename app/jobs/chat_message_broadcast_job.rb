@@ -1,11 +1,12 @@
 class ChatMessageBroadcastJob < ApplicationJob
   queue_as :default
-
+  # 新しいメッセージをリアタイで配信するためのjob
   def perform(chat_message)
     Rails.logger.info "🚀 ChatMessageBroadcastJob perform start - chat_message_id=#{chat_message.id}"
     rendered_message = render_message(chat_message)
     ChatRoomChannel.broadcast_to(
       chat_message.chat_room,
+      type: "message",
       message: rendered_message,
       sender_id: chat_message.user_id
     )

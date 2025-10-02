@@ -7,6 +7,25 @@ class ChatRoomsController < ApplicationController
     @chat_room = current_user.chat_rooms.find(params[:id])
     @chat_messages = @chat_room.chat_messages.includes(:user).order(created_at: :asc)
     @chat_message = ChatMessage.new
+    @other_user = @chat_room.other_user(current_user)
+    @chat_room_user = @chat_room.chat_room_users.find_by(user: current_user)
+    @last_message = @chat_room.chat_messages.where.not(user_id: current_user.id).last
+    if @last_message.present?
+      @chat_room_user.update(last_read_message_id: @last_message.id)
+    end
+  end
+
+  def mark_read
+    @chat_room = current_user.chat_rooms.find(params[:id])
+    chat_room_user = @chat_room.chat_room_users.find_by(user: current_user)
+    new_id = params[:last_read_message_id].to_i
+    current_last_id = chat_room_user.last_read_message_id || 0
+    if new_id > current_last_id
+      chat_room_user.update_column(:last_read_message_id, new_id)
+      last_read_message = @chat_room.chat_messages.find_by(id: new_id)
+      ChatMessageReadBroadcastJob.perform_later(chat_room_user, last_read_message)
+    end
+    head :ok
   end
 
   def create
