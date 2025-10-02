@@ -25,7 +25,7 @@ class DogProfile < ApplicationRecord
     if days < 0
       months -= 1
       prev_month = today << 1
-      days += Date.new(prev_month.year,prev_month.month.month, -1).day
+      days += Date.new(prev_month.year, prev_month.month, -1).day
     end
 
     if months < 0

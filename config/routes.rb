@@ -27,6 +27,9 @@ Rails.application.routes.draw do
   end
   resources :chat_rooms, only: [ :index, :show, :create ] do
     resources :chat_messages, only: [ :create ]
+    member do
+      post :mark_read
+    end
   end
   resources :diaries, only: [ :index, :show, :new, :create, :edit, :update, :destroy ] do
     collection do
