@@ -11,7 +11,7 @@
     <%= f.label :images, class: "font-bold mb-3 block" %>
     <%= f.file_field :images, multiple: true, class: "input input-secondary", accept: "image/*", data:{ preview_target: "input", action: "change->preview#preview" } %>
     <div class="preview-container flex flex-wrap gap-2" data-preview-target="images"></div>
-    <% if diary.images.attached? %>
+    <% if diary.persisted? && image.attached? %>
     <p>選択済みの画像（削除する画像にチェックをつけてください）</p>
     <div class=" flex flex-wrap gap-4 max-w-4xl">
       <% diary.images.each do |image| %>
