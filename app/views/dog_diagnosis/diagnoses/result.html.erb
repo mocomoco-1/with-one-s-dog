@@ -22,6 +22,7 @@
         </p>
         <div class="text-center mt-6">
           <%= link_to "もう一度診断する", dog_diagnosis_diagnoses_index_path, class:"btn btn-md btn-secondary" %>
+          <%= link_to "診断結果を日記に投稿する", dog_diagnosis_to_diary_path(@result), class: "btn btn-md btn-primary border border-blue-300" %>
         </div>
       </div>
     </div>

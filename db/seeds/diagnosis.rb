@@ -32,8 +32,8 @@
     c20 = Choice.find_or_create_by!(text: "ピンと立って「新しい発見の予感！」", question: q5)
 
     # 診断結果
-    d1 = Diagnosis.find_or_create_by!(
-      title: "ずっと見てたい…天使のまどろみモード💤",
+    d1 = Diagnosis.find_or_initialize_by(title: "ずっと見てたい…天使のまどろみモード💤")
+    d1.update!(
       explanation: "「ねむねむしあわせ」
       まぶたがとろ〜ん、体もまるっとくるんと丸まって。
       夢の世界とあなたの匂いの間をふわふわ行き来しながら、しあわせを満喫中。
@@ -41,8 +41,8 @@
       dog_message: "「…Zzz（なでるのは歓迎だけど、起こさないでね）」",
       image_path: "diagnosis1.png"
       )
-    d2 = Diagnosis.find_or_create_by!(
-      title: "ちょっと不思議でかわいすぎる。考えごとモード💭",
+    d2 = Diagnosis.find_or_initialize_by(title: "ちょっと不思議でかわいすぎる。考えごとモード💭")
+    d2.update!(
       explanation: "「今日のごはんは昨日より１グラム多かったな。これは原因を考えねば。」
       じーっと窓の外や空を眺めて、頭の中でいろんなシミュレーション中。
       おやつの順番、お散歩のルート、飼い主の帰宅時間まで…すべては真剣なテーマ。
@@ -50,8 +50,8 @@
       dog_message: "「いま大事なこと考えてるから、あとで遊ぼ？」",
       image_path: "diagnosis2.png"
       )
-    d3 = Diagnosis.find_or_create_by!(
-      title: "吸引力がすごい。甘えんぼモード💓",
+    d3 = Diagnosis.find_or_initialize_by(title: "吸引力がすごい。甘えんぼモード💓")
+    d3.update!(
       explanation: "「ちょっとそこに座ってて？…うん、ずっとね。」
       とにかくあなたのそばにいたい！移動すればすぐ追いかけて、
       ひざのすき間にぴったりフィット。
@@ -60,8 +60,8 @@
       dog_message: "「ひざ、空いてる？（空いてなくても乗るけど）」",
       image_path: "diagnosis3.png"
       )
-    d4 = Diagnosis.find_or_create_by!(
-      title: "なんか今日めちゃ元気！ハイテンションモード🐕",
+    d4 = Diagnosis.find_or_initialize_by(title: "なんか今日めちゃ元気！ハイテンションモード🐕")
+    d4.update!(
       explanation: "「わーーー！楽しい！！ねえ見て見て！！」
       ごはんでジャンプ！お散歩でダッシュ！おやつでしっぽ竜巻！
       全身で「うれしい」を表現して、家中をパレードみたいに駆けまわる。
@@ -69,8 +69,8 @@
       dog_message: "「おすわり？もちろんできるよ！（3秒限定）」",
       image_path: "diagnosis4.png"
       )
-    d5 = Diagnosis.find_or_create_by!(
-      title: "未知との出会いにワクワク！冒険モード🌍",
+    d5 = Diagnosis.find_or_initialize_by(title: "未知との出会いにワクワク！冒険モード🌍")
+    d5.update!(
       explanation: "「この先になにがあるのかな？クンクン…新しい発見のにおい！」
       今日は小さな探検家。ソファの下も庭の隅も、ぜんぶ冒険のフィールド。
       知らない音、知らないにおい、ぜんぶ発見のチャンス。
