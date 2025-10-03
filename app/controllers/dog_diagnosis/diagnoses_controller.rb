@@ -22,6 +22,15 @@ class DogDiagnosis::DiagnosesController < ApplicationController
     end
   end
 
+  def to_diary
+    diagnosis = Diagnosis.find(params[:id])
+    redirect_to new_diary_path(
+      diary: {
+        content: "今日のうちの子のきもち診断は「#{diagnosis.title}」でした！\n#{diagnosis.dog_message}って言っているみたい💭"
+      }
+    )
+  end
+
   private
 
   def diagnose_params

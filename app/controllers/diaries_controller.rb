@@ -14,7 +14,7 @@ class DiariesController < ApplicationController
   end
 
   def new
-    @diary = Diary.new
+    @diary = Diary.new(params.fetch(:diary, {}).permit(:content))
   end
 
   def create

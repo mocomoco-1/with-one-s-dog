@@ -5,9 +5,9 @@ export default class extends Controller {
   // HTML 側で data-preview-target="input" / "image" と書いた要素を
   static targets = [ "input", "images" ]
   static values = {
-    maxWidth: { type: Number, default: 1920 },
-    maxHeight: { type: Number, default: 1080 },
-    quality: { type: Number, default: 0.8 },
+    maxWidth: { type: Number, default: 1200 },
+    maxHeight: { type: Number, default: 1200 },
+    quality: { type: Number, default: 0.9 },
     enableResize: { type: Boolean, default: true }
   }
   initialize() {
@@ -118,6 +118,13 @@ export default class extends Controller {
   }
   addResizedFile(file) {
     this.resizedFiles.push(file)
+    const originalFile = this.inputTarget.files[this.resizedFiles.length - 1]
+    if (originalFile) {
+      console.log(`ファイル名: ${file.name}`)
+      console.log(`元サイズ: ${(originalFile.size / 1024).toFixed(1)} KB`)
+      console.log(`リサイズ後: ${(file.size / 1024).toFixed(1)} KB`)
+      console.log('----------------------')
+    }
     if (this.resizedFiles.length === this.inputTarget.files.length) {
       const dataTransfer = new DataTransfer()
       this.resizedFiles.forEach(file => dataTransfer.items.add(file))

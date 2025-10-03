@@ -1,5 +1,5 @@
 class Diagnosis < ApplicationRecord
-  has_many :choices_diagnoses
+  has_many :choices_diagnoses, dependent: :destroy
   has_many :choices, through: :choices_diagnoses
 
   validates :title, presence: true, length: { maximum: 255 }

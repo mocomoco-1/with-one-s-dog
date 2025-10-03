@@ -4,8 +4,12 @@
     <div class="bg-white rounded-xl shadow-lg p-4 mb-4">
       <div class="text-center mb-6">
         <h1 class="text-2xl font-bold mb-2">🐾診断結果🐾</h1>
-        <p class="text-gray-600 mb-8">あなたのワンちゃんの今のきもちは。。。</p>
-        <div class="text-6xl mb-4"><i class="fas fa-dog"></i></div>
+        <p class="text-gray-600 mb-2">あなたのワンちゃんの今のきもちは。。。</p>
+        <% if @result.image_path.present? %>
+        <div class="flex justify-center">
+          <%= image_tag @result.image_path, class: "rounded-lg w-full max-w-sm" %>
+        </div>
+        <% end %>
         <h2 class="text-2xl font-bold mb-2 text-blue-300">
           <%= @result.title %>
         </h2>
@@ -18,6 +22,7 @@
         </p>
         <div class="text-center mt-6">
           <%= link_to "もう一度診断する", dog_diagnosis_diagnoses_index_path, class:"btn btn-md btn-secondary" %>
+          <%= link_to "診断結果を日記に投稿する", dog_diagnosis_to_diary_path(@result), class: "btn btn-md btn-primary border border-blue-300" %>
         </div>
       </div>
     </div>

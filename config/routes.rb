@@ -47,6 +47,7 @@ Rails.application.routes.draw do
     get "diagnoses/index"
     get "questions", to: "diagnoses#questions"
     post "diagnoses", to: "diagnoses#result"
+    get "diagnoses/:id/to_diary", to: "diagnoses#to_diary", as: "to_diary"
   end
 
   resources :notifications, only: [ :index, :update ] do
