@@ -25,13 +25,11 @@ class DogDiagnosis::DiagnosesController < ApplicationController
       @share_text = "今日のいぬのきもち診断は『#{@result.title}』でした！"
       @share_url = request.original_url
       set_meta_tags(
-        title: "いまのワンちゃんのきもちは『#{@result.title}』",
-        description: @result.dog_message,
         og: {
-          title: "いまのワンちゃんのきもちは『#{@result.title}』",
+          title: "いまのワンちゃんのきもちは『#{@result.title}』です！",
           description: @result.dog_message,
           image: image_ogp,
-          url: request.original_url
+          url: root_url
         },
         twitter: {
           card: "summary_large_image",
