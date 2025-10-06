@@ -9,6 +9,7 @@ function initChat() {
   const roomId = messagesElement?.dataset?.roomId
   if (!roomId) return
   const currentUserId = messagesElement?.dataset?.currentUserId
+  // 実際に既読通知をサーバーに送った最後の位置（変わる）
   let myLastSentReadId = Number(messagesElement.dataset.lastReadMessageId) || 0
   let isRoomOpen = true // ルーム開閉フラグ
   let lastReadByUser = {} // ユーザーごとの last_read 管理
@@ -34,13 +35,12 @@ function initChat() {
     applyMessageAlignment(messagesElement, currentUserId)
   }
 
-  // サーバーから渡された lastReadMessageId を取得
+  // 最初にサーバーから渡された lastReadMessageId を取得(変わらない)
   const initialLastReadId = Number(messagesElement.dataset.lastReadMessageId) || 0
 
-  // 過去メッセージに既読マークを付与（入室時）
+  // 過去の自分のメッセージに既読マークを付与（入室時）
   messagesElement.querySelectorAll("[data-message-id]").forEach(msgDiv => {
-    const msgId = Number(msgDiv.dataset.messageId)
-    const senderId = Number(msgDiv.dataset.senderId)
+    const { msgId, senderId } = extractMessageData(msgDiv)
     if (senderId === Number(currentUserId) && msgId <= initialLastReadId) {
       addReadMark(msgDiv)
     }
@@ -53,30 +53,29 @@ function initChat() {
       // WebSocketが接続した１回だけ呼ばれる。
       connected() {
         console.log("✅ チャットルームに接続しました")
-        messagesElement.querySelectorAll("[data-sender-id]").forEach((msg) => {
-          applyAlignment(msg,msg.dataset.senderId, currentUserId)
+        messagesElement.querySelectorAll("[data-sender-id]").forEach((msgDiv) => {
+          const { msgId, senderId } = extractMessageData(msgDiv)
+          applyAlignment(msgDiv, senderId, currentUserId)
         })
         scrollToBottom(messagesElement)
+
         // 相手が送信した最新のメッセージIDを探す
         const allMessages = messagesElement.querySelectorAll('[data-message-id]');
         let lastOpponentMessageId = 0;
-
         // メッセージを後ろから探して、最初に見つかった「相手のメッセージ」のIDを取得
         for (let i = allMessages.length - 1; i >= 0; i--) {
-          const message = allMessages[i];
-          if (message.dataset.senderId !== currentUserId) {
-            lastOpponentMessageId = Number(message.dataset.messageId);
-            break; // 見つかったらループを終了
+          const { msgId, senderId } = extractMessageData(allMessages[i])
+          if (senderId !== Number(currentUserId)) {
+            lastOpponentMessageId = msgId
+            break
           }
         }
-
-        // 相手のメッセージが1つでもあれば、そのIDを「ここまで読んだ」とサーバーに通知
+        // 自分が今どこまで相手のメッセージを読んだか、IDを「ここまで読んだ」とサーバーに通知
         if (lastOpponentMessageId > 0) {
           sendReadReceipt(lastOpponentMessageId);
         }
         messagesElement.querySelectorAll("[data-message-id]").forEach(msgDiv => {
-          const msgId = Number(msgDiv.dataset.messageId)
-          const senderId = Number(msgDiv.dataset.senderId)
+          const { msgId, senderId } = extractMessageData(msgDiv)
           if (senderId === Number(currentUserId) && msgId <= initialLastReadId) {
             addReadMark(msgDiv)  // DOMに既読マークだけ
           }
@@ -95,19 +94,19 @@ function initChat() {
             const wrapper = document.createElement("div")
             wrapper.innerHTML = data.message
             const messageDiv = wrapper.firstElementChild
-            applyAlignment(messageDiv, data.sender_id, currentUserId)
+            const { msgId, senderId } = extractMessageData(messageDiv)
+            applyAlignment(messageDiv, senderId, currentUserId)
             messagesElement.appendChild(messageDiv)
             scrollToBottom(messagesElement)
-            const messageId = Number(messageDiv.dataset.messageId)
             // 相手のメッセージなら、リアルタイムで既読送信（重複防止）
-            if (data.sender_id.toString() !== currentUserId.toString()) {
-              if (messageId > myLastSentReadId) {
-                sendReadReceipt(messageId)
+            if (senderId.toString() !== currentUserId.toString()) {
+              if (msgId > myLastSentReadId) {
+                sendReadReceipt(msgId)
               }
             }
             console.log("✅ メッセージDOMに追加完了", {
-              messageId: messageDiv.dataset.messageId,
-              senderId: data.sender_id,
+              msgId,
+              senderId,
               cachedLastReadByUser: lastReadByUser
             })
             // もし既にその送信者の last-read が届いていて
@@ -147,15 +146,21 @@ function initChat() {
     })
     mo.observe(messagesElement, { childList: true, subtree: true })
 
+  function extractMessageData(msgDiv) {
+    return{
+      msgId: Number(msgDiv.dataset.messageId),
+      senderId: Number(msgDiv.dataset.senderId)
+    }
+  }
   // スクロール処理を関数化
   function scrollToBottom(element) {
     element.scrollTop = element.scrollHeight
   }
-  // 左右分けの処理を関数化
+  // 新着１件の左右分け・色分けの処理
   function applyAlignment(messageDiv, senderId, currentUserId) {
     if (!messageDiv || !senderId || !currentUserId) return
 
-    if (senderId.toString() === currentUserId.toString()) {
+    if (senderId === Number(currentUserId)) {
       messageDiv.classList.add("justify-end")
       messageDiv.querySelector(".message-bubble")?.classList.add("bg-base-200")
     } else {
@@ -163,10 +168,11 @@ function initChat() {
       messageDiv.querySelector(".message-bubble")?.classList.add("bg-accent")
     }
   }
-  // 既存メッセージ全体に左右・色分けを適用
+  // 既存メッセージ全体に左右・色分けの処理
   function applyMessageAlignment(messagesElement, currentUserId) {
     messagesElement.querySelectorAll("[data-sender-id]").forEach((msg) => {
-      applyAlignment(msg, msg.dataset.senderId, currentUserId)
+      const { msgId, senderId } = extractMessageData(msg)
+      applyAlignment(msg, senderId, currentUserId)
     })
   }
   //messageDOMに既読を追加する
@@ -192,8 +198,7 @@ function initChat() {
     if (rId === meId || lastIdNum <= 0) return
     const myMessages = messagesElement.querySelectorAll(`[data-sender-id="${meId}"]`)
     myMessages.forEach((msgDiv) => {
-      const msgId = Number(msgDiv.dataset.messageId)
-      const senderId = Number(msgDiv.dataset.senderId)
+      const { msgId, senderId } = extractMessageData(msgDiv)
       if (senderId !== meId) return
       if (msgId > lastIdNum) return
       if (msgDiv.querySelector(".read-status")) return
