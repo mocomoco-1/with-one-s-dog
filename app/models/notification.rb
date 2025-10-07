@@ -5,6 +5,8 @@ class Notification < ApplicationRecord
 
   scope :unread, -> { where(unread: true) }
 
+  after_create_commit { NotificationBroadcastJob.perform_later(self) }
+
   def redirect_path
     Rails.logger.info "Notification #{id} notifiable: #{notifiable.inspect}"
     case notifiable

@@ -9,7 +9,7 @@ function initChat() {
   const roomId = messagesElement?.dataset?.roomId
   if (!roomId) return
   const currentUserId = messagesElement?.dataset?.currentUserId
-  // 実際に既読通知をサーバーに送った最後の位置（変わる）
+  // 自分が読んだ既読通知をサーバーに送った最後の位置（変わる）
   let myLastSentReadId = Number(messagesElement.dataset.lastReadMessageId) || 0
   let isRoomOpen = true // ルーム開閉フラグ
   let lastReadByUser = {} // 相手がどこまで読んだかをブラウザでキャッシュする。相手の既読を覚えておくもの
@@ -81,7 +81,9 @@ function initChat() {
             addReadMark(msgDiv)
           }
         })
-
+        Object.entries(lastReadByUser).forEach(([userId, lastRead]) => {
+          applyReadMarkForReader(messagesElement, currentUserId, userId, lastRead)
+        })
       },
       disconnected() {
         console.log("❌ チャットルームから切断されました")
@@ -139,6 +141,7 @@ function initChat() {
       }
     }
   )
+  // DOMが変わったときに既読マークを再適応する
   const mutationDebounce = { id: null }
     const mo = new MutationObserver((mutations) => {
       if (mutationDebounce.id) clearTimeout(mutationDebounce.id)
