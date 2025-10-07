@@ -66,7 +66,7 @@ function initChat() {
         for (let i = allMessages.length - 1; i >= 0; i--) {
           const { msgId, senderId } = extractMessageData(allMessages[i])
           if (senderId !== Number(currentUserId)) {
-            msgId = lastOpponentMessageId
+            lastOpponentMessageId = msgId
             break
           }
         }
