@@ -24,7 +24,7 @@
       <div data-controller="notification-dropdown" class="dropdown dropdown-end relative">
         <div data-action="click->notification-dropdown#toggle" tabindex="0" role="button" class="btn btn-md m-1 relative">
           <i class="far fa-bell fa-lg"></i>
-          <div id="count" class="indicator-item">
+          <div class="indicator-item">
             <%= render "notifications/count", notifications: current_user.received_notifications %>
           </div>
         </div>
