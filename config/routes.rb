@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  namespace :api do
+    get "notifications/send_anniversaries"
+  end
   mount ActionCable.server => "/cable"
   devise_for :users, controllers: {
     registrations: "users/registrations",
@@ -54,6 +57,9 @@ Rails.application.routes.draw do
     collection do
       delete :mark_all_as_read
     end
+  end
+  namespace :api do
+    get "send_anniversary_notifications/:token", to: "notifications#send_anniversaries"
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

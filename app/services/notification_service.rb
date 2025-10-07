@@ -20,6 +20,12 @@ class NotificationService
       "#{sender.name}さんが投稿にリアクションしました"
     when Like
       "#{sender.name}さんがコメントにいいねしました"
+    when DogProfile
+      if notifiable.birthday_today?
+        "今日は#{notifiable.name}の#{notifiable.age}歳の誕生日です🎂おめでとう🐶🎊今年も幸せであふれた一年になりますように💓"
+      elsif notifiable.anniversary_today?
+        "今日は#{notifiable.name}のうちの子記念日です🐾うちの子になってくれてありがとう🐶🎊今年も幸せであふれた一年になりますように💓"
+      end
     else
       "#{sender.name}さんから通知があります"
     end
