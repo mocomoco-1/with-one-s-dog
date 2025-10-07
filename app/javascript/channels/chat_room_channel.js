@@ -12,7 +12,7 @@ function initChat() {
   // 実際に既読通知をサーバーに送った最後の位置（変わる）
   let myLastSentReadId = Number(messagesElement.dataset.lastReadMessageId) || 0
   let isRoomOpen = true // ルーム開閉フラグ
-  let lastReadByUser = {} // ユーザーごとの last_read 管理
+  let lastReadByUser = {} // 相手がどこまで読んだかをブラウザでキャッシュする。相手の既読を覚えておくもの
   document.addEventListener("turbo:before-visit", () => {
   console.log("🚪 チャットルームを退出しました")
     isRoomOpen = false
@@ -59,27 +59,29 @@ function initChat() {
         })
         scrollToBottom(messagesElement)
 
-        // 相手が送信した最新のメッセージIDを探す
-        const allMessages = messagesElement.querySelectorAll('[data-message-id]');
-        let lastOpponentMessageId = 0;
+        // 自分はどこまで読んだか（相手が送信した最新のメッセージIDを探す
+        const allMessages = messagesElement.querySelectorAll('[data-message-id]')
+        let lastOpponentMessageId = 0
         // メッセージを後ろから探して、最初に見つかった「相手のメッセージ」のIDを取得
         for (let i = allMessages.length - 1; i >= 0; i--) {
           const { msgId, senderId } = extractMessageData(allMessages[i])
           if (senderId !== Number(currentUserId)) {
-            lastOpponentMessageId = msgId
+            msgId = lastOpponentMessageId
             break
           }
         }
-        // 自分が今どこまで相手のメッセージを読んだか、IDを「ここまで読んだ」とサーバーに通知
+        // 自分が今どこまで相手のメッセージを読んだか、IDを「ここまで読んだ」とサーバーに保存
         if (lastOpponentMessageId > 0) {
           sendReadReceipt(lastOpponentMessageId);
         }
+        // 相手はどこまで読んだか（自分のメッセージに既読を付ける
         messagesElement.querySelectorAll("[data-message-id]").forEach(msgDiv => {
           const { msgId, senderId } = extractMessageData(msgDiv)
           if (senderId === Number(currentUserId) && msgId <= initialLastReadId) {
-            addReadMark(msgDiv)  // DOMに既読マークだけ
+            addReadMark(msgDiv)
           }
         })
+
       },
       disconnected() {
         console.log("❌ チャットルームから切断されました")
@@ -96,10 +98,11 @@ function initChat() {
             const messageDiv = wrapper.firstElementChild
             const { msgId, senderId } = extractMessageData(messageDiv)
             applyAlignment(messageDiv, senderId, currentUserId)
+            // メッセージ一覧に新しいメッセージを追加する
             messagesElement.appendChild(messageDiv)
             scrollToBottom(messagesElement)
-            // 相手のメッセージなら、リアルタイムで既読送信（重複防止）
-            if (senderId.toString() !== currentUserId.toString()) {
+            // 相手のメッセージなら、自分がどこまで読んだか既読送信
+            if (senderId !== Number(currentUserId)) {
               if (msgId > myLastSentReadId) {
                 sendReadReceipt(msgId)
               }
@@ -109,7 +112,7 @@ function initChat() {
               senderId,
               cachedLastReadByUser: lastReadByUser
             })
-            // もし既にその送信者の last-read が届いていて
+            // 相手がどこまで読んだかを取り出して、既読を付ける関数を呼ぶ
             // 新しく追加したメッセージが既読条件を満たすなら適用する
             console.log("▶ apply cached lastRead entries:", Object.entries(lastReadByUser))
             setTimeout(() => {
@@ -119,11 +122,12 @@ function initChat() {
             }, 0)
           }
           if (data.type === "read") {
-            console.log("📣 received read event:", data)
+            // console.log("📣 received read event:", data)
+            // lastReadByUser["相手ID"] = 25(最後に読んだId)or0
             lastReadByUser[String(data.user_id)] = Number(data.last_read_message_id) || 0
-            console.log("📥 updated lastReadByUser:", lastReadByUser)
+            // console.log("📥 updated lastReadByUser:", lastReadByUser)
             applyReadMarkForReader(messagesElement, currentUserId, data.user_id, data.last_read_message_id)
-            console.log(`👀 既読処理 user_id=${data.user_id}, last_read=${data.last_read_message_id}`)
+            // console.log(`👀 既読処理 user_id=${data.user_id}, last_read=${data.last_read_message_id}`)
           }
         } catch (error) {
           console.error("❌ メッセージ表示エラー:", error)
@@ -175,7 +179,7 @@ function initChat() {
       applyAlignment(msg, senderId, currentUserId)
     })
   }
-  //messageDOMに既読を追加する
+  //１つのmessageDOMに既読を追加する
   function addReadMark(msgDiv) {
     if (!msgDiv) return
     const bubble = msgDiv.querySelector(".message-bubble")
@@ -187,26 +191,24 @@ function initChat() {
     bubble.insertAdjacentElement("beforebegin", span)
     console.log("📌 read mark appended:", span, "to msgDiv:", msgDiv)
   }
-  // 他の誰かが読んだという情報を受け取ったときに自分の送信メッセージに「既読」を付ける処理
+  // 相手が読んだ→自分の送信メッセージでかつ相手が読んだID以下のものすべてに「既読」を付ける処理
   function applyReadMarkForReader(messagesElement, currentUserId, readerId, lastReadId) {
     console.log("⚡ applyReadMarkForReader start", {readerId, lastReadId})
     const targetMessage = messagesElement.querySelector(`[data-message-id="${lastReadId}"]`);
     console.log("🎯 targetMessage =", targetMessage);
-    const meId = Number(currentUserId)
-    const rId = Number(readerId)
     const lastIdNum = Number(lastReadId) || 0
-    if (rId === meId || lastIdNum <= 0) return
-    const myMessages = messagesElement.querySelectorAll(`[data-sender-id="${meId}"]`)
+    if (Number(readerId) === Number(currentUserId) || lastIdNum <= 0) return
+    const myMessages = messagesElement.querySelectorAll(`[data-sender-id="${Number(currentUserId)}"]`)
     myMessages.forEach((msgDiv) => {
       const { msgId, senderId } = extractMessageData(msgDiv)
-      if (senderId !== meId) return
+      if (senderId !== Number(currentUserId)) return
       if (msgId > lastIdNum) return
       if (msgDiv.querySelector(".read-status")) return
       addReadMark(msgDiv)
-      console.log("👀 既読マーク付与:", msgId, "for reader:", rId)
+      console.log("👀 既読マーク付与:", msgId, "for reader:", Number(readerId))
     })
   }
-  // ActionCableのperformを使ってサーバー側のmark_readアクションを呼ぶ
+  // 自分がここまで読んだという情報をサーバーに送る。ActionCableのperformを使ってサーバー側のmark_readアクションを呼ぶ
   function sendReadReceipt(lastReadMessageId) {
     if (!lastReadMessageId) return
     if (!isRoomOpen) {

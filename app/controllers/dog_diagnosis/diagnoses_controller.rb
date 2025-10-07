@@ -23,7 +23,7 @@ class DogDiagnosis::DiagnosesController < ApplicationController
         helpers.image_url("ogp.png")
       end
       @share_text = "今日のいぬのきもち診断は『#{@result.title}』でした！"
-      @share_url = request.original_url
+      @share_url = root_url
       set_meta_tags(
         og: {
           title: "いまのワンちゃんのきもちは『#{@result.title}』です！",
