@@ -15,6 +15,7 @@ class DogProfile < ApplicationRecord
       "年齢不明"
     end
   end
+
   def age_in_years_and_months
     return nil if birthday.blank?
     today = Date.today
@@ -33,6 +34,14 @@ class DogProfile < ApplicationRecord
       months += 12
     end
     { years: years, months: months, days: days }
+  end
+
+  def birthday_today?
+    birthday.present? && birthday.month == Date.today.month && birthday.day == Date.today.day
+  end
+
+  def anniversary_today?
+    comehome_date.present? && comehome_date.month == Date.today.month && comehome_date.day == Date.today.day
   end
 
   private
