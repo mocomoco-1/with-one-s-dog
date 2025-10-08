@@ -21,7 +21,7 @@ class ChatRoomChannel < ApplicationCable::Channel
     end
     last_read_message = @chat_room.chat_messages.find_by(id: new_id)
     if last_read_message
-      ChatMessageReadBroadcastJob.perform_later(chat_room_user, last_read_message)
+      ChatMessageReadBroadcastJob.perform_now(chat_room_user, last_read_message)
     else
       Rails.logger.warn "⚠️ last_read_message not found id=#{new_id}"
     end
