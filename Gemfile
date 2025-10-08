@@ -73,6 +73,7 @@ group :development, :test do
   gem "rubocop"
   gem "rubocop-rails"
   gem "rubocop-checkstyle_formatter"
+  gem "rspec-rails"
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
 end
