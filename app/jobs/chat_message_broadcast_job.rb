@@ -10,6 +10,18 @@ class ChatMessageBroadcastJob < ApplicationJob
       message: rendered_message,
       sender_id: chat_message.user_id
     )
+    chat_message.chat_room.users.each do |user|
+      next if user.id == chat_message.user_id
+      RoomsListChannel.broadcast_to(
+        user,
+        {
+          room_id: chat_message.chat_room.id,
+          last_message: chat_message.content.truncate(20),
+          unread_count: chat_message.chat_room.unread_count_for(user),
+          latest_time: I18n.l(chat_message.created_at, format: :short)
+        }
+      )
+    end
     Rails.logger.info "✅ ChatMessageBroadcastJob perform finished - chat_message_id=#{chat_message.id}"
   end
 

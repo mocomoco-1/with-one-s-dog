@@ -72,7 +72,10 @@ function initChat() {
         }
         // 自分が今どこまで相手のメッセージを読んだか、IDを「ここまで読んだ」とサーバーに保存
         if (lastOpponentMessageId > 0) {
-          sendReadReceipt(lastOpponentMessageId);
+          sendReadReceipt(lastOpponentMessageId)
+          console.log("😶‍🌫️呼ばれました", lastOpponentMessageId)
+        }else{
+          console.log("😶‍🌫️０です")
         }
         // 相手はどこまで読んだか（自分のメッセージに既読を付ける
         messagesElement.querySelectorAll("[data-message-id]").forEach(msgDiv => {
@@ -116,12 +119,12 @@ function initChat() {
             })
             // 相手がどこまで読んだかを取り出して、既読を付ける関数を呼ぶ
             // 新しく追加したメッセージが既読条件を満たすなら適用する
-            console.log("▶ apply cached lastRead entries:", Object.entries(lastReadByUser))
-            setTimeout(() => {
-              Object.entries(lastReadByUser).forEach(([userId, lastRead]) => {
-              applyReadMarkForReader(messagesElement, currentUserId, userId, lastRead)
-              })
-            }, 0)
+            // console.log("▶ apply cached lastRead entries:", Object.entries(lastReadByUser))
+            // setTimeout(() => {
+            //   Object.entries(lastReadByUser).forEach(([userId, lastRead]) => {
+            //   applyReadMarkForReader(messagesElement, currentUserId, userId, lastRead)
+            //   })
+            // }, 0)
           }
           if (data.type === "read") {
             // console.log("📣 received read event:", data)
@@ -213,12 +216,19 @@ function initChat() {
   }
   // 自分がここまで読んだという情報をサーバーに送る。ActionCableのperformを使ってサーバー側のmark_readアクションを呼ぶ
   function sendReadReceipt(lastReadMessageId) {
-    if (!lastReadMessageId) return
+    console.log("📮 sendReadReceipt呼び出し開始", lastReadMessageId, "isRoomOpen=", isRoomOpen)
+    if (!lastReadMessageId) {
+      console.log("ない", lastReadMessageId)
+      return
+    }
     if (!isRoomOpen) {
       console.log("🚪 ルームを閉じているため既読送信しません")    
       return
     }
-    if (lastReadMessageId <= myLastSentReadId) return
+    if (lastReadMessageId < myLastSentReadId) {
+      console.log("自分が最後に読んだ方が大きい", lastReadMessageId, myLastSentReadId)
+      return
+    }
     subscription.perform("mark_read", {
       id: roomId,
       last_read_message_id: lastReadMessageId
