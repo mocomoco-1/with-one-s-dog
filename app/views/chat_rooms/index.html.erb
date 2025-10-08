@@ -11,25 +11,27 @@
     </div>
     <% if @chat_rooms.present? %>
     <% @chat_rooms.each do |chat_room| %>
-    <%= link_to chat_room_path(chat_room), class: "block" do %>
-    <div class="card bg-white card-compact shadow-sm p-4 flex gap-4 cursor-pointer hover:bg-gray-100 mt-1">
-      <!-- 左側: アバター + 名前 -->
-      <div class="flex items-center space-x-2">
-        <div class="flex-shrink-0">
-          <%= render "users/icon", user: chat_room.other_user(current_user), size: 50 %>
-        </div>
-        <div class="flex-1 flex flex-col">
-          <div class="flex justify-between items-center">
-            <span class="font-normal text-sm"><%= chat_room.display_name(current_user) %></span>
-            <time class="text-xs text-gray-500"><%= l chat_room.latest_message.created_at, format: :short %></time>
+    <div id="room-<%= chat_room.id %>">
+      <%= link_to chat_room_path(chat_room), class: "block" do %>
+      <div class="card bg-white card-compact shadow-sm p-4 flex gap-4 cursor-pointer hover:bg-gray-100 mt-1">
+        <!-- 左側: アバター + 名前 -->
+        <div class="flex items-center space-x-2">
+          <div class="flex-shrink-0">
+            <%= render "users/icon", user: chat_room.other_user(current_user), size: 50 %>
           </div>
-          <div class="flex justify-between items-center">
-            <p class=" text-sm text-left text-gray-700"><%= truncate(chat_room.chat_messages.last&.content.to_s, length: 20) %></p>
-            <% if chat_room.unread_count_for(current_user) > 0 %>
-            <span class="badge badge-md badge-secondary">
-              <%= chat_room.unread_count_for(current_user) %>
-            </span>
-            <% end %>
+          <div class="flex-1 flex flex-col">
+            <div class="flex justify-between items-center">
+              <span class="font-normal text-sm"><%= chat_room.display_name(current_user) %></span>
+              <time class="time text-xs text-gray-500"><%= l chat_room.latest_message.created_at, format: :short %></time>
+            </div>
+            <div class="flex justify-between items-center">
+              <p class="new-message text-sm text-left text-gray-700"><%= truncate(chat_room.chat_messages.last&.content.to_s, length: 20) %></p>
+              <% if chat_room.unread_count_for(current_user) > 0 %>
+              <span class="unread-badge badge badge-md badge-secondary">
+                <%= chat_room.unread_count_for(current_user) %>
+              </span>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>

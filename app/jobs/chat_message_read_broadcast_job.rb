@@ -12,6 +12,7 @@ class ChatMessageReadBroadcastJob < ApplicationJob
         last_read_message_id: last_read_message.id
       )
     end
+    Rails.logger.info "📝 unread_count=#{chat_room_user.unread_count}"
     Rails.logger.info "🎈 ChatMessageReadBroadcastJob finished"
   end
 end

@@ -1,6 +1,9 @@
 class ChatRoomsController < ApplicationController
   def index
     @chat_rooms = current_user.chat_rooms.includes(:users, :chat_messages)
+    @chat_rooms.each do |chat_room|
+  Rails.logger.info "📬 chat_room_id=#{chat_room.id} unread_count=#{chat_room.unread_count_for(current_user)}"
+end
   end
 
   def show
@@ -15,18 +18,18 @@ class ChatRoomsController < ApplicationController
     end
   end
 
-  def mark_read
-    @chat_room = current_user.chat_rooms.find(params[:id])
-    chat_room_user = @chat_room.chat_room_users.find_by(user: current_user)
-    new_id = params[:last_read_message_id].to_i
-    current_last_id = chat_room_user.last_read_message_id || 0
-    if new_id > current_last_id
-      chat_room_user.update_column(:last_read_message_id, new_id)
-      last_read_message = @chat_room.chat_messages.find_by(id: new_id)
-      ChatMessageReadBroadcastJob.perform_later(chat_room_user, last_read_message)
-    end
-    head :ok
-  end
+  # def mark_read
+  #   @chat_room = current_user.chat_rooms.find(params[:id])
+  #   chat_room_user = @chat_room.chat_room_users.find_by(user: current_user)
+  #   new_id = params[:last_read_message_id].to_i
+  #   current_last_id = chat_room_user.last_read_message_id || 0
+  #   if new_id > current_last_id
+  #     chat_room_user.update_column(:last_read_message_id, new_id)
+  #     last_read_message = @chat_room.chat_messages.find_by(id: new_id)
+  #     ChatMessageReadBroadcastJob.perform_later(chat_room_user, last_read_message)
+  #   end
+  #   head :ok
+  # end
 
   def create
     opponent = User.find(params[:opponent_id])
