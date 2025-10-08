@@ -1,4 +1,4 @@
-require 'json'
+require "json"
 class AiConsultationsController < ApplicationController
   def index
     @ai_consultations = AiConsultation.order(created_at: :desc)
@@ -49,11 +49,11 @@ class AiConsultationsController < ApplicationController
 
       begin
         response = client.chat(
-          parameters:{
+          parameters: {
             model: "gpt-4o-mini",
             messages: [ { role: "user", content: prompt } ],
             response_format: { type: "json_object" },
-            temperature: 0.7,
+            temperature: 0.7
           }
         )
         raw_response = response.dig("choices", 0, "message", "content")

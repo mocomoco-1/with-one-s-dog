@@ -1,5 +1,5 @@
 class DogProfilesController < ApplicationController
-  before_action :set_dog_profile, only: [ :edit, :update, :destroy]
+  before_action :set_dog_profile, only: [ :edit, :update, :destroy ]
   def new
     @dog_profile = current_user.dog_profiles.new
   end

@@ -30,14 +30,14 @@ user_ids.combination(2).each_with_index do |(user1_id, user2_id), i|
 
   room = ChatRoom.find_or_create_by!(name: "chatroom#{i + 1}")
 
-  [user1_id, user2_id].each do |uid|
+  [ user1_id, user2_id ].each do |uid|
     ChatRoomUser.find_or_create_by!(chat_room: room, user_id: uid)
   end
 
   10.times do |j|
     ChatMessage.find_or_create_by!(
       chat_room: room,
-      user_id: [user1_id, user2_id].sample,
+      user_id: [ user1_id, user2_id ].sample,
       content: "固定メッセージ#{i}-#{j}"
     )
   end

@@ -318,4 +318,4 @@ Devise.setup do |config|
     manager.failure_app = Devise::Delegator.new
   end
 end
-OmniAuth.config.allowed_request_methods = [:get, :post]
+OmniAuth.config.allowed_request_methods = [ :get, :post ]

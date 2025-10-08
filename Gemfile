@@ -55,7 +55,7 @@ gem "good_job"
 
 gem "redis"
 
-gem 'omniauth'
+gem "omniauth"
 gem "omniauth-line"
 gem "omniauth-rails_csrf_protection"
 
