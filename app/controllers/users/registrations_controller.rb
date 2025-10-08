@@ -73,15 +73,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def customize_email_errors(resource)
     email_errors = resource.errors[:email]
     duplicate_patterns = [
-      "taken", 
+      "taken",
       "already been taken",
       "has already been taken",
-      "既に使用されています", 
+      "既に使用されています",
       "使用されています",
       "すでに存在します",
       "既に存在します"
     ]
-    has_duplicate_error = email_errors.any? do |msg| 
+    has_duplicate_error = email_errors.any? do |msg|
       duplicate_patterns.any? { |pattern| msg.include?(pattern) }
     end
     if has_duplicate_error

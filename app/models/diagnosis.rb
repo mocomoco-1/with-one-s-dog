@@ -57,4 +57,3 @@ class Diagnosis < ApplicationRecord
     Diagnosis.find(most_common_diagnosis_id)
   end
 end
-

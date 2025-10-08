@@ -23,7 +23,7 @@ module ApplicationHelper
         image: image_url("ogp.png"),
         site_name: :site
       },
-      twitter:{
+      twitter: {
         card: "summary_large_image",
         image: image_url("ogp.png")
       }
