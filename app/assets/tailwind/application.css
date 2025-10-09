@@ -8,6 +8,9 @@
 @import "swiper/css/navigation";
 @import "swiper/css/pagination";
 
+@import "@fullcalendar/core/main.css";
+@import "@fullcalendar/daygrid/main.css";
+
 .swiper{
   overflow: hidden;
   position: relative;
@@ -88,4 +91,36 @@
   background-color: #6E5448;
   opacity: 1;
   border-radius: 50%;
+}
+
+.fc-event-title {
+  white-space: normal; /* 折り返す */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fc-today-button {
+  background-color: oklch(0.469431 0.039682 45.9774) !important;
+  color: white !important;
+  border: none;
+}
+
+/* 前月ボタン */
+.fc-prev-button {
+  background-color: oklch(0.469431 0.039682 45.9774) !important;
+  color: white !important;
+  border: none !important;
+}
+
+/* 次月ボタン */
+.fc-next-button {
+  background-color: oklch(0.469431 0.039682 45.9774) !important;
+  color: white !important;
+  border: none !important;
+}
+
+.fc-prev-button:hover,
+.fc-next-button:hover {
+  opacity: 0.8 !important;
+  cursor: pointer;
 }

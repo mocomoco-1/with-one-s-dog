@@ -9,6 +9,10 @@
   <h1 class=" text-xl font-semibold text-center">
     <i class="far fa-edit"></i>うちの子日記一覧
   </h1>
+  <div id="calendar" data-controller="calendar" data-calendar-events-value="<%= @events %>">
+  </div>
+  <%
+=begin%>
   <div class="grid grid-cols-2">
     <% if @diaries.present? %>
     <% @diaries.each do |diary| %>
@@ -19,4 +23,6 @@
     <% end %>
   </div>
   <%= paginate @diaries %>
+  <%
+=end%>
 </div>
