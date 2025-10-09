@@ -12,6 +12,7 @@ import LoadingController from "./controllers/loading_controller"
 import PreviewController from "./controllers/preview_controller"
 import ScrollController from "./controllers/scroll_controller"
 import DropdownController from "./controllers/dropdown_controller"
+import CalendarController from "./controllers/calendar_controller"
 
 application.register("swiper", SwiperController)
 application.register("notification", NotificationController)
@@ -22,5 +23,7 @@ application.register("loading", LoadingController)
 application.register("preview", PreviewController)
 application.register("scroll", ScrollController)
 application.register("dropdown", DropdownController)
+application.register("calendar", CalendarController)
 
 import "./channels"
+

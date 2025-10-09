@@ -11,6 +11,36 @@ class DiariesController < ApplicationController
       @user = current_user
       @diaries = current_user.diaries.order(created_at: :desc).page(params[:page])
     end
+
+    diary_events = @diaries.map do |d|
+      {
+        title: "🐾日記",
+        start: d.created_at.to_date,
+        url: diary_path(d),
+        color: "#8CC9E2"
+      }
+    end
+    profile_events = @user.dog_profiles.flat_map do |dog|
+      events = []
+      events << {
+        title: "#{dog.name}🐶うちの子記念日",
+        rrule: {
+          freq: "yearly",
+          dtstart: dog.comehome_date.to_s
+        },
+        color: "#FFD700"
+      } if dog.comehome_date.present?
+      events << {
+        title: "#{dog.name}🎂誕生日",
+        rrule: {
+          freq: "yearly",
+          dtstart: dog.birthday.to_s
+        },
+        color: "#ffc0cb"
+      } if dog.birthday.present?
+      events
+    end
+    @events = (diary_events + profile_events).to_json
   end
 
   def new
