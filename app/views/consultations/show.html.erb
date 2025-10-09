@@ -48,4 +48,12 @@
     <%= render "comments/comment", comment: comment %>
     <% end %>
   </div>
+  <% if @similar_consultations.present?%>
+  <h3 class="text-lg border-b border-sky-300 pt-5 mb-4">似ているお悩み</h3>
+  <% @similar_consultations.each do |consultation| %>
+  <div class="mt-1">
+    <%= render "consultation", consultation: consultation %>
+  </div>
+  <% end %>
+  <% end %>
 </div>

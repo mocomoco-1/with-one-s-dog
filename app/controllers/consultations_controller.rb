@@ -39,6 +39,7 @@ class ConsultationsController < ApplicationController
     @commentable = @consultation
     @comment = Comment.new
     @comments = @commentable.comments.includes(:user).order(created_at: :desc)
+    @similar_consultations = Consultation.search_similar(@consultation.title).where.not(id: @consultation.id).limit(3)
   end
 
   def edit
