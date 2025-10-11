@@ -1,26 +1,25 @@
 <% content_for(:title, t('.title')) %>
-<div class="w-full sm:w-full md:max-w-md lg:max-w-lg xl:max-w-2xl mx-auto mt-6">
-  <div class="flex flex-col text-center mb-6 w-full">
-    <h1 class=" text-xl font-semibold text-left mb-2">
-      <i class="fas fa-dog"></i>AI「TOMONIくん」に相談
-    </h1>
-    <% if @past_consultations %>
-    <%= link_to ai_consultations_path, class: "ml-auto font-semibold block p-2 rounded-lg border-2 border-secondary hover:bg-stone-200 transition" do %>
-    <i class="far fa-folder-open"></i> 前の相談から選択
-    <% end %>
-    <% end %>
-    <p class="mb-4">4つの質問に答えて相談してください🐕<br>
-      すべて入力しなくてもTOMONIくんは答えてくれますが、<br>
-      入力したほうがより正確なアドバイスがもらえます💡
-    </p>
-    <%= render "form", ai_consultation: @ai_consultation %>
-  </div>
-  <div id="advice_container">
-  </div>
-  <div id="chat-container">
-  </div>
-  <div class="w-full">
-    <%= turbo_frame_tag "ai_followup_form" do %>
-    <% end %>
-  </div>
+
+<div class="flex flex-col text-center mb-6 w-full">
+  <h1 class=" text-xl font-semibold text-left mb-2">
+    <i class="fas fa-dog"></i>AI「TOMONIくん」に相談
+  </h1>
+  <% if @past_consultations %>
+  <%= link_to ai_consultations_path, class: "ml-auto font-semibold block p-2 rounded-lg border-2 border-secondary hover:bg-stone-200 transition" do %>
+  <i class="far fa-folder-open"></i> 前の相談から選択
+  <% end %>
+  <% end %>
+  <p class="mb-4">4つの質問に答えて相談してください🐕<br>
+    すべて入力しなくてもTOMONIくんは答えてくれますが、<br>
+    入力したほうがより正確なアドバイスがもらえます💡
+  </p>
+  <%= render "form", ai_consultation: @ai_consultation %>
+</div>
+<div id="advice_container">
+</div>
+<div id="chat-container">
+</div>
+<div class="w-full">
+  <%= turbo_frame_tag "ai_followup_form" do %>
+  <% end %>
 </div>

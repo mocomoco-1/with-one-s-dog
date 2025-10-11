@@ -1,13 +1,13 @@
 <ul class="menu grid grid-cols-2 gap-2">
   <li>
-    <%= link_to my_diaries_diaries_path(user_id: user.id), class: "block rounded-lg border-2 border-blue-200 p-3 flex flex-col items-center justify-center text-center hover:bg-blue-50 transition" do %>
+    <%= link_to my_diaries_diaries_path(user_id: user.id), class: "block rounded-lg border-2 border-blue-200 p-3 flex flex-col min-h-[100px] items-center justify-center text-center hover:bg-blue-50" do %>
     <span class="flex items-center gap-2 text-md font-bold">
       <i class="far fa-edit"></i><%= user.name %><br>日記一覧
     </span>
     <% end %>
   </li>
   <li>
-    <%= link_to my_consultations_consultations_path(user_id: user.id), class: "block rounded-lg border-2 border-blue-200 p-3 flex flex-col items-center justify-center text-center hover:bg-blue-50 transition" do %>
+    <%= link_to my_consultations_consultations_path(user_id: user.id), class: "block rounded-lg border-2 border-blue-200 p-3 flex flex-col min-h-[100px] items-center justify-center text-center hover:bg-blue-50" do %>
     <span class="flex items-center gap-2 text-md font-bold">
       <i class="far fa-comment-dots"></i><%= user.name %><br>お悩み相談一覧
     </span>

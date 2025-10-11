@@ -1,42 +1,41 @@
 <% content_for(:title, t('.title')) %>
-<div class="w-full sm:w-full md:max-w-md lg:max-w-lg xl:max-w-2xl mx-auto mt-6">
-  <div class="flex flex-col text-center mb-6 w-full">
-    <h1 class=" text-xl font-semibold text-left">
-      <i class="far fa-comment-dots"></i>お悩み相談一覧
-    </h1>
-    <!-- 検索　-->
-    <h1 class="text-lg border-b border-sky-300 pt-5 mb-4"> お悩み相談検索</h1>
-    <div class="gap-2">
-      <%= render "search_form", q: @q, url: consultations_path %>
-    </div>
-    <!-- タグ一覧　-->
-    <p class="text-left mt-2"> #タグ</p>
-    <div class="flex flex-wrap gap-2">
-      <% @tags.each do |tag| %>
-      <%= link_to "#{tag.name}(#{tag.taggings_count})", consultations_path(tag_name: tag.name), class:"btn btn-sm btn-ghost border-2 border-blue-200 w-auto" %>
-      <% end %>
-    </div>
-    <h1 class="text-lg border-b border-sky-300 pt-5"> 新規お悩み相談</h1>
-    <div class="flex justify-center w-full mt-3">
-      <%= link_to "お悩み相談する", new_consultation_path,class: "btn btn-sm btn-secondary" %>
-    </div>
-    <% unless user_signed_in? %>
-    <p>※お悩み相談するにはログインか新規登録が必要です</p>
-    <% end %>
-    <h1 class="text-lg border-b border-sky-300 pt-5">新着お悩み一覧</h1>
-    <!-- お悩み相談リスト -->
-    <div class="flex flex-col gap-4">
-      <% if @selected_tag.present? %>
-      <h2 class="text-lg text-left font-bold mt-2">「 #<%= @selected_tag %> 」</h2>
-      <% end %>
-      <% if @consultations.present? %>
-      <% @consultations.each do |consultation| %>
-      <%= render partial: "consultation", locals: { consultation: consultation } %>
-      <% end %>
-      <% else %>
-      <div class="mb-3">お悩みはまだありません。ぜひ書いてみてください。</div>
-      <% end %>
-    </div>
-    <%= paginate @consultations %>
+
+<div class="flex flex-col text-center mb-6 w-full">
+  <h1 class=" text-xl font-semibold text-left">
+    <i class="far fa-comment-dots"></i>お悩み相談一覧
+  </h1>
+  <!-- 検索　-->
+  <h1 class="text-lg border-b border-sky-300 pt-5 mb-4"> お悩み相談検索</h1>
+  <div class="gap-2">
+    <%= render "search_form", q: @q, url: consultations_path %>
   </div>
+  <!-- タグ一覧　-->
+  <p class="text-left mt-2"> #タグ</p>
+  <div class="flex flex-wrap gap-2">
+    <% @tags.each do |tag| %>
+    <%= link_to "#{tag.name}(#{tag.taggings_count})", consultations_path(tag_name: tag.name), class:"btn btn-sm btn-ghost border-2 border-blue-200 w-auto" %>
+    <% end %>
+  </div>
+  <h1 class="text-lg border-b border-sky-300 pt-5"> 新規お悩み相談</h1>
+  <div class="flex justify-center w-full mt-3">
+    <%= link_to "お悩み相談する", new_consultation_path,class: "btn btn-sm btn-secondary" %>
+  </div>
+  <% unless user_signed_in? %>
+  <p>※お悩み相談するにはログインか新規登録が必要です</p>
+  <% end %>
+  <h1 class="text-lg border-b border-sky-300 pt-5">新着お悩み一覧</h1>
+  <!-- お悩み相談リスト -->
+  <div class="flex flex-col gap-4">
+    <% if @selected_tag.present? %>
+    <h2 class="text-lg text-left font-bold mt-2">「 #<%= @selected_tag %> 」</h2>
+    <% end %>
+    <% if @consultations.present? %>
+    <% @consultations.each do |consultation| %>
+    <%= render partial: "consultation", locals: { consultation: consultation } %>
+    <% end %>
+    <% else %>
+    <div class="mb-3">お悩みはまだありません。ぜひ書いてみてください。</div>
+    <% end %>
+  </div>
+  <%= paginate @consultations %>
 </div>
