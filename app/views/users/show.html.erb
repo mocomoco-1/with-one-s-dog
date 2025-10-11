@@ -1,26 +1,24 @@
-<div class="w-full sm:w-full md:max-w-md lg:max-w-lg xl:max-w-2xl mx-auto mt-6">
-  <div class="flex flex-col text-center mb-6 w-full">
-    <h1 class=" text-xl font-semibold text-left">
-      <i class="far fa-id-card"></i>プロフィール
-    </h1>
-    <div class="card bg-white shadow-sm max-w-xl w-full mx-auto relative">
-      <!-- フォローボタン（右上） -->
-      <div class="ml-auto px-4">
-        <%= render "relationships/btn", user: @user, size_class: "btn-sm" %>
-      </div>
-      <div class="card-body">
-        <!-- アイコン -->
-        <div class="flex justify-center mt-0">
-          <%= render "users/icon", user: @user, size: 150 %>
-        </div>
-        <!-- 名前 -->
-        <h2 class="text-lg font-bold mb-2"><%= @user.name %></h2>
-        <%= render "relationships/follow", user: @user %>
-        <!-- チャットリンク -->
-        <%= button_to "このユーザーとチャットする", chat_rooms_path(opponent_id: @user.id), method: :post, class: "btn btn-md btn-secondary" %>
-        <%= render "link", user: @user%>
-      </div>
+<div class="flex flex-col text-center mb-6 w-full">
+  <h1 class=" text-xl font-semibold text-left">
+    <i class="far fa-id-card"></i>プロフィール
+  </h1>
+  <div class="card bg-white shadow-sm max-w-xl w-full mx-auto relative">
+    <!-- フォローボタン（右上） -->
+    <div class="ml-auto px-4">
+      <%= render "relationships/btn", user: @user, size_class: "btn-sm" %>
     </div>
-    <%= render "dog_profiles/dog_profiles", dog_profiles: @dog_profiles %>
+    <div class="card-body">
+      <!-- アイコン -->
+      <div class="flex justify-center mt-0">
+        <%= render "users/icon", user: @user, size: 150 %>
+      </div>
+      <!-- 名前 -->
+      <h2 class="text-lg font-bold mb-2"><%= @user.name %></h2>
+      <%= render "relationships/follow", user: @user %>
+      <!-- チャットリンク -->
+      <%= button_to "このユーザーとチャットする", chat_rooms_path(opponent_id: @user.id), method: :post, class: "btn btn-md btn-secondary" %>
+      <%= render "link", user: @user%>
+    </div>
   </div>
+  <%= render "dog_profiles/dog_profiles", dog_profiles: @dog_profiles %>
 </div>

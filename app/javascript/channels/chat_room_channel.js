@@ -1,8 +1,14 @@
 import consumer from "./consumer"
-
 // DOM読み込み完了を待つ
 document.addEventListener('turbo:load', initChat)
-
+document.addEventListener("turbo:before-cache", () => {
+  consumer.subscriptions.subscriptions.forEach((sub) => {
+    if (sub.identifier.includes("ChatRoomChannel")) {
+      consumer.subscriptions.remove(sub)
+      console.log("🧹 before-cacheでサブスクリプション削除:", sub.identifier)
+    }
+  })
+})
 function initChat() {
   const messagesElement = document.getElementById("messages")
   if (!messagesElement) return
@@ -13,10 +19,10 @@ function initChat() {
   let myLastSentReadId = Number(messagesElement.dataset.lastReadMessageId) || 0
   let isRoomOpen = true // ルーム開閉フラグ
   let lastReadByUser = {} // 相手がどこまで読んだかをブラウザでキャッシュする。相手の既読を覚えておくもの
-  document.addEventListener("turbo:before-visit", () => {
-  console.log("🚪 チャットルームを退出しました")
-    isRoomOpen = false
-  })
+  // document.addEventListener("turbo:before-visit", () => {
+  // console.log("🚪 チャットルームを退出しました")
+  //   isRoomOpen = false
+  // })
   window.addEventListener("beforeunload", () => {
     isRoomOpen = false
   })
@@ -28,7 +34,6 @@ function initChat() {
       console.log("♻️ 既存サブスクリプションを削除しました")
     }
   })
-
   // ページ読み込み時に最下部にスクロール,色分け
   if (messagesElement.children.length > 0) {
     scrollToBottom(messagesElement)
@@ -110,6 +115,8 @@ function initChat() {
             if (senderId !== Number(currentUserId)) {
               if (msgId > myLastSentReadId) {
                 sendReadReceipt(msgId)
+              }else{
+                console.log("sendReadReceiptには入れませんでした")
               }
             }
             console.log("✅ メッセージDOMに追加完了", {
@@ -117,22 +124,34 @@ function initChat() {
               senderId,
               cachedLastReadByUser: lastReadByUser
             })
+            if (isRoomOpen && messageDiv && senderId == Number(currentUserId)) {
+              addReadMark(messageDiv)
+            }
+
             // 相手がどこまで読んだかを取り出して、既読を付ける関数を呼ぶ
             // 新しく追加したメッセージが既読条件を満たすなら適用する
-            // console.log("▶ apply cached lastRead entries:", Object.entries(lastReadByUser))
-            // setTimeout(() => {
-            //   Object.entries(lastReadByUser).forEach(([userId, lastRead]) => {
-            //   applyReadMarkForReader(messagesElement, currentUserId, userId, lastRead)
-            //   })
-            // }, 0)
+            console.log("▶ apply cached lastRead entries:", Object.entries(lastReadByUser))
+            setTimeout(() => {
+              Object.entries(lastReadByUser).forEach(([userId, lastRead]) => {
+              applyReadMarkForReader(messagesElement, currentUserId, userId, lastRead)
+              })
+            }, 0)
           }
           if (data.type === "read") {
-            // console.log("📣 received read event:", data)
+            // const readerId = Number(data.user_id)
+            // const lastReadId = Number(data.last_read_message_id)
+            // console.log("📘 read event received", {
+            //   readerId, currentUserId, lastReadId
+            // })
+            // if (Number(readerId) === Number(currentUserId)) {
+            //   console.log("🙈 自分のreadイベントなのでスキップ")
+            //   return
+            // }
+            console.log("📣 received read event:", data)
             // lastReadByUser["相手ID"] = 25(最後に読んだId)or0
             lastReadByUser[String(data.user_id)] = Number(data.last_read_message_id) || 0
-            // console.log("📥 updated lastReadByUser:", lastReadByUser)
+            console.log("📥 updated lastReadByUser:", lastReadByUser)
             applyReadMarkForReader(messagesElement, currentUserId, data.user_id, data.last_read_message_id)
-            // console.log(`👀 既読処理 user_id=${data.user_id}, last_read=${data.last_read_message_id}`)
           }
         } catch (error) {
           console.error("❌ メッセージ表示エラー:", error)
@@ -203,13 +222,25 @@ function initChat() {
     const targetMessage = messagesElement.querySelector(`[data-message-id="${lastReadId}"]`);
     console.log("🎯 targetMessage =", targetMessage);
     const lastIdNum = Number(lastReadId) || 0
-    if (Number(readerId) === Number(currentUserId) || lastIdNum <= 0) return
+    if (lastIdNum <= 0){
+      console.log("🧀最後に読んだIDが0より小さいskip")
+      return
+    }
     const myMessages = messagesElement.querySelectorAll(`[data-sender-id="${Number(currentUserId)}"]`)
     myMessages.forEach((msgDiv) => {
       const { msgId, senderId } = extractMessageData(msgDiv)
-      if (senderId !== Number(currentUserId)) return
-      if (msgId > lastIdNum) return
-      if (msgDiv.querySelector(".read-status")) return
+      if (senderId !== Number(currentUserId)) {
+        console.log("自分じゃないかチェック")
+        return
+      }
+      if (msgId > lastIdNum) {
+        console.log("まだ読んでないスキップ")
+        return
+      }
+      if (msgDiv.querySelector(".read-status")) {
+        console.log("すでに既読ついてるスキップ")
+        return
+      }
       addReadMark(msgDiv)
       console.log("👀 既読マーク付与:", msgId, "for reader:", Number(readerId))
     })
