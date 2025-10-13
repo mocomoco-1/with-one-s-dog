@@ -75,7 +75,8 @@ group :development, :test do
   gem "rubocop"
   gem "rubocop-rails"
   gem "rubocop-checkstyle_formatter"
-  gem "rspec-rails"
+  gem "rspec-rails", "~> 7.0.0"
+  gem "factory_bot_rails"
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
 end
@@ -89,4 +90,5 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+  gem "shoulda-matchers", "~> 6.0"
 end

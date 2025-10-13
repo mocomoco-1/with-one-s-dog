@@ -5,8 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: [ :line ]
 
-  validates :name, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 20 }
-  validates :email, uniqueness: { case_sensitive: false }
+  validates :name, presence: true, uniqueness: { case_sensitive: true }, length: { maximum: 20 }
+  validates :email, uniqueness: { case_sensitive: true }
 
   has_one_attached :image
   has_many :consultations, dependent: :destroy
@@ -23,7 +23,7 @@ class User < ApplicationRecord
   has_many :followings, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
   has_many :ai_consultations, dependent: :destroy
-  has_many :sent_notifications, class_name: "Notification", foreign_key: "send_id", dependent: :nullify
+  has_many :sent_notifications, class_name: "Notification", foreign_key: "sender_id", dependent: :nullify
   has_many :received_notifications, class_name: "Notification", foreign_key: "recipient_id", dependent: :destroy
 
   def own?(resource)
