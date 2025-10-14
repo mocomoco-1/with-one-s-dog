@@ -4,5 +4,12 @@
   <h1 class=" text-xl font-medium text-left">
     <i class="far fa-comment-dots"></i>お悩み相談新規作成
   </h1>
+  <% if @consultation.errors.any? %>
+  <div class="alert alert-error rounded-md mb-4">
+    <% @consultation.errors.full_messages.each do |msg| %>
+    <p><%= msg %></p>
+    <% end %>
+  </div>
+  <% end %>
   <%= render "form", consultation: @consultation %>
 </div>
