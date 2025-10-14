@@ -29,10 +29,13 @@ function initChat() {
 
   // 既存サブスクリプション削除
   consumer.subscriptions.subscriptions.forEach((sub) => {
-    if (sub.identifier.includes(`"chat_room_id":"${roomId}"`)) {
-      consumer.subscriptions.remove(sub)
-      console.log("♻️ 既存サブスクリプションを削除しました")
-    }
+    try {
+      const identifier = JSON.parse(sub.identifier)
+      if (identifier.channel === "ChatRoomChannel" && identifier.chat_room_id == roomId) {
+        consumer.subscriptions.remove(sub)
+        console.log("♻️ 既存サブスクリプション削除:", sub.identifier)
+      }
+    } catch(e) {}
   })
   // ページ読み込み時に最下部にスクロール,色分け
   if (messagesElement.children.length > 0) {
@@ -143,10 +146,10 @@ function initChat() {
             // console.log("📘 read event received", {
             //   readerId, currentUserId, lastReadId
             // })
-            // if (Number(readerId) === Number(currentUserId)) {
-            //   console.log("🙈 自分のreadイベントなのでスキップ")
-            //   return
-            // }
+            if (Number(readerId) === Number(currentUserId)) {
+              console.log("🙈 自分のreadイベントなのでスキップ")
+              return
+            }
             console.log("📣 received read event:", data)
             // lastReadByUser["相手ID"] = 25(最後に読んだId)or0
             lastReadByUser[String(data.user_id)] = Number(data.last_read_message_id) || 0
