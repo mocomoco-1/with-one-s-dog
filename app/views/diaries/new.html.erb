@@ -1,8 +1,14 @@
 <% content_for(:title, t('.title')) %>
-
 <div class="flex flex-col text-center mb-6 w-full">
   <h1 class=" text-xl font-medium text-left">
     <i class="far fa-edit"></i>うちの子日記新規作成
   </h1>
+  <% if @diary.errors.any? %>
+  <div class="alert alert-error rounded-md mb-4">
+    <% @diary.errors.full_messages.each do |msg| %>
+    <p><%= msg %></p>
+    <% end %>
+  </div>
+  <% end %>
   <%= render "form", diary: @diary %>
 </div>

@@ -15,7 +15,7 @@ class DiariesController < ApplicationController
     diary_events = @diaries.map do |d|
       {
         title: "🐾日記",
-        start: d.created_at.to_date,
+        start: d.written_on.to_date,
         url: diary_path(d),
         color: "#8CC9E2"
       }
