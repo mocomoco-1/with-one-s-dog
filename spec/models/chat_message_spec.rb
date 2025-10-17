@@ -12,15 +12,9 @@ RSpec.describe ChatMessage, type: :model do
   end
 
   describe "バリデーション" do
-    it "contentがあれば有効" do
-      message = build(:chat_message, user: user1, chat_room: chat_room, content: "hi")
-      expect(message).to be_valid
-    end
-    it "contentがなければ無効" do
-      message = build(:chat_message, user: user1, chat_room: chat_room, content: "")
-      expect(message).not_to be_valid
-    end
+    it { should validate_presence_of(:content) }
   end
+
   describe "アソシエーション" do
     it { should belong_to(:user) }
     it { should belong_to(:chat_room) }
