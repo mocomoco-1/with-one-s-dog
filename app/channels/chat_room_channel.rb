@@ -1,7 +1,7 @@
 class ChatRoomChannel < ApplicationCable::Channel
   def subscribed
-    chat_room = ChatRoom.find(params[:chat_room_id])
-    stream_for chat_room
+    @chat_room = ChatRoom.find(params[:chat_room_id])
+    stream_for @chat_room
     Rails.logger.info "🌷 ChatRoomChannel subscribed: room_id=#{params[:chat_room_id]}"
   end
 
@@ -11,14 +11,13 @@ class ChatRoomChannel < ApplicationCable::Channel
 
   def mark_read(data)
     Rails.logger.info "🟨 ChatRoomChannel mark_read"
-    room_id = data["id"]
-    @chat_room = current_user.chat_rooms.find(room_id)
+    new_id = (data["last_read_message_id"] || 0).to_i
+    @chat_room = current_user.chat_rooms.find(params[:chat_room_id])
     chat_room_user = @chat_room.chat_room_users.find_by(user: current_user)
-    new_id = data["last_read_message_id"].to_i
     current_last_id = chat_room_user.last_read_message_id || 0
     if new_id > current_last_id
       chat_room_user.update_column(:last_read_message_id, new_id)
-      chat_room_user.update_column(:unread_count, chat_room_user.chat_messages.where("id > ?", new_id).count)
+      chat_room_user.update_column(:unread_count, chat_room_user.chat_messages.where("id > ?", new_id).where.not(user_id: current_user.id).count)
     end
     last_read_message = @chat_room.chat_messages.find_by(id: new_id)
     if last_read_message
