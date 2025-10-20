@@ -61,6 +61,7 @@ Rails.application.routes.draw do
   namespace :api do
     get "send_anniversary_notifications/:token", to: "notifications#send_anniversaries"
   end
+  resources :inquiries, only: [ :new, :create ]
   get "terms", to: "pages#terms"
   get "privacy", to: "pages#privacy"
   get "how_to_use", to: "static_pages#how_to_use"

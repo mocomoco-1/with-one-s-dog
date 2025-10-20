@@ -1,0 +1,38 @@
+<% content_for(:title, t('.title')) %>
+<div class="flex flex-col text-center mb-6 w-full">
+  <h1 class="text-xl font-semibold text-left mb-4">
+    お問い合わせ</h1>
+  <% if @inquiry.errors.any? %>
+  <div class="alert alert-error rounded-md mb-4">
+    <% @inquiry.errors.full_messages.each do |msg| %>
+    <p><%= msg %></p>
+    <% end %>
+  </div>
+  <% end %>
+  <%=form_with model: @inquiry, locale: true do |f| %>
+  <div class="mb-3">
+    <%= f.label :name do %>
+    お名前<span class="text-red-500"> *</span><br>
+    <% end %>
+    <%= f.text_field :name, class: "input input-secondary w-full" %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :email do %>
+    メールアドレス<span class="text-red-500"> *</span><br>
+    <% end %>
+    <%= f.text_field :email, class: "input input-secondary w-full" %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :phone, "電話番号(任意)" %><br>
+    <%= f.text_field :phone, class: "input input-secondary w-full" %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :message do %>
+    お問い合わせ内容<span class="text-red-500"> *</span><br>
+    <% end %>
+    <%= f.text_area :message, class: "input input-secondary w-full h-80" %>
+  </div>
+  <div class="mb-3">
+    <%= f.submit "送信する", class: "btn btn-secondary" %>
+  </div>
+  <% end %>

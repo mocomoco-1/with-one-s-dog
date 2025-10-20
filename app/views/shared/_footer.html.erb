@@ -1,14 +1,14 @@
 <footer class="mt-auto bg-white text-base-content border border-t border-stone-300">
   <div class="max-w-screen-lg flex flex-col sm:flex-row items-center justify-between py-2 px-4">
     <!-- ロゴ -->
-    <%= link_to '/', class: 'flex items-center space-x-2 mb-2 sm:mb-0' do %>
-    <%= image_tag 'header.png', width: 120 %>
+    <%= link_to "/", class: "flex items-center space-x-2 mb-2 sm:mb-0" do %>
+    <%= image_tag "header.png", width: 120 %>
     <% end %>
 
     <div class="flex flex-col sm:flex-row sm:space-x-8 space-y-2 sm:space-y-0 items-center sm:items-start">
-      <%= link_to '利用規約', terms_path, class: 'link link-hover' %>
-      <%= link_to 'プライバシーポリシー', privacy_path, class: 'link link-hover' %>
-      <%= link_to 'お問い合わせ', "#", class: 'link link-hover' %>
+      <%= link_to "利用規約", terms_path, class: "link link-hover" %>
+      <%= link_to "プライバシーポリシー", privacy_path, class: "link link-hover" %>
+      <%= link_to "お問い合わせ", new_inquiry_path, class: "link link-hover" %>
     </div>
   </div>
 </footer>

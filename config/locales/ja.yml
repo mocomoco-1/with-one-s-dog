@@ -58,6 +58,10 @@ ja:
         comehome_date: うちの子記念日
         age: 年齢
         image: うちの子写真
+      inquiry:
+        name: 名前
+        email: メールアドレス
+        message: お問い合わせ内容
   consultations:
     new:
       title: お悩み相談作成
