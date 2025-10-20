@@ -17,7 +17,7 @@
     <% next if count.zero? %>
     <span class="flex items-center gap-1 text-xs">
       <i class="fa-solid <%= icon_class %>"></i>
-      <span><%= count %></span>
+      <span id="reaction-count-<%= reactable.id %>-<%= category %>"><%= count %></span>
     </span>
     <% end %>
   </div>
