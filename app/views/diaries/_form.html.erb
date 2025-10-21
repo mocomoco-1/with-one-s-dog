@@ -38,7 +38,10 @@
     <%= f.text_area :content, class: "input w-full input-secondary p-2 h-80 resize-y leading-1", placeholder: "本文は必須です" %>
   </div>
   <div class="mb-3">
-    <%= f.label :status, "公開設定", class: "font-bold block mb-2" %>
+    <%= f.label :status, class: "font-bold block mb-2" do %>
+    公開設定
+    <span class="text-red-500">*</span>
+    <% end %>
     <div class="flex justify-center">
       <label class="flex items-center w-32 justify-center space-x-2">
         <%= f.radio_button :status, "private", class: "radio radio-lg radio-secondary" %>

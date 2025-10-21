@@ -19,6 +19,7 @@ services:
     depends_on:
       - db
       - redis
+      - selenium 
     environment:
       DATABASE_URL: postgres://postgres:password@db:5432/myapp_development
       REDIS_URL: rediss://default:AedoAAIncDEzODRjYmQwZmRjZTc0YzFjOTI2MmUzNmM4NTE5YjYyNXAxNTkyNDA@on-walrus-59240.upstash.io:6379
@@ -30,7 +31,18 @@ services:
     # コンテナ内でPryなどのデバッガを対話的に使うために必要
     stdin_open: true
     tty: true
-
+    networks:
+      - app-network
+  selenium:
+    image: selenium/standalone-chrome:latest
+    container_name: selenium
+    ports:
+      - "4444:4444"
+    shm_size: "2gb"
+    environment:
+    - SE_NODE_MAX_SESSIONS=1
+    networks:
+      - app-network
   db:
     image: postgres:15
     environment:
@@ -48,6 +60,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - app-network
 
   redis:
     image: redis:7-alpine
@@ -61,9 +75,14 @@ services:
       interval: 10s
       timeout: 3s
       retries: 5
+    networks:
+      - app-network
 
 # volumesで定義した名前付きボリュームをDockerに作成させる
 volumes:
   db_data:
   redis_data:
   bundle_data:  # ★重要: gemを永続化するボリューム
+networks:
+  app-network:
+    driver: bridge

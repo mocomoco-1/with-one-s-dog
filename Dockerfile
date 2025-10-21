@@ -16,6 +16,13 @@ RUN apt-get update -qq && apt-get install -y \
     postgresql-client \
     imagemagick \
     libvips \
+    xvfb \
+    fonts-liberation \
+    libnss3 \
+    libxss1 \
+    libappindicator3-1 \
+    chromium \
+    chromium-driver \
     # Node.js 20.x をインストール
     && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get install -y nodejs \
