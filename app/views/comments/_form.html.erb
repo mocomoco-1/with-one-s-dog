@@ -1,16 +1,15 @@
+<div id="flash"></div>
 <div id="comment-form">
-  <div class="mb-3">
-    <div class="mb-3 p-4">
-      <% unless user_signed_in? %>
-      <p>※コメントするにはログインか新規登録が必要です</p>
-      <% end %>
-      <%= form_with model: [commentable, Comment.new], data: { turbo: true }, class: "mb-2" do |f| %>
-      <%= f.label :content, class:"font-semibold" %>
-      <div class="flex mt-2 ml-auto space-x-2 items-center">
-        <%= f.text_area :content, class: "input w-full text-sm input-md input-secondary p-2 h-15", placeholder: "コメントを入力" %>
-        <%= f.submit "投稿", class: "btn btn-sm btn-secondary" %>
-      </div>
-      <% end %>
+  <div class="mb-3 p-4">
+    <% unless user_signed_in? %>
+    <p>※コメントするにはログインか新規登録が必要です</p>
+    <% end %>
+    <%= form_with model: [commentable, Comment.new], data: { turbo: true }, class: "mb-2" do |f| %>
+    <%= f.label :content, class:"font-semibold" %>
+    <div class="flex mt-2 ml-auto space-x-2 items-center">
+      <%= f.text_area :content, class: "input w-full text-sm input-md input-secondary p-2 h-15", placeholder: "コメントを入力" %>
+      <%= f.submit "投稿", class: "btn btn-sm btn-secondary" %>
     </div>
+    <% end %>
   </div>
 </div>

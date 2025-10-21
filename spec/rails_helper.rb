@@ -2,6 +2,7 @@
 require 'spec_helper'
 require 'shoulda/matchers'
 require 'capybara/rspec'
+require 'selenium-webdriver'
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 # Prevent database truncation if the environment is production
@@ -37,6 +38,7 @@ end
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
   config.include LoginHelper, type: :system
+  config.include Devise::Test::IntegrationHelpers, type: :system
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_paths = [
     Rails.root.join('spec/fixtures')
@@ -71,13 +73,13 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
   ActiveJob::Base.queue_adapter = :test
   config.before(:each, type: :system) do
-    driven_by :remote_chrome
-    Capybara.server_host = IPSocket.getaddress(Socket.gethostname)
-    Capybara.server_port = 4444
-    Capybara.app_host = "http://#{Capybara.server_host}:#{Capybara.server_port}"
+    Capybara.server_host = '0.0.0.0'
+    Capybara.server_port = 3001
+    container_ip = `hostname -I`.strip.split.first
+    Capybara.app_host = "http://#{container_ip}:3001"
     # 重要：セッション管理の改善
+    driven_by :remote_chrome
     Capybara.reset_sessions!
-    Capybara.use_default_driver
   end
   config.after(:each, type: :system) do
     # テスト後のクリーンアップ

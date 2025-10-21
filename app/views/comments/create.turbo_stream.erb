@@ -1,4 +1,7 @@
 <% if @comment.errors.present? %>
+  <%= turbo_stream.replace "flash" do %>
+    <%= render "shared/flash_message" %>
+  <% end %>
   <%= turbo_stream.replace "comment-form" do %>
     <%= render 'comments/form', comment: @comment, commentable: @commentable %>
   <% end %>
