@@ -1,19 +1,20 @@
 <% content_for(:title, t('.title')) %>
-
 <div class="flex flex-col text-center mb-6 w-full">
   <h1 class=" text-xl font-semibold text-left mb-4">
     <i class="fas fa-dog"></i>相談一覧
   </h1>
-  <ul class="space-y-2">
-    <% @ai_consultations.each do |consultation| %>
-    <li>
-      <%= link_to ai_consultation_path(consultation), class: "block px-3 py-2 rounded hover:bg-stone-200" do %>
-      <span class="font-medium"><%= consultation.title %></span>
-      <span class="text-sm text-gray-500 ml-2">
-        <%= consultation.created_at.strftime("%Y/%m/%d %H:%M") %>
-      </span>
+  <div class="card bg-white card-compact shadow-sm p-4 gap-2 mb-2">
+    <ul class="space-y-2">
+      <% @ai_consultations.each do |consultation| %>
+      <li>
+        <%= link_to ai_consultation_path(consultation), class: "block px-3 py-2 rounded hover:bg-stone-200" do %>
+        <span class="font-medium"><%= consultation.title %></span>
+        <span class="text-sm text-gray-500 ml-2">
+          <%= consultation.created_at.strftime("%Y/%m/%d %H:%M") %>
+        </span>
+        <% end %>
+      </li>
       <% end %>
-    </li>
-    <% end %>
-  </ul>
+    </ul>
+  </div>
 </div>

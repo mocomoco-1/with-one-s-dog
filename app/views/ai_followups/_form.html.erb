@@ -1,3 +1,4 @@
+<% if @ai_consultation&.persisted? %>
 <div class="mt-4 w-full">
   <%= turbo_frame_tag "ai_followup_form" do %>
   <%= form_with url: followup_ai_consultation_path(@ai_consultation), method: :post, data: { controller: "loading", action: "submit->loading#submitStart" }, class: "flex flex-col" do |f| %>
@@ -9,3 +10,4 @@
   <% end %>
   <% end %>
 </div>
+<% end %>

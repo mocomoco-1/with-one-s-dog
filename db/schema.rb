@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_10_20_020026) do
+ActiveRecord::Schema[7.2].define(version: 2025_10_21_114505) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -54,10 +54,11 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_20_020026) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_ai_consultations_on_user_id"
+    t.check_constraint "COALESCE(NULLIF(category::text, ''::text), NULLIF(situation::text, ''::text), NULLIF(dog_reaction, ''::text), NULLIF(goal, ''::text), NULLIF(details, ''::text)) IS NOT NULL", name: "ai_consultations_at_least_one_field_present"
   end
 
   create_table "ai_followups", force: :cascade do |t|
-    t.text "question"
+    t.text "question", null: false
     t.text "response"
     t.bigint "ai_consultation_id", null: false
     t.datetime "created_at", null: false
