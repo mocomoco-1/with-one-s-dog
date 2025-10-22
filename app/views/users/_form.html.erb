@@ -1,7 +1,7 @@
 <div data-controller="preview">
   <p class="font-bold">メールアドレス</p>
   <%=@user.email%><br>
-  <%= link_to "メールアドレス変更はこちら", edit_user_registration_path, class: "btn btn-sm" %>
+  <%= link_to "メールアドレス変更・パスワード変更はこちら", edit_user_registration_path, class: "btn btn-sm border border-2 border-stone-300" %>
   <%= form_with model: @user, data: { turbo: false } do |f| %>
   <div class="flex-wrap mt-2 mb-2">
     <%= f.label :name, class: "font-bold" %>
