@@ -75,6 +75,7 @@ RSpec.configure do |config|
   config.before(:each, type: :system) do
     Capybara.server_host = '0.0.0.0'
     Capybara.server_port = 3001
+    Capybara.default_max_wait_time = 5
     container_ip = `hostname -I`.strip.split.first
     Capybara.app_host = "http://#{container_ip}:3001"
     # 重要：セッション管理の改善

@@ -1,7 +1,7 @@
 require "json"
 class AiConsultationsController < ApplicationController
   def index
-    @ai_consultations = AiConsultation.order(created_at: :desc)
+    @ai_consultations = current_user.ai_consultations.order(created_at: :desc)
   end
 
   def new
@@ -70,16 +70,26 @@ class AiConsultationsController < ApplicationController
       @error_message = "相談の保存に失敗しました"
     end
     respond_to do |format|
-      format.turbo_stream  # app/views/ai_consultations/create.turbo_stream.erb が呼ばれる
-      format.html { render :new, status: :ok }
+      if @ai_consultation.save
+        format.turbo_stream  # app/views/ai_consultations/create.turbo_stream.erb が呼ばれる
+        format.html { render :new, status: :ok }
+      else
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace(
+          "ai_consultation_form",
+          partial: "ai_consultations/form",
+          locals: { ai_consultation: @ai_consultation }
+          )
+        end
+      end
     end
   end
 
   def show
-    @ai_consultation = AiConsultation.find(params[:id])
+    @ai_consultation = current_user.ai_consultations.find(params[:id])
   end
   def followup
-    @ai_consultation = AiConsultation.find(params[:id])
+    @ai_consultation = current_user.ai_consultations.find(params[:id])
     question = params[:question]
     content_str = @ai_consultation.initial_response.to_json
 
@@ -106,7 +116,7 @@ class AiConsultationsController < ApplicationController
     @followup = @ai_consultation.ai_followups.create!(question: question, response: answer)
     respond_to do |format|
     format.turbo_stream
-    format.html { render :new, status: :ok }
+    format.html { redirect_to ai_consultation_path(@ai_consultation) }
     end
   end
 end

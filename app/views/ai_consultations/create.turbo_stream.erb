@@ -1,5 +1,5 @@
 <%= turbo_stream.replace "advice_container" do %>
-<%= render "advice", advice: @advice, ai_consultation: @ai_consultation %>
+<%= render "advice", advice: @advice, ai_consultation: @ai_consultation if @ai_consultation.persisted? %>
 <% end %>
 <%= turbo_stream.replace "ai_followup_form" do %>
 <%= render "ai_followups/form", ai_consultation: @ai_consultation %>

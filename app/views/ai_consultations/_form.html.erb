@@ -20,6 +20,13 @@
   <%= f.label :details, "5.その他補足", class: "font-bold" %><br>
   <%= f.text_area :details, class: "input w-full input-secondary h-12 p-2" %>
 </div>
+<% if @ai_consultation.errors.any? %>
+<div class="alert alert-error rounded-md mb-4">
+  <% @ai_consultation.errors.full_messages.each do |message| %>
+  <%= message %>
+</div>
+<% end %>
+<% end %>
 <%= f.submit "相談する", id: "advice-submit-button", class: "btn btn-md btn-secondary", data: { "loading-target": "submitButton" } %>
 <div id="loading-indicator" class="hidden text-center mt-4" data-loading-target="loadingIndicator">
   <p class="text-gray-600"><i class="fas fa-spinner fa-spin"></i>「TOMONIくん」が考えています...</p>
