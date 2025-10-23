@@ -11,15 +11,19 @@ class ChatRoomChannel < ApplicationCable::Channel
 
   def mark_read(data)
     Rails.logger.info "🟨 ChatRoomChannel mark_read"
+    chat_room_id = params[:chat_room_id] || data['chat_room_id']
+    return unless chat_room_id.present?
+
     new_id = (data["last_read_message_id"] || 0).to_i
-    @chat_room = current_user.chat_rooms.find(data[:chat_room_id])
-    chat_room_user = @chat_room.chat_room_users.find_by(user: current_user)
+    chat_room = @chat_room || current_user.chat_rooms.find(chat_room_id)
+    chat_room_user = chat_room.chat_room_users.find_by(user: current_user)
     current_last_id = chat_room_user.last_read_message_id || 0
     if new_id > current_last_id
-      chat_room_user.update_column(:last_read_message_id, new_id)
-      chat_room_user.update_column(:unread_count, chat_room.chat_messages.where("id > ?", new_id).where.not(user_id: current_user.id).count)
-    end
-    last_read_message = @chat_room.chat_messages.find_by(id: new_id)
+        unread_count = chat_room.chat_messages.where("id > ?", new_id).where.not(user_id: current_user.id).count
+        chat_room_user.update_columns(last_read_message_id: new_id, unread_count: unread_count)
+      end
+
+    last_read_message = chat_room.chat_messages.find_by(id: new_id)
     if last_read_message
       ChatMessageReadBroadcastJob.perform_now(chat_room_user, last_read_message)
     else
