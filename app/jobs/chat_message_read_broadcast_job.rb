@@ -9,7 +9,7 @@ class ChatMessageReadBroadcastJob < ApplicationJob
       chat_room,
       {
         type: "read",
-        reader_id: chat_room_user.reader_id,
+        reader_id: reader_id,
         last_read_message_id: last_read_message.id,
         chat_room_id: chat_room.id
       }

@@ -1,11 +1,14 @@
 <div data-controller="preview">
+  <p class="font-bold">メールアドレス</p>
+  <%=@user.email%><br>
+  <%= link_to "メールアドレス変更・パスワード変更はこちら", edit_user_registration_path, class: "btn btn-sm border border-2 border-stone-300" %>
   <%= form_with model: @user, data: { turbo: false } do |f| %>
-  <div class="flex-wrap mb-2">
-    <%= f.label :name %>
+  <div class="flex-wrap mt-2 mb-2">
+    <%= f.label :name, class: "font-bold" %>
     <%= f.text_field :name, class: "w-full input input-md input-secondary", placeholder: "ユーザー名を入力してください(他の方のユーザー名と重複はできません)" %>
   </div>
   <div class="flex-wrap mb-2">
-    <%= f.label :image %><br>
+    <%= f.label :image, class: "font-bold" %><br>
     <%= f.file_field :image, class: "input input-secondary", accept: "image/*", data: { preview_target: "input", action: "change->preview#preview" } %>
   </div>
   <!-- プレビュー表示エリア -->

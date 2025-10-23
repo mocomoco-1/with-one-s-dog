@@ -1,18 +1,26 @@
 <%- if controller_name != 'sessions' %>
-<%= link_to "登録済みの方はこちら", new_session_path(resource_name), class:"btn btn-md" %><br />
+<div class="mb-2">
+  <%= link_to "登録済みの方はこちら", new_session_path(resource_name), class:"btn btn-md w-full" %><br />
+</div>
 <% end %>
 
 <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-<%= link_to "新規登録はこちら", new_registration_path(resource_name), class:"btn btn-md" %><br />
+<div class="mb-2">
+  <%= link_to "新規登録はこちら", new_registration_path(resource_name), class:"btn btn-md w-full" %><br />
+</div>
 <% end %>
 
 <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
-<%= link_to "〇パスワードをお忘れの方はこちら", new_password_path(resource_name), class:"hover:underline" %><br />
+<div class="mb-1">
+  <%= link_to "〇パスワードをお忘れの方", new_password_path(resource_name), class:"hover:underline" %><br />
+</div>
 <% end %>
 
 
 <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
-<%= link_to "〇メールが届かない方はこちら", new_confirmation_path(resource_name), class:"hover:underline" %><br />
+<div class="mb-1">
+  <%= link_to "〇メールが届かない方", new_confirmation_path(resource_name), class:"hover:underline" %><br />
+</div>
 <% end %>
 
 <%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
@@ -21,6 +29,7 @@
 
 <%- if devise_mapping.omniauthable? %>
 <div class="omniauth-buttons space-y-2">
+  <p class="text-center">LINEログインはこちら</p>
   <%- resource_class.omniauth_providers.each do |provider| %>
   <% if provider == :line %>
   <%= link_to omniauth_authorize_path(resource_name, provider), class: "line-login-button flex items-center justify-center", data: { turbo: false } do %>
