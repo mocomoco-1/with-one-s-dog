@@ -87,13 +87,12 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address: "smtp.zoho.com",
-    port: 465,
-    domain: "tomoni-dogs.com",
-    user_name: ENV["ZOHO_MAIL_USERNAME"],
-    password: ENV["ZOHO_MAIL_PASSWORD"],
-    authentication: :login,
-    ssl: true,
+    address: "smtp.mailgun.org",
+    port: 587,
+    domain: ENV["MAILGUN_DOMAIN"],
+    user_name: "postmaster@#{ENV["MAILGUN_DOMAIN"]}",
+    password: ENV["MAILGUN_API_KEY"],
+    authentication: :plain,
     enable_starttls_auto: true
   }
 
@@ -122,15 +121,8 @@ config.action_mailer.default_url_options = { host: "tomoni-dogs.com", protocol: 
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
   # ActionCable設定
   config.action_cable.mount_path = "/cable"
-  config.action_cable.url = ENV['REDIS_URL']
   config.action_cable.url = "wss://tomoni-dogs.com/cable"
   config.action_cable.allowed_request_origins = [ "https://tomoni-dogs.com" ]
   # データベース接続プール設定
   config.database_configuration_pool_size = ENV.fetch("RAILS_MAX_THREADS") { 15 }.to_i
-  config.after_initialize do
-  config.action_cable.cable = {
-    adapter: "redis",
-    url: ENV['REDIS_URL']
-  }
-  end
 end
