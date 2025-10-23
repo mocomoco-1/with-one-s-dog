@@ -1,5 +1,4 @@
 class CustomDeviseMailer < Devise::Mailer
-  include Mailgun::MailHelper
   default from: ENV["MAILGUN_FROM_EMAIL"]
 
   def headers_for(action, opts)
