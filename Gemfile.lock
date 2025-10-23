@@ -237,6 +237,10 @@ GEM
       net-imap
       net-pop
       net-smtp
+    mailgun-ruby (1.4.0)
+      faraday (~> 2.1)
+      faraday-multipart (~> 1.1.0)
+      mini_mime
     marcel (1.0.4)
     matrix (0.4.3)
     meta-tags (2.22.1)
@@ -444,7 +448,6 @@ GEM
     ruby-vips (2.2.5)
       ffi (~> 1.12)
       logger
-    ruby_http_client (3.5.5)
     rubyzip (3.0.2)
     securerandom (0.4.1)
     selenium-webdriver (4.35.0)
@@ -453,8 +456,6 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 4.0)
       websocket (~> 1.0)
-    sendgrid-ruby (6.7.0)
-      ruby_http_client (~> 3.4)
     shoulda-matchers (6.5.0)
       activesupport (>= 5.2.0)
     snaky_hash (2.0.3)
@@ -532,6 +533,7 @@ DEPENDENCIES
   jsbundling-rails
   kaminari
   letter_opener_web
+  mailgun-ruby (~> 1.2, >= 1.2.6)
   meta-tags
   omniauth
   omniauth-line
@@ -550,7 +552,6 @@ DEPENDENCIES
   rubocop-rails-omakase
   ruby-openai
   selenium-webdriver
-  sendgrid-ruby
   shoulda-matchers (~> 6.0)
   sprockets-rails
   stimulus-rails
