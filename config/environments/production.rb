@@ -85,18 +85,10 @@ Rails.application.configure do
   # Disable caching for Action Mailer templates even if Action Controller
   # caching is enabled.
   config.action_mailer.perform_caching = false
-  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.delivery_method = :mailgun
   config.action_mailer.smtp_settings = {
-    address: "smtp.mailgun.org",
-    port: 25,
-    domain: ENV["MAILGUN_DOMAIN"],
-    user_name: "postmaster@#{ENV["MAILGUN_DOMAIN"]}",
-    password: ENV["MAILGUN_API_KEY"],
-    authentication: :plain,
-    enable_starttls_auto: true,
-    open_timeout: 30,
-    read_timeout: 30,
-    delivery_method: :smtp
+    api_key: ENV['MAILGUN_API_KEY'],
+    domain: ENV['MAILGUN_DOMAIN']
   }
 
   config.action_mailer.default_url_options = { host: "tomoni-dogs.com", protocol: "https" }
