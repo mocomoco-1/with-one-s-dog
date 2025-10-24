@@ -24,3 +24,8 @@ if Rails.env.production?
     api_key: ENV["MAILGUN_API_KEY"],
     domain: ENV["MAILGUN_DOMAIN"]
 end
+
+  Rails.logger.info "=== MAILGUN CONFIGURATION ==="
+  Rails.logger.info "API Key present: #{ENV['MAILGUN_API_KEY'].present?}"
+  Rails.logger.info "Domain: #{ENV['MAILGUN_DOMAIN']}"
+  Rails.logger.info "============================="

@@ -1,5 +1,6 @@
 require "active_support/core_ext/integer/time"
-
+Rails.logger.info "MAILGUN_API_KEY: #{ENV['MAILGUN_API_KEY'].present? ? 'present' : 'nil'}"
+Rails.logger.info "MAILGUN_DOMAIN: #{ENV['MAILGUN_DOMAIN']}"
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -85,11 +86,8 @@ Rails.application.configure do
   # Disable caching for Action Mailer templates even if Action Controller
   # caching is enabled.
   config.action_mailer.perform_caching = false
-  config.action_mailer.delivery_method = :mailgun
-  config.action_mailer.smtp_settings = {
-    api_key: ENV['MAILGUN_API_KEY'],
-    domain: ENV['MAILGUN_DOMAIN']
-  }
+  config.action_mailer.delivery_method = :mailgun_custom
+
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default_url_options = { host: "tomoni-dogs.com", protocol: "https" }
