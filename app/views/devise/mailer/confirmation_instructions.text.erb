@@ -1,0 +1,8 @@
+<%= @email %>様
+
+TOMONIのメールアドレス確認メールです。
+TOMONIは保護犬とその飼い主の方がともに幸せに暮らせることを目的にしたサービスです。
+
+下記のリンクをクリックすると認証が完了します。
+
+<%= user_confirmation_url(confirmation_token: @token) %>

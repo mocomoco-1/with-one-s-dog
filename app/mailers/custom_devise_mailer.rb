@@ -3,4 +3,17 @@ class CustomDeviseMailer < Devise::Mailer
   include Devise::Controllers::UrlHelpers
   default template_path: "devise/mailer"
   default from: "TOMONI <postmaster@tomoni-dogs.com>"
+  def confirmation_instructions(record, token, opts = {})
+    @token = token
+    @resource = record
+    @email = record.email
+    mail(
+      to: record.email,
+      subject: "TOMONIアカウント認証のお願い",
+      content_type: "multipart/alternative"
+    ) do |format|
+      format.html { render "confirmation_instructions" }
+      format.text { render "confirmation_instructions" }
+    end
+  end
 end
