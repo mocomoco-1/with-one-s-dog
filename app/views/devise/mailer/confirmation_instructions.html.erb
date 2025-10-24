@@ -5,3 +5,16 @@ TOMONIは保護犬とその飼い主の方がともに幸せに暮らせるこ�
 下記のリンクをクリックすると認証が完了します。
 
 <%= link_to "TOMONIの登録でお間違えなければここをクリックしてください", user_confirmation_url(confirmation_token: @token) %>
+
+<p><%= @email %>様</p>
+
+<p>TOMONIのメールアドレス確認メールです。</p>
+<p>TOMONIは保護犬とその飼い主の方がともに幸せに暮らせることを目的にしたサービスです。</p>
+
+<p>下記のリンクをクリックすると認証が完了します。</p>
+
+<p>
+  <a href="<%= user_confirmation_url(confirmation_token: @token) %>">
+    TOMONIの登録でお間違えなければここをクリックしてください
+  </a>
+</p>
