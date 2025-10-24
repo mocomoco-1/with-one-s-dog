@@ -19,9 +19,9 @@ class ChatRoomChannel < ApplicationCable::Channel
     chat_room_user = chat_room.chat_room_users.find_by(user: current_user)
     current_last_id = chat_room_user.last_read_message_id || 0
     if new_id > current_last_id
-        unread_count = chat_room.chat_messages.where("id > ?", new_id).where.not(user_id: current_user.id).count
-        chat_room_user.update_columns(last_read_message_id: new_id, unread_count: unread_count)
-      end
+      unread_count = chat_room.chat_messages.where("id > ?", new_id).where.not(user_id: current_user.id).count
+      chat_room_user.update_columns(last_read_message_id: new_id, unread_count: unread_count)
+    end
 
     last_read_message = chat_room.chat_messages.find_by(id: new_id)
     if last_read_message
