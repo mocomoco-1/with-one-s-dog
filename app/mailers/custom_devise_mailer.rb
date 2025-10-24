@@ -3,6 +3,7 @@ class CustomDeviseMailer < Devise::Mailer
   include Devise::Controllers::UrlHelpers
   default template_path: "devise/mailer"
   default from: "TOMONI <postmaster@tomoni-dogs.com>"
+
   def confirmation_instructions(record, token, opts = {})
     @token = token
     @resource = record
@@ -14,6 +15,20 @@ class CustomDeviseMailer < Devise::Mailer
     ) do |format|
       format.html { render "confirmation_instructions" }
       format.text { render "confirmation_instructions" }
+    end
+  end
+
+  def reset_password_instructions(record, token, opts = {})
+    @token = token
+    @resource = record
+    @email = record.email
+    mail(
+      to: record.email,
+      subject: "TOMONIパスワードリセットのご案内",
+      content_type: "multipart/alternative"
+    ) do |format|
+      format.html { render "reset_password_instructions" }
+      format.text { render "reset_password_instructions" }
     end
   end
 end
