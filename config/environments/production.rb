@@ -1,6 +1,5 @@
 require "active_support/core_ext/integer/time"
-Rails.logger.info "MAILGUN_API_KEY: #{ENV['MAILGUN_API_KEY'].present? ? 'present' : 'nil'}"
-Rails.logger.info "MAILGUN_DOMAIN: #{ENV['MAILGUN_DOMAIN']}"
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -119,4 +118,8 @@ Rails.application.configure do
   config.action_cable.allowed_request_origins = [ "https://tomoni-dogs.com" ]
   # データベース接続プール設定
   config.database_configuration_pool_size = ENV.fetch("RAILS_MAX_THREADS") { 15 }.to_i
+end
+config.after_initialize do
+  Rails.logger.info "MAILGUN_API_KEY: #{ENV['MAILGUN_API_KEY'].present? ? 'present' : 'nil'}"
+  Rails.logger.info "MAILGUN_DOMAIN: #{ENV['MAILGUN_DOMAIN']}"
 end
