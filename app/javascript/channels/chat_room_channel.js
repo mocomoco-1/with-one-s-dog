@@ -199,7 +199,7 @@ function initChat() {
   }
 
   function addReadMark(msgDiv) {
-    // 既に既読マークがあれば何もしない（冪等性）
+    // 既に既読マークがあれば何もしない
     if (!msgDiv || msgDiv.querySelector(".read-status")) return;
     
     const readStatusSpan = document.createElement("span");
