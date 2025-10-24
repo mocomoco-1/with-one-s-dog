@@ -8,24 +8,28 @@ class MailgunDelivery
   end
 
   def deliver!(mail)
+    text_body = mail.text_part&.body&.to_s
+    html_body = mail.html_part&.body&.to_s
+
+    # 両方nilなら全体のbodyを使う
+    if text_body.blank? && html_body.blank?
+      text_body = mail.body.to_s
+    end
+
     message = {
       from: mail.from.first,
       to: mail.to.join(","),
       subject: mail.subject,
-      text: mail.text_part&.body&.to_s,
-      html: mail.html_part&.body&.to_s
+      text: text_body,
+      html: html_body
     }
+
     @mg_client.send_message(@domain, message)
   end
-end
 
-if Rails.env.production?
-  ActionMailer::Base.add_delivery_method :mailgun_custom, MailgunDelivery,
-    api_key: ENV["MAILGUN_API_KEY"],
-    domain: ENV["MAILGUN_DOMAIN"]
+  if Rails.env.production?
+    ActionMailer::Base.add_delivery_method :mailgun_custom, MailgunDelivery,
+      api_key: ENV["MAILGUN_API_KEY"],
+      domain: ENV["MAILGUN_DOMAIN"]
+  end
 end
-
-  Rails.logger.info "=== MAILGUN CONFIGURATION ==="
-  Rails.logger.info "API Key present: #{ENV['MAILGUN_API_KEY'].present?}"
-  Rails.logger.info "Domain: #{ENV['MAILGUN_DOMAIN']}"
-  Rails.logger.info "============================="
