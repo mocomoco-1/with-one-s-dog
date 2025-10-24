@@ -24,7 +24,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = "no-reply@tomoni-dogs.com"
+  config.mailer_sender = "postmaster@tomoni-dogs.com"
 
   # Configure the class responsible to send e-mails.
   config.mailer = "CustomDeviseMailer"
@@ -129,10 +129,10 @@ Devise.setup do |config|
   # config.pepper = 'f08c7cc83b868f10d81e7e4a484936bc09204b01b21595efa9f25d02a046246f65eb9ac5bcf7be6592cca14ec63134edea77bb89ead040fd27b74b7509aad7c1'
 
   # Send a notification to the original email when the user's email is changed.
-  # config.send_email_changed_notification = false
+  config.send_email_changed_notification = true
 
   # Send a notification email when the user's password is changed.
-  # config.send_password_change_notification = false
+  config.send_password_change_notification = false
 
   # ==> Configuration for :confirmable
   # A period that the user is allowed to access the website even without

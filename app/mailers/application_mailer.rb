@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "from@example.com"
+  default from: "TOMONI <postmaster@#{ENV['MAILGUN_DOMAIN']}>"
   layout "mailer"
 end
