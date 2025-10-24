@@ -63,7 +63,7 @@ gem "meta-tags"
 
 gem "pg_search"
 
-gem "mailgun-ruby", "~>1.2", ">=1.2.6"
+gem "mailgun-ruby", "~> 1.2.14"
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 

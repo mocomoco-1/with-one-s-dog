@@ -137,6 +137,7 @@ GEM
       devise (>= 4.9.0)
       rails-i18n
     diff-lcs (1.6.2)
+    domain_name (0.6.20240107)
     dotenv (3.1.8)
     dotenv-rails (3.1.8)
       dotenv (= 3.1.8)
@@ -184,6 +185,9 @@ GEM
       railties (>= 6.1.0)
       thor (>= 1.0.0)
     hashie (5.0.0)
+    http-accept (1.7.0)
+    http-cookie (1.1.0)
+      domain_name (~> 0.5)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     image_processing (1.14.0)
@@ -237,14 +241,16 @@ GEM
       net-imap
       net-pop
       net-smtp
-    mailgun-ruby (1.4.0)
-      faraday (~> 2.1)
-      faraday-multipart (~> 1.1.0)
-      mini_mime
+    mailgun-ruby (1.2.16)
+      rest-client (>= 2.0.2)
     marcel (1.0.4)
     matrix (0.4.3)
     meta-tags (2.22.1)
       actionpack (>= 6.0.0, < 8.1)
+    mime-types (3.7.0)
+      logger
+      mime-types-data (~> 3.2025, >= 3.2025.0507)
+    mime-types-data (3.2025.0924)
     mini_magick (5.3.1)
       logger
     mini_mime (1.1.5)
@@ -264,6 +270,7 @@ GEM
       timeout
     net-smtp (0.5.1)
       net-protocol
+    netrc (0.11.0)
     nio4r (2.7.4)
     nokogiri (1.18.9-aarch64-linux-gnu)
       racc (~> 1.4)
@@ -392,6 +399,11 @@ GEM
     responders (3.1.1)
       actionpack (>= 5.2)
       railties (>= 5.2)
+    rest-client (2.1.0)
+      http-accept (>= 1.7.0, < 2.0)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
     rexml (3.4.1)
     rspec-core (3.13.5)
       rspec-support (~> 3.13.0)
@@ -533,7 +545,7 @@ DEPENDENCIES
   jsbundling-rails
   kaminari
   letter_opener_web
-  mailgun-ruby (~> 1.2, >= 1.2.6)
+  mailgun-ruby (~> 1.2.14)
   meta-tags
   omniauth
   omniauth-line
