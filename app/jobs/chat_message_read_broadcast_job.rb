@@ -14,6 +14,7 @@ class ChatMessageReadBroadcastJob < ApplicationJob
         chat_room_id: chat_room.id
       }
     )
+    puts "📢 Broadcast read_receipt: #{payload.inspect}" 
     Rails.logger.info "📝 unread_count=#{chat_room_user.unread_count}"
     Rails.logger.info "🎈 ChatMessageReadBroadcastJob finished"
   end

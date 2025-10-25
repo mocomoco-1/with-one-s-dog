@@ -81,7 +81,10 @@ function initChat() {
 
       received(data) {
         console.log("📩 received", data);
-        if (!data || !data.type) return;
+        if (!data || !data.type) {
+          console.log("データがありません")
+          return
+        }
 
         switch (data.type) {
           case "message":
@@ -147,7 +150,7 @@ function initChat() {
   function handleReadReceipt(data) {
     const readerId = Number(data.reader_id);
     const lastReadId = Number(data.last_read_message_id);
-    // デバッグ用ログを追加
+    // デバッグ用ログ
     console.log("📘 既読通知処理:", {
       readerId: readerId,
       lastReadId: lastReadId,
