@@ -71,8 +71,12 @@ function initChat() {
         const initialLastReadIdByOpponent = Number(messagesElement.dataset.lastReadMessageId) || 0;
         applyInitialReadMarks(initialLastReadIdByOpponent);
         
-        // 自分がどこまで読んだかをサーバーに通知する
-        sendLatestReadReceipt();
+        // // 自分がどこまで読んだかをサーバーに通知する
+        // sendLatestReadReceipt();
+
+        if (isRoomOpen) {
+          sendLatestReadReceipt();
+        }
       },
 
       disconnected() {

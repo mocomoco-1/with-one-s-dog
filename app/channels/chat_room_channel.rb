@@ -29,7 +29,6 @@ class ChatRoomChannel < ApplicationCable::Channel
         chat_room_user.reload
       end
     end
-Rails.logger.info "🟨 ChatRoomChannel broadcast_to chat_room_id=#{chat_room.id} reader=#{current_user.id}"
     last_read_message = chat_room.chat_messages.find_by(id: new_id)
     if last_read_message
       reader_id = chat_room_user.user_id
