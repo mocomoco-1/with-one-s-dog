@@ -16,6 +16,7 @@ document.addEventListener("turbo:before-cache", () => {
 });
 
 function initChat() {
+  if (!window.location.pathname.match(/^\/chat_rooms\/\d+$/)) return;
   const messagesElement = document.getElementById("messages");
 
   // チャットルーム以外のページでは、残っている可能性のある接続を切り、処理を終了
