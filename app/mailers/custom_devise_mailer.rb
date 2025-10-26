@@ -13,8 +13,8 @@ class CustomDeviseMailer < Devise::Mailer
       subject: "TOMONIアカウント認証のお願い",
       content_type: "multipart/alternative"
     ) do |format|
-      format.html { render "confirmation_instructions" }
-      format.text { render "confirmation_instructions" }
+      format.html { render "devise/mailer/confirmation_instructions" }
+      format.text { render "devise/mailer/confirmation_instructions" }
     end
   end
 
@@ -27,8 +27,8 @@ class CustomDeviseMailer < Devise::Mailer
       subject: "TOMONIパスワードリセットのご案内",
       content_type: "multipart/alternative"
     ) do |format|
-      format.html { render "reset_password_instructions" }
-      format.text { render "reset_password_instructions" }
+      format.html { render "devise/mailer/reset_password_instructions" }
+      format.text { render "devise/mailer/reset_password_instructions" }
     end
   end
 end
