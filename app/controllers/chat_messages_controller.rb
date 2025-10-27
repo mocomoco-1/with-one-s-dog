@@ -6,9 +6,6 @@ class ChatMessagesController < ApplicationController
 
     if @chat_message.save
       head :ok
-    else
-      @chat_messages = @chat_room.chat_messages.includes(:user).order(created_at: :asc)
-      render "chat_rooms/show", status: :unprocessable_entity
     end
   end
 
