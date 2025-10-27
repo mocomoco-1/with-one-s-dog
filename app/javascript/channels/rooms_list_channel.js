@@ -12,8 +12,13 @@ consumer.subscriptions.create("RoomsListChannel", {
     if (!roomElement) return
 
     const messageEl = roomElement.querySelector(".new-message")
-    if (messageEl) messageEl.textContent = data.last_message
-
+    if (messageEl) {
+      if (data.last_message && data.last_message.trim() !== "") {
+        messageEl.textContent = data.last_message
+      } else if (data.has_images) {
+        messageEl.textContent = "画像が送信されました"
+      }
+    }
     let badgeEl = roomElement.querySelector(".unread-badge")
     if (data.unread_count > 0){
       if (!badgeEl){

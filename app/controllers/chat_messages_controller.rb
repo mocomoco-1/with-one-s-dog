@@ -15,6 +15,6 @@ class ChatMessagesController < ApplicationController
   private
 
   def chat_message_params
-    params.require(:chat_message).permit(:content)
+    params.require(:chat_message).permit(:content, images: [])
   end
 end

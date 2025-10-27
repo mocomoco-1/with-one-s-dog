@@ -1,4 +1,4 @@
-<% content_for(:title, t('.title')) %>
+<% content_for(:title, t(".title")) %>
 <div class="w-full sm:w-full md:max-w-md lg:max-w-lg xl:max-w-2xl mx-auto mt-2">
   <div class="flex flex-col w-full">
     <%= link_to chat_rooms_path, class: "flex items-center gap-1" do %>
@@ -15,9 +15,17 @@
   <div id="messages" data-room-id="<%= @chat_room.id %>" data-current-user-id="<%= current_user.id %>" data-last-read-message-id="<%= @last_message&.id || 0 %>" class="card-body border rounded-lg h-96 overflow-y-scroll bg-base-100 space-y-3 p-3">
     <%= render @chat_messages %>
   </div>
+  <!-- プレビューエリア -->
+
   <!-- メッセージ送信フォーム -->
-  <%= form_with model: [@chat_room, @chat_message],  data: { controller: "reset-form", action: "turbo:submit-end->reset-form#reset" }, class: "flex gap-2 mt-3" do |f| %>
+
+  <%= form_with model: [@chat_room, @chat_message], data: { controller: "reset-form preview", action: "turbo:submit-end->reset-form#reset" }, class: "flex gap-2 mt-3" do |f| %>
+  <div data-preview-target="images" class="flex flex-wrap mt-2"></div>
   <%= f.text_area :content, placeholder: "メッセージを入力", class: "input input-secondary flex-1 resize-none h-12 p-2" %>
+  <label class=" flex items-center gap-1 cursor-pointer btn btn-md border border-stone-300">
+    <i class="far fa-image"></i>
+    <%= f.file_field :images, multiple: true, accept: "image/*", class: "hidden", data: { preview_target: "input", action: "change->preview#preview" } %>
+  </label>
   <%= f.submit "送信", class: "btn btn-secondary" %>
   <% end %>
 </div>
