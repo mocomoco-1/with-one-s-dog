@@ -8,6 +8,11 @@
     <div class="flex gap-2">
       <div class="message-bubble px-3 py-2 rounded-lg leading-tight break-words max-w-sm sm:max-w-md md:max-w-lg">
         <%= simple_format(chat_message.content) %>
+        <% if chat_message.images.attached? %>
+        <% chat_message.images.each do |image| %>
+        <%= image_tag url_for(image.variant(resize_to_fill: [200,200])) %>
+        <% end %>
+        <% end %>
       </div>
     </div>
   </div>

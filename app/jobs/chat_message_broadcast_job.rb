@@ -16,6 +16,7 @@ class ChatMessageBroadcastJob < ApplicationJob
         user,
         {
           room_id: chat_message.chat_room.id,
+          has_images: images.attached?,
           last_message: chat_message.content.truncate(20),
           unread_count: chat_message.chat_room.unread_count_for(user),
           latest_time: I18n.l(chat_message.created_at, format: :short)

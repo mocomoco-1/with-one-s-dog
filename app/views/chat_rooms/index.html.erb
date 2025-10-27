@@ -25,7 +25,17 @@
             <time class="time text-xs text-gray-500"><%= l chat_room.latest_message.created_at, format: :short %></time>
           </div>
           <div class="flex justify-between items-center">
-            <p class="new-message text-sm text-left text-gray-700"><%= truncate(chat_room.chat_messages.last&.content.to_s, length: 20) %></p>
+            <% if chat_room.latest_message&.present? %>
+            <% if chat_room.latest_message&.content.present? %>
+            <p class="new-message text-sm text-left text-gray-700">
+              <%= truncate(chat_room.latest_message&.content.to_s, length: 20) %>
+            </p>
+            <% elsif chat_room.latest_message&.images&.attached? %>
+            <p class="new-message text-sm text-left text-gray-700">
+              画像が送信されました
+            </p>
+            <% end %>
+            <% end %>
             <% if chat_room.unread_count_for(current_user) > 0 %>
             <span class="unread-badge badge badge-md badge-secondary">
               <%= chat_room.unread_count_for(current_user) %>
