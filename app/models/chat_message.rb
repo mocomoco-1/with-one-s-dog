@@ -4,7 +4,7 @@ class ChatMessage < ApplicationRecord
   has_many :notifications, as: :notifiable, dependent: :destroy
   has_many_attached :images
   after_create :notify_chat_room_users
-  validate :content_or_image_present
+  before_save :content_or_image_present
   # メッセージ作成時に自動でブロードキャスト
   after_create_commit do
   # Rails.logger.info "🔄 ChatMessage created - id=#{self.id}"
@@ -25,8 +25,8 @@ class ChatMessage < ApplicationRecord
   private
 
   def content_or_image_present
-    if content.blank? && images.blank?
-      errors.add(:base, "メッセージまたは画像を入力してください")
+    if content.blank? && !images.attached?
+      throw(:abort)
     end
   end
 

@@ -73,11 +73,8 @@ function initChat() {
         applyInitialReadMarks(initialLastReadIdByOpponent);
         
         // // 自分がどこまで読んだかをサーバーに通知する
-        // sendLatestReadReceipt();
+        sendLatestReadReceipt();
 
-        if (isRoomOpen) {
-          sendLatestReadReceipt();
-        }
       },
 
       disconnected() {

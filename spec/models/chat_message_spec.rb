@@ -12,7 +12,31 @@ RSpec.describe ChatMessage, type: :model do
   end
 
   describe "バリデーション" do
-    it { should validate_presence_of(:content) }
+    context "content imagesが両方からの場合" do
+      it "メッセージは送信できない" do
+        chat_message = build(:chat_message, content: nil)
+        chat_message.images.detach
+        expect(chat_message.save).to be_falsey
+      end
+    end
+    context "contentがある場合" do
+      it "メッセージは送信できる" do
+        chat_message = build(:chat_message, content: "犬です")
+        chat_message.images.detach
+        expect(chat_message.valid?).to be_truthy
+      end
+    end
+    context "imagesがある場合" do
+      it "メッセージは送信できる" do
+        chat_message = build(:chat_message, content: nil)
+        chat_message.images.attach(
+          io: StringIO.new("fake image data"),
+          filename: "test.png",
+          content_type: "image/png"
+        )
+        expect(chat_message.valid?).to be_truthy
+      end
+    end
   end
 
   describe "アソシエーション" do
