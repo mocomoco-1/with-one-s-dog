@@ -7,9 +7,14 @@ consumer.subscriptions.create("RoomsListChannel", {
 
   received(data) {
     console.log("📩 一覧更新:", data)
-
+    console.log("🔍 unread_count:", data.unread_count)
     const roomElement = document.querySelector(`#room-${data.room_id}`)
-    if (!roomElement) return
+    console.log("🔍 roomElement found:", !!roomElement)
+  
+    if (!roomElement) {
+    console.error("❌ Room element not found for room_id:", data.room_id)
+    return
+  }
 
     const messageEl = roomElement.querySelector(".new-message")
     if (messageEl) {

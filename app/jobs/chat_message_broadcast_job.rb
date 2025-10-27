@@ -12,6 +12,11 @@ class ChatMessageBroadcastJob < ApplicationJob
     )
     chat_message.chat_room.users.each do |user|
       next if user.id == chat_message.user_id
+      # ここでデバッグ情報を追加
+      chat_room_user = chat_message.chat_room.chat_room_users.find_by(user: user)
+      unread_count = chat_message.chat_room.unread_count_for(user)
+      Rails.logger.info "🔍 User #{user.id}: last_read_message_id=#{chat_room_user&.last_read_message_id}, latest_message_id=#{chat_message.id}, unread_count=#{unread_count}"
+      # kokomade
       RoomsListChannel.broadcast_to(
         user,
         {
