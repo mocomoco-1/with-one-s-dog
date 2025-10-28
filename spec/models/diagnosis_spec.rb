@@ -3,8 +3,8 @@ require "rails_helper"
 RSpec.describe Diagnosis, type: :model do
   # pending "add some examples to (or delete) #{__FILE__}"
   describe ".diagnose" do
-    let!(:question1) { create(:question, id: 1) }
-    let!(:question5) { create(:question, id: 5) }
+    let!(:question1) { create(:question) }
+    let!(:question5) { create(:question) }
     let!(:choice1) { create(:choice, question: question1) }
     let!(:choice2) { create(:choice, question: question1) }
     let!(:choice5) { create(:choice, question: question5) }

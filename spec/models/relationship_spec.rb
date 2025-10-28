@@ -8,6 +8,7 @@ RSpec.describe Relationship, type: :model do
   end
 
   describe "バリデーション" do
+    subject { create(:relationship) }
     it { should validate_presence_of(:follower_id) }
     it { should validate_presence_of(:followed_id) }
     it { should validate_uniqueness_of(:follower_id).scoped_to(:followed_id) }
