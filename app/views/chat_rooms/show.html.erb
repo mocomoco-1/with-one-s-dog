@@ -15,11 +15,9 @@
   <div id="messages" data-room-id="<%= @chat_room.id %>" data-current-user-id="<%= current_user.id %>" data-last-read-message-id="<%= @opponent_last_read_id %>" class="card-body border rounded-lg h-96 overflow-y-scroll bg-base-100 space-y-3 p-3">
     <%= render @chat_messages %>
   </div>
-  <!-- プレビューエリア -->
-
   <!-- メッセージ送信フォーム -->
-
-  <%= form_with model: [@chat_room, @chat_message], local: Rails.env.test?, data: { controller: "reset-form preview", action: "turbo:submit-end->reset-form#reset" }, class: "flex gap-2 mt-3" do |f| %>
+  <%= form_with model: [@chat_room, @chat_message], local: true, data: { controller: "reset-form preview", action: "turbo:submit-end->reset-form#reset", turbo: false }, class: "flex gap-2 mt-3" do |f| %>
+  <!-- プレビューエリア -->
   <div data-preview-target="images" class="flex flex-wrap mt-2"></div>
   <%= f.text_area :content, placeholder: "メッセージを入力", id: "message_content", class: "input input-secondary flex-1 resize-none h-12 p-2" %>
   <label class=" flex items-center gap-1 cursor-pointer btn btn-md border border-stone-300">
