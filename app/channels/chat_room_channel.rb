@@ -17,6 +17,8 @@ class ChatRoomChannel < ApplicationCable::Channel
     return unless chat_room_id.present?
 
     new_id = (data["last_read_message_id"] || 0).to_i
+    return if new_id.zero?
+
     chat_room = @chat_room || current_user.chat_rooms.find(chat_room_id)
     chat_room_user = chat_room.chat_room_users.find_by(user: current_user)
 
@@ -27,8 +29,12 @@ class ChatRoomChannel < ApplicationCable::Channel
         chat_room_user.update_column(:last_read_message_id, new_id)
         # chat_room_user.reload を呼ぶとこのインスタンスに最新値が反映される
         chat_room_user.reload
+        Rails.logger.info "✅ 既読更新: user=#{current_user.id} #{current_last_id}→#{new_id}"
+      else
+        Rails.logger.info "🚫 巻き戻し無視: user=#{current_user.id} #{current_last_id}←#{new_id}"
       end
     end
+
     last_read_message = chat_room.chat_messages.find_by(id: new_id)
     if last_read_message
       reader_id = chat_room_user.user_id

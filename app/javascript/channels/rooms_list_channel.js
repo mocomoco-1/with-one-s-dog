@@ -26,13 +26,11 @@ consumer.subscriptions.create("RoomsListChannel", {
     }
     let badgeEl = roomElement.querySelector(".unread-badge")
     if (data.unread_count > 0){
-      console.log("バッジ表示")
       if (!badgeEl){
         badgeEl = document.createElement("span")
         badgeEl.className = "unread-badge badge badge-md badge-secondary"
         const parentDiv = roomElement.querySelector(".flex.justify-between.items-center:last-child")
         parentDiv.appendChild(badgeEl)
-        console.log("バッジ表示したよ")
       }
       badgeEl.textContent = data.unread_count
     }else if (badgeEl){

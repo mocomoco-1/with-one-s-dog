@@ -13,6 +13,7 @@ document.addEventListener("turbo:before-cache", () => {
     chatRoomSubscription = null;
     console.log("🧹 before-cache: サブスクリプションを削除しました");
   }
+  window.lastReadMessageId = null;
 });
 
 function initChat() {
@@ -73,8 +74,9 @@ function initChat() {
         applyInitialReadMarks(initialLastReadIdByOpponent);
         
         // // 自分がどこまで読んだかをサーバーに通知する
+        if (isRoomOpen) {
         sendLatestReadReceipt();
-
+        }
       },
 
       disconnected() {
@@ -162,15 +164,35 @@ function initChat() {
     // 自分の既読通知は画面に反映する必要はないので無視
     if (readerId === Number(currentUserId)) return;
     console.log(`📣 相手(${readerId})がメッセージ(${lastReadId})まで読みました`);
-    // 自分の送信したメッセージ（かつ、相手が読んだID以下のもの）に既読マークを付ける
-    messagesElement.querySelectorAll(`[data-sender-id="${currentUserId}"]`).forEach(msgDiv => {
+    const allMessages = messagesElement.children;
+    let myMessageCount = 0;
+    const CHECK_LIMIT = 25; // チェックする件数を指定
+    // 後ろから (最新から) ループ
+    for (let i = allMessages.length - 1; i >= 0; i--) {
+      const msgDiv = allMessages[i];
+      // メッセージDOMでなければスキップ (data-sender-idを持たない要素)
+      if (!msgDiv.dataset.senderId) continue;
+      const { senderId } = extractMessageData(msgDiv);
+      // 相手のメッセージならスキップ
+      if (senderId !== Number(currentUserId)) continue;
+      // 自分のメッセージをカウント
+      myMessageCount++;
       const { msgId } = extractMessageData(msgDiv);
       if (msgId <= lastReadId) {
         addReadMark(msgDiv);
-      }else{
-        console.log("相手が読んだID以下じゃない", msgId <= lastReadId)
       }
-    });
+      // 自分のメッセージを15件チェックしたら終了
+      if (myMessageCount >= CHECK_LIMIT) break;
+    }
+    // 自分の送信したメッセージ（かつ、相手が読んだID以下のもの）に既読マークを付ける
+    // messagesElement.querySelectorAll(`[data-sender-id="${currentUserId}"]`).forEach(msgDiv => {
+    //   const { msgId } = extractMessageData(msgDiv);
+    //   if (msgId <= lastReadId) {
+    //     addReadMark(msgDiv);
+    //   }else{
+    //     console.log("相手が読んだID以下じゃない", msgId <= lastReadId)
+    //   }
+    // });
   }
 
   // --- ヘルパー関数群 ---
@@ -217,16 +239,35 @@ function initChat() {
   }
 
   function applyInitialReadMarks(lastReadId) {
-    messagesElement.querySelectorAll(`[data-sender-id="${currentUserId}"]`).forEach(msgDiv => {
+    const allMessages = messagesElement.children;
+    let myMessageCount = 0;
+    const CHECK_LIMIT = 25; // チェックする件数を指定
+    for (let i = allMessages.length - 1; i >= 0; i--) {
+      const msgDiv = allMessages[i];
+      // メッセージDOMでなければスキップ
+      if (!msgDiv.dataset.senderId) continue;
+      const { senderId } = extractMessageData(msgDiv);
+      // 相手のメッセージならスキップ
+      if (senderId !== Number(currentUserId)) continue;
+      // 自分のメッセージをカウント
+      myMessageCount++;
       const { msgId } = extractMessageData(msgDiv);
       if (msgId <= lastReadId) {
         addReadMark(msgDiv);
       }
-    });
+      // 自分のメッセージを15件チェックしたら終了
+      if (myMessageCount >= CHECK_LIMIT) break;
+    }
   }
 
   // 自分が「ここまで読んだ」とサーバーに通知する関数
   function sendReadReceipt(messageId) {
+    // 対象メッセージが自分のものであればスキップ
+    const messageDiv = document.querySelector(`[data-message-id="${messageId}"]`);
+    if (messageDiv && Number(messageDiv.dataset.senderId) === Number(currentUserId)) {
+      console.log("🧢 自分のメッセージなので既読通知を送信しません", messageId);
+      return;
+    }
     // 最後に通知したIDより新しくなければ送信しない
     if (!messageId || messageId <= myLastSentReadId) {
       console.log("最後に通知したIDより新しくない", messageId, myLastSentReadId)
