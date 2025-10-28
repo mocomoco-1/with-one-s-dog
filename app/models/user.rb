@@ -7,7 +7,7 @@ class User < ApplicationRecord
          :omniauthable, omniauth_providers: [ :line ]
 
   validates :name, presence: true, uniqueness: { case_sensitive: true }, length: { maximum: 20 }
-  validates :email, uniqueness: { case_sensitive: true }, unless: -> { provider == "line" }
+  validates :email, uniqueness: { case_sensitive: true }, -> { provider == "line" }
 
   has_one_attached :image
   has_many :consultations, dependent: :destroy
@@ -37,14 +37,12 @@ class User < ApplicationRecord
 
   def set_values(omniauth)
     return if provider.to_s != omniauth["provider"].to_s || uid != omniauth["uid"]
-    credentials = omniauth["credentials"]
     info = omniauth["info"]
-    self.access_token = credentials["token"] if respond_to?(:access_token)
-    self.refresh_token = credentials["refresh_token"] if respond_to?(:refresh_token)
-    self.credentials = credentials.to_json if respond_to?(:credentials)
+    # プロフィール情報
     self.name = info["name"].presence || self.name
     self.image = info["image"] || info["pictureUrl"] if respond_to?(:image)
     self.email ||= "#{uid}-#{provider}@example.com" if email.blank?
+
     save if changed?
   end
 

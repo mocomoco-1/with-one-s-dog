@@ -7,9 +7,9 @@ class CustomDeviseMailer < Devise::Mailer
   def confirmation_instructions(record, token, opts = {})
     @token = token
     @resource = record
-    @email = record.email
+    mail_to = record.unconfirmed_email.presence || record.email
     mail(
-      to: record.email,
+      to: mail_to,
       subject: "TOMONIアカウント認証のお願い",
       content_type: "multipart/alternative"
     ) do |format|
