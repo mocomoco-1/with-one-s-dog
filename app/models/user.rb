@@ -39,10 +39,13 @@ class User < ApplicationRecord
     return if provider.to_s != omniauth["provider"].to_s || uid != omniauth["uid"]
     credentials = omniauth["credentials"]
     info = omniauth["info"]
-    access_token = credentials["refresh_token"]
-    access_secret = credentials["secret"]
-    credentials = credentials.to_json
-    name = info["name"]
+    self.access_token = credentials["token"] if respond_to?(:access_token)
+    self.refresh_token = credentials["refresh_token"] if respond_to?(:refresh_token)
+    self.credentials = credentials.to_json if respond_to?(:credentials)
+    self.name = info["name"].presence || self.name
+    self.image = info["image"] || info["pictureUrl"] if respond_to?(:image)
+    self.email ||= "#{uid}-#{provider}@example.com" if email.blank?
+    save if changed?
   end
 
   def set_values_by_raw_info(raw_info)
