@@ -22,7 +22,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       user.name = info["name"]
       user.password = Devise.friendly_token[0, 20]
     end
-
+    @user.set_values(@omniauth)
     sign_in(:user, @user)
     flash[:notice] = "ログインしました"
     redirect_to root_path
