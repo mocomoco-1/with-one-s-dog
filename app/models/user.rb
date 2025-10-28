@@ -7,7 +7,7 @@ class User < ApplicationRecord
          :omniauthable, omniauth_providers: [ :line ]
 
   validates :name, presence: true, uniqueness: { case_sensitive: true }, length: { maximum: 20 }
-  validates :email, uniqueness: { case_sensitive: true }
+  validates :email, uniqueness: { case_sensitive: true }, unless: -> { provider == "line" }
 
   has_one_attached :image
   has_many :consultations, dependent: :destroy

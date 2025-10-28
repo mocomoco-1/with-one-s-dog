@@ -32,7 +32,7 @@
   <p class="text-center">LINEログインはこちら</p>
   <%- resource_class.omniauth_providers.each do |provider| %>
   <% if provider == :line %>
-  <%= link_to omniauth_authorize_path(resource_name, provider), class: "line-login-button flex items-center justify-center", data: { turbo: false } do %>
+  <%= button_to omniauth_authorize_path(resource_name, provider), class: "line-login-button flex items-center justify-center", data: { turbo: false }, method: :post do %>
   <img src="<%= asset_path('line_icon2.png') %>" alt="LINE">
   <% end %>
   <% else %>

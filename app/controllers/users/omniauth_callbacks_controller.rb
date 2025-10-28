@@ -9,22 +9,25 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def basic_action
     @omniauth = request.env["omniauth.auth"]
-    if @omniauth.present?
-      @profile = User.find_or_initialize_by(provider: @omniauth["provider"], uid: @omniauth["uid"])
-      if @profile.email.blank?
-        email = @omniauth["info"]["email"] ? @omniauth["info"]["email"] : "#{@omniauth["uid"]}-#{@omniauth["provider"]}@example.com"
-        @profile = current_user || User.create!(provider: @omniauth["provider"], uid: @omniauth["uid"], email: email, name: @omniauth["info"]["name"], password: Devise.friendly_token[0, 20])
-      end
-      @profile.set_values(@omniauth)
-      sign_in(:user, @profile)
+    return redirect_to root_path, alert: "認証情報が取得できませんでした" if @omniauth.blank?
+
+    provider = @omniauth["provider"]
+    uid = @omniauth["uid"]
+    info = @omniauth["info"]
+
+    email = info["email"].presence || "#{uid}-#{provider}@example.com"
+
+    @user = User.find_or_create_by!(provider: provider, uid: uid) do |user|
+      user.email = email
+      user.name = info["name"]
+      user.password = Devise.friendly_token[0, 20]
     end
+
+    sign_in(:user, @user)
     flash[:notice] = "ログインしました"
     redirect_to root_path
   end
 
-  def fake_email(uid, provider)
-    "#{auth.uid}-#{auth.provider}@example.com"
-  end
   # You should configure your model like this:
   # devise :omniauthable, omniauth_providers: [:twitter]
 
