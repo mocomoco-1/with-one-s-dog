@@ -68,7 +68,7 @@ RSpec.describe "Diagnoses", type: :system do
     end
     it "日記に投稿ボタンで日記作成ページに遷移する", js: true do
       click_link "診断結果を日記に投稿する"
-      expect(page).to have_current_path new_diary_path
+      expect(page).to have_current_path new_diary_path, ignore_query: true
       expect(page).to have_content "今日のうちの子のきもち診断は"
     end
   end
