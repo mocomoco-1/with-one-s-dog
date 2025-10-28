@@ -8,11 +8,10 @@ class ChatRoomsController < ApplicationController
     @chat_messages = @chat_room.chat_messages.includes(:user).order(created_at: :asc)
     @chat_message = ChatMessage.new
     @other_user = @chat_room.other_user(current_user)
-    @chat_room_user = @chat_room.chat_room_users.find_by(user: current_user)
-    @last_message = @chat_room.chat_messages.where.not(user_id: current_user.id).last
-    # if @last_message.present?
-    #   @chat_room_user.update(last_read_message_id: @last_message.id)
-    # end
+    # 相手のChatRoomUserレコードを取得
+    @opponent_chat_room_user = @chat_room.chat_room_users.find_by(user: @other_user)
+    # 相手の最終既読IDを取得し、ビューに渡す
+    @opponent_last_read_id = @opponent_chat_room_user&.last_read_message_id.to_i
   end
 
   # def mark_read

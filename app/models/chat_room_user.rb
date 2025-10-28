@@ -4,20 +4,15 @@ class ChatRoomUser < ApplicationRecord
   belongs_to :last_read_message, class_name: "ChatMessage", optional: true
 
   def unread_count
-    Rails.logger.info "🔍 ChatRoomUser#unread_count start - user_id: #{user_id}, last_read_message_id: #{last_read_message_id}"
-    # データの最新状態を取得
-    chat_room.reload
-    chat_room.chat_messages.reload
+    latest_message_id = chat_room.chat_messages.maximum(:id)
     if last_read_message_id.present?
-      unread_messages = chat_room.chat_messages.where("id > ?", last_read_message_id).where.not(user_id: user_id)
-    Rails.logger.info "🔍 Unread messages query: id > #{last_read_message_id}, excluding user_id: #{user_id}"
-    Rails.logger.info "🔍 Found unread messages count: #{unread_messages.count}"
-    unread_messages.count
+      if latest_message_id.nil? || last_read_message_id > latest_message_id
+        Rails.logger.warn "⚠️ Inconsistent last_read_message_id detected. User: #{user_id}, last_read: #{last_read_message_id}, latest: #{latest_message_id}"
+      return 0
+      end
+      chat_room.chat_messages.where("id > ?", last_read_message_id).where.not(user_id: user_id).count
     else
-      all_messages = chat_room.chat_messages.where.not(user_id: user_id)
-      Rails.logger.info "🔍 No last_read_message_id, counting all messages excluding user_id: #{user_id}"
-      Rails.logger.info "🔍 All messages count: #{all_messages.count}"
-      all_messages.count
+      chat_room.chat_messages.where.not(user_id: user_id).count
     end
   end
 end
