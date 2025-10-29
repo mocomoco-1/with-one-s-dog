@@ -109,7 +109,7 @@ Rails.application.configure do
   config.active_record.attributes_for_inspect = [ :id ]
 
   # Enable DNS rebinding protection and other `Host` header attacks.
-  config.hosts = [ "tomoni-dogs.com", "www.tomoni-dogs.com" ]
+  config.hosts = [ "tomoni-dogs.com", "www.tomoni-dogs.com", "tononi.onrender.com" ]
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
   # ActionCable設定
