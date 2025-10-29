@@ -118,5 +118,6 @@ Rails.application.configure do
   config.action_cable.allowed_request_origins = [ "https://tomoni-dogs.com" ]
   # データベース接続プール設定
   config.database_configuration_pool_size = ENV.fetch("RAILS_MAX_THREADS") { 15 }.to_i
-  
+  Rails.application.routes.default_url_options[:host] = "tomoni-dogs.com"
+  Rails.application.routes.default_url_options[:protocol] = "https"
 end
