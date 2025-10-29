@@ -27,13 +27,13 @@ RSpec.describe "ChatMessages", type: :request do
     it "画像だけのメッセージも保存できる" do
       file = fixture_file_upload(Rails.root.join("spec/fixtures/test_image.png"), "image/png")
       expect {
-        post chat_room_chat_messages_path(chat_room), params: { chat_message: { images: [file] } }
+        post chat_room_chat_messages_path(chat_room), params: { chat_message: { images: [ file ] } }
       }.to change(ChatMessage, :count).by(1)
     end
     it "メッセージと画像の両方を送信できる" do
       file = fixture_file_upload(Rails.root.join("spec/fixtures/test_image.png"), "image/png")
       expect {
-        post chat_room_chat_messages_path(chat_room), params: { chat_message: { content: "こんにちは", images: [file] } }
+        post chat_room_chat_messages_path(chat_room), params: { chat_message: { content: "こんにちは", images: [ file ] } }
       }.to change(ChatMessage, :count).by(1)
     end
   end

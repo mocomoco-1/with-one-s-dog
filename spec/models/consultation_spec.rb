@@ -24,7 +24,7 @@ RSpec.describe Consultation, type: :model do
       expect(consultation.tag_list).to include("犬", "散歩")
     end
     it "タグを削除できる" do
-      consultation = create(:consultation, user: user, tag_list: ["犬", "散歩"])
+      consultation = create(:consultation, user: user, tag_list: [ "犬", "散歩" ])
       consultation.tag_list.remove("犬")
       consultation.save
       expect(consultation.tag_list).not_to include("犬")

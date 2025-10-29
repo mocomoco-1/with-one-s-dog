@@ -5,7 +5,8 @@ class InquiryMailer < ApplicationMailer
     @inquiry = inquiry
     mail(
       subject: "【TOMONI】お問い合わせが届きました",
-      reply_to: @inquiry.email
+      reply_to: @inquiry.email,
+      template_path: "inquiries/inquiry_mailer"
     )
   end
 end
