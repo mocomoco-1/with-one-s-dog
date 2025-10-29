@@ -17,11 +17,11 @@ module ApplicationHelper
       image: image_url("ogp.png"),
       og: {
         type: "website",
-        title: :title,
-        description: :description,
+        title: "TOMONI",
+        description: "保護犬とその飼い主がともに幸せに暮らせるようにサポートするサービスです",
         url: request.original_url,
         image: image_url("ogp.png"),
-        site_name: :site
+        site_name: "TOMONI"
       },
       twitter: {
         card: "summary_large_image",
