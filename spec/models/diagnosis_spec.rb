@@ -34,7 +34,7 @@ RSpec.describe Diagnosis, type: :model do
       context "異常系のテスト" do
         it "存在しない選択肢が含まれている場合、nilを返すこと" do
           non_existent_id = 99999
-          selected_choice_ids = [choice1.id, non_existent_id]
+          selected_choice_ids = [ choice1.id, non_existent_id ]
           diagnosis = Diagnosis.diagnose(selected_choice_ids)
           expect(diagnosis).to be_nil
         end

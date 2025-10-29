@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe Comment, type: :model do
   # pending "add some examples to (or delete) #{__FILE__}"
   let(:user) { create(:user) }
-  let(:diary) { create(:diary, user: user)}
-  let(:comment) { build(:comment, user: user, commentable: diary)}
+  let(:diary) { create(:diary, user: user) }
+  let(:comment) { build(:comment, user: user, commentable: diary) }
   describe "バリデーション" do
     it { should validate_presence_of(:content) }
     it { should validate_length_of(:content).is_at_most(65_535) }
