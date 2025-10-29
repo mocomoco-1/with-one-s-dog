@@ -16,7 +16,7 @@
     <%= render @chat_messages %>
   </div>
   <!-- メッセージ送信フォーム -->
-  <%= form_with model: [@chat_room, @chat_message], local: true, data: { controller: "reset-form preview", action: "turbo:submit-end->reset-form#reset", turbo: false }, class: "flex gap-2 mt-3" do |f| %>
+  <%= form_with model: [@chat_room, @chat_message], data: { controller: "reset-form preview", action: "turbo:submit-end->reset-form#reset" }, class: "flex gap-2 mt-3" do |f| %>
   <!-- プレビューエリア -->
   <div data-preview-target="images" class="flex flex-wrap mt-2"></div>
   <%= f.text_area :content, placeholder: "メッセージを入力", id: "message_content", class: "input input-secondary flex-1 resize-none h-12 p-2" %>
