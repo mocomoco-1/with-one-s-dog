@@ -24,6 +24,7 @@ class DogDiagnosis::DiagnosesController < ApplicationController
       end
       @share_text = "今日のいぬのきもち診断は『#{@result.title}』でした！"
       @share_url = root_url
+      @meta_tags_set = true
       set_meta_tags(
         og: {
           title: "いまのワンちゃんのきもちは『#{@result.title}』です！",
