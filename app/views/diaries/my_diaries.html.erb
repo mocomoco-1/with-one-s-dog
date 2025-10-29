@@ -9,6 +9,9 @@
 <h1 class=" text-xl font-semibold text-center">
   <i class="far fa-edit"></i>うちの子日記一覧
 </h1>
+<div class="flex justify-center w-full mt-3">
+  <%= link_to "うちの子日記を書く", new_diary_path, class: "btn btn-sm btn-secondary" %>
+</div>
 <div id="calendar" data-controller="calendar" data-calendar-events-value="<%= @events %>">
 </div>
 

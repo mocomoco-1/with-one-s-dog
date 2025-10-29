@@ -9,7 +9,10 @@
   </div>
   <div class="mb-3">
     <%= f.label :images, class: "font-bold mb-3 block" %>
-    <%= f.file_field :images, multiple: true, class: "input input-secondary", accept: "image/*", data:{ preview_target: "input", action: "change->preview#preview" } %>
+    <label class="w-40 btn btn-md btn-secondary">
+      <i class="far fa-image"></i>
+      <%= f.file_field :images, multiple: true, class: "hidden", accept: "image/*", data:{ preview_target: "input", action: "change->preview#preview" } %>
+    </label>
     <div class="preview-container flex flex-wrap gap-2" data-preview-target="images"></div>
     <% if diary.persisted? && diary.images.attached? %>
     <p>選択済みの画像（削除する画像にチェックをつけてください）</p>
