@@ -36,16 +36,6 @@ class User < ApplicationRecord
   end
 
   def set_values(omniauth)
-    # return if provider.to_s != omniauth["provider"].to_s || uid != omniauth["uid"]
-
-    # credentials = omniauth["credentials"]
-    # info = omniauth["info"]
-    # # プロフィール情報
-    # self.name = info["name"].presence || self.name
-    # self.image = info["image"] || info["pictureUrl"] if respond_to?(:image)
-    # self.email ||= "#{uid}-#{provider}@example.com" if email.blank?
-
-    # save if changed?
     return if provider.to_s != omniauth["provider"].to_s || uid != omniauth["uid"]
     credentials = omniauth["credentials"]
     info = omniauth["info"]
