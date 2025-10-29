@@ -1,7 +1,7 @@
 <div class="swiper-wrapper">
   <% diary.images.each do |image| %>
   <div class="swiper-slide flex justify-center items-center">
-    <%= image_tag image.variant(resize_to_fill: [size, size]), class: "max-w-[#{size}px] max-h-[#{size}px]" %>
+    <%= image_tag image.variant(resize_to_fill: [size, size]), class: "w-full h-auto max-w-full object-cover sm:max-w-[#{size}px] sm:max-h-[#{size}px]" %>
   </div>
   <% end %>
 </div>

@@ -15,8 +15,21 @@
   overflow: hidden;
   position: relative;
   width: 100%;
-  max-width: 380px;
+  max-width: 300px;
   margin: 0 auto;
+}
+/* タブレット以上 */
+@media (min-width: 768px) {
+  .swiper {
+    max-width: 350px;
+  }
+}
+
+/* デスクトップ */
+@media (min-width: 1024px) {
+  .swiper {
+    max-width: 380px;
+  }
 }
 
 .swiper-wrapper {
