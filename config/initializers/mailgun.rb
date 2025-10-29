@@ -27,9 +27,7 @@ class MailgunDelivery
     @mg_client.send_message(@domain, message)
   end
 
-  if Rails.env.production?
-    ActionMailer::Base.add_delivery_method :mailgun_custom, MailgunDelivery,
-      api_key: ENV["MAILGUN_API_KEY"],
-      domain: ENV["MAILGUN_DOMAIN"]
-  end
+  ActionMailer::Base.add_delivery_method :mailgun_custom, MailgunDelivery,
+    api_key: ENV["MAILGUN_API_KEY"],
+    domain: ENV["MAILGUN_DOMAIN"]
 end

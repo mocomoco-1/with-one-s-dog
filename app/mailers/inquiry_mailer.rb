@@ -6,7 +6,7 @@ class InquiryMailer < ApplicationMailer
     mail(
       subject: "【TOMONI】お問い合わせが届きました",
       reply_to: @inquiry.email,
-      template_path: "inquiries/inquiry_mailer",
+      template_name: "send_inquiry",
       delivery_method: :mailgun_custom
     )
   end
