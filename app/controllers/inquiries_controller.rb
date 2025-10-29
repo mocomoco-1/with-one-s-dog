@@ -7,6 +7,7 @@ class InquiriesController < ApplicationController
   def create
     @inquiry = Inquiry.new(inquiry_params)
     if @inquiry.save
+      InquiryMailer.send_inquiry(@inquiry).deliver_now
       redirect_to new_inquiry_path, notice: "お問い合わせを送信しました。メールで返信いたします。しばらくお待ちください。"
     else
       render :new, status: :unprocessable_entity
