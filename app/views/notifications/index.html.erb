@@ -4,8 +4,15 @@
 <div class="card bg-white shadow-md w-[calc(100%-1rem)] sm:w-[calc(100%-2rem)] md:max-w-md lg:max-w-lg xl:max-w-2xl mx-auto mt-6">
   <div class="p-4">
     <%= render "notifications/full_list", notifications: @notifications %>
-    <div class="mt-2 text-center text-sm hover:underline">
-      <%= link_to "次へ", notifications_path(page: @notifications.next_page), data: { turbo_frame: "list" } if @notifications.next_page %>
+    <div class="text-center mt-2 justify-between text-sm ">
+      <% if @notifications.prev_page %>
+      <%= link_to "←前へ", notifications_path(page: @notifications.prev_page), class: "hover:underline", data: { turbo_frame: "list" } %>
+      <% else %>
+      <span></span>
+      <% end %>
+      <% if @notifications.next_page %>
+      <%= link_to "次へ→", notifications_path(page: @notifications.next_page), class: "hover:underline", data: { turbo_frame: "list" } %>
+      <% end %>
     </div>
   </div>
 </div>
