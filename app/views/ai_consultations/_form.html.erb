@@ -1,5 +1,5 @@
 <%= turbo_frame_tag "ai_consultation_form" do %>
-<%= form_with url: ai_consultations_path, method: :post, data: { controller: "loading", action: "submit->loading#submitStart" } do |f| %>
+<%= form_with url: ai_consultations_path, method: :post, data: { controller: "loading", action: "submit->loading#submitStart turbo:submit-end->loading#submitEnd", loading_target: "form" } do |f| %>
 <div class="mb-4">
   <%= f.label :category, "1.愛犬のどんなことに悩んでいますか？", class: "font-bold" %>
   <%= f.text_field :category, placeholder: "例:吠え、噛み、トイレ、食欲、怖がり、分離不安、散歩など", class: "input w-full input-secondary" %>

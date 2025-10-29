@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["submitButton", "loadingIndicator"]
+  static targets = ["submitButton", "loadingIndicator", "form"]
 
   connect(){
   }
@@ -15,6 +15,9 @@ export default class extends Controller {
   submitEnd(){
     this.submitButtonTarget.disabled = false
     this.submitButtonTarget.value = "相談する"
-    this.loadingIndicatorTarget.classList.add("hidden") 
+    this.loadingIndicatorTarget.classList.add("hidden")
+    if (this.hasFormTarget) {
+      this.formTarget.classList.add("hidden"); // CSSで非表示に
+    }
   }
 }
