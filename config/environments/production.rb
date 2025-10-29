@@ -109,7 +109,7 @@ Rails.application.configure do
   config.active_record.attributes_for_inspect = [ :id ]
 
   # Enable DNS rebinding protection and other `Host` header attacks.
-  config.hosts = [ "tomoni-dogs.com", "www.tomoni-dogs.com", "tomoni.onrender.com" ]
+  config.hosts = [ "tomoni-dogs.com", "www.tomoni-dogs.com" ]
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
   # ActionCable設定
@@ -118,8 +118,5 @@ Rails.application.configure do
   config.action_cable.allowed_request_origins = [ "https://tomoni-dogs.com" ]
   # データベース接続プール設定
   config.database_configuration_pool_size = ENV.fetch("RAILS_MAX_THREADS") { 15 }.to_i
-  config.after_initialize do
-    Rails.logger.info "MAILGUN_API_KEY: #{ENV['MAILGUN_API_KEY'].present? ? 'present' : 'nil'}"
-    Rails.logger.info "MAILGUN_DOMAIN: #{ENV['MAILGUN_DOMAIN']}"
-  end
+  
 end
