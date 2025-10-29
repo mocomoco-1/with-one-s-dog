@@ -24,10 +24,15 @@ class MailgunDelivery
       html: html_body
     }
 
+    begin
     @mg_client.send_message(@domain, message)
+    rescue => e
+      Rails.logger.error "[MailgunDelivery ERROR] #{e.message}"
+      raise e
+    end
   end
-
-  ActionMailer::Base.add_delivery_method :mailgun_custom, MailgunDelivery,
-    api_key: ENV["MAILGUN_API_KEY"],
-    domain: ENV["MAILGUN_DOMAIN"]
 end
+ActionMailer::Base.add_delivery_method :mailgun_custom, MailgunDelivery,
+  api_key: ENV["MAILGUN_API_KEY"],
+  domain: ENV["MAILGUN_DOMAIN"]
+
