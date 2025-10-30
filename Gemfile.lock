@@ -389,6 +389,7 @@ GEM
     rdoc (6.14.2)
       erb
       psych (>= 4.0.0)
+    redcarpet (3.6.1)
     redis (5.4.1)
       redis-client (>= 0.22.0)
     redis-client (0.25.3)
@@ -556,6 +557,7 @@ DEPENDENCIES
   rails (~> 7.2.2, >= 7.2.2.1)
   rails-i18n
   ransack
+  redcarpet
   redis
   rspec-rails (~> 7.0.0)
   rubocop
