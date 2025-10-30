@@ -29,4 +29,17 @@ module ApplicationHelper
       }
     }
   end
+
+  def markdown(text)
+    renderer = Redcarpet::Render::HTML.new(filter_html: true, hard_wrap: true)
+    options = {
+      autolink: true,
+      tables: true,
+      fenced_code_blocks: true,
+      strikethrough: true,
+      underline: true
+    }
+    markdown = Redcarpet::Markdown.new(renderer, options)
+    markdown.render(text.to_s).html_safe
+  end
 end
