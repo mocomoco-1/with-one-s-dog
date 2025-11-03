@@ -63,7 +63,7 @@ gem "meta-tags"
 
 gem "pg_search"
 
-gem "mailgun-ruby", "~> 1.2.14"
+gem "mailgun-ruby", "~> 1.4.0"
 
 gem "redcarpet"
 
