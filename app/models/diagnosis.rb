@@ -33,7 +33,8 @@ class Diagnosis < ApplicationRecord
     # 3. 最後の質問（質問5）の選択肢なら重み2倍
     choice_questions = Choice.where(id: selected_choice_ids).pluck(:id, :question_id)
     puts "選んだ選択肢IDと質問ID: #{choice_questions}"
-    question5_choice_ids = choice_questions.select { |choice_id, question_id| question_id == 5 }.map { |choice_id, question_id| choice_id }
+    last_question_id = Question.order(:id).last.id
+    question5_choice_ids = choice_questions.select { |choice_id, question_id| question_id == last_question_id }.map { |choice_id, question_id| choice_id }
     question5_diagnosis_ids = ChoicesDiagnosis.where(choice_id: question5_choice_ids).pluck(:diagnosis_id)
     question5_diagnosis_ids.each do |diagnosis_id|
       diagnosis_counts[diagnosis_id] += 2
