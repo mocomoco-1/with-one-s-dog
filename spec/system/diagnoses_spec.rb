@@ -12,7 +12,7 @@ RSpec.describe "Diagnoses", type: :system do
       visit dog_diagnosis_diagnoses_index_path
       click_link "診断を始める"
       visit dog_diagnosis_questions_path
-      expect(page).to have_content "わんこ、今どこで何してる？"
+      expect(page).to have_content("わんこ、今どこで何してる？", wait: 10)
       choose "ひざの上でぬくぬく…「ここがいちばん安心する」"
       click_button "次の問題へ→"
       expect(page).to have_content "ごはんを出すと、どんな顔をする？"
@@ -27,21 +27,23 @@ RSpec.describe "Diagnoses", type: :system do
       expect(page).to have_content "しっぽ、今どんな感じ？"
       choose "ゆっくりふりふり「かいぬし見ているだけで幸せ」"
       click_button "診断結果を見る🐶"
+      expect(page).to have_current_path(dog_diagnosis_diagnoses_path)
     end
-    it "診断結果が表示される" do
+    it "診断結果が表示される", js: true do
       expect(page).to have_content "診断結果"
     end
-    it "もう一度診断するボタンで診断トップに戻ることができる" do
+    it "もう一度診断するボタンで診断トップに戻ることができる", js: true do
       click_link "もう一度診断する"
       expect(page).to have_content "いぬのきもち診断"
     end
-    context "ログインしていない場合" do
-      it "日記に投稿ボタンでログイン画面に遷移する" do
+    context "ログインしていない場合", js: true do
+      it "日記に投稿ボタンでログイン画面に遷移する", js: true do
         click_link "診断結果を日記に投稿する"
         expect(page).to have_current_path new_user_session_path
       end
     end
   end
+
   context "ログインしている場合" do
     let!(:user) { create(:user) }
     before do

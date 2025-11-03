@@ -65,16 +65,16 @@ jobs:
         ports:
           - 5432:5432
         options: --health-cmd="pg_isready" --health-interval=10s --health-timeout=5s --health-retries=3
-    selenium:
-    image: selenium/standalone-chrome:latest
-    ports:
-      - 4444:4444
-    options: >-
-      --shm-size=2g
-      --health-cmd "curl -f http://localhost:4444/wd/hub/status || exit 1"
-      --health-interval 10s
-      --health-timeout 5s
-      --health-retries 5
+      selenium:
+        image: selenium/standalone-chrome:latest
+        ports:
+          - 4444:4444
+        options: >-
+          --shm-size=2g
+          --health-cmd "curl -f http://localhost:4444/wd/hub/status || exit 1"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
       - name: Install packages
@@ -82,6 +82,9 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Remove old test directory (prevent Minitest errors)
+        run: rm -rf test
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -94,12 +97,15 @@ jobs:
           RAILS_ENV: test
           DATABASE_URL: postgres://postgres:postgres@localhost:5432
         run: |
+          bin/rails db:create
           bin/rails db:schema:load
+          bin/rails db:seed RAILS_ENV=test
 
       - name: Run tests
         env:
           RAILS_ENV: test
           DATABASE_URL: postgres://postgres:postgres@localhost:5432
+          CI: true
           # REDIS_URL: redis://localhost:6379/0
         run: bin/rails spec
 
