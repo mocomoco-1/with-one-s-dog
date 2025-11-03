@@ -99,6 +99,7 @@ jobs:
         run: |
           bin/rails db:create
           bin/rails db:schema:load
+          bin/rails db:seed RAILS_ENV=test
 
       - name: Run tests
         env:
