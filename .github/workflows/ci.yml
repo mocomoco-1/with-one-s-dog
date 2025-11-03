@@ -83,6 +83,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Remove old test directory (prevent Minitest errors)
+        run: rm -rf test
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
