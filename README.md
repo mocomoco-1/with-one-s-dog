@@ -1,6 +1,9 @@
 # 「TOMONI」
-### サービスURL:　https://tomoni-dogs.com/
-<img witdh="500" src="assets/images/top.png">
+
+<img witdh="500" src="app/assets/images/top.png">
+<br>
+
+### サービスURL:　https://tomoni-dogs.com
 
 # 🐕 サービス概要
 
@@ -11,7 +14,7 @@
 「迎えた後も、ずっと一緒に幸せに暮らせるように」——安心できる居場所とつながりを提供するサービスです。
 
 
-# 💙「TOMONI」への思い
+## 💙「TOMONI」への思い
 
 私自身、保護犬を迎えた経験があります。
 
@@ -45,34 +48,42 @@
 - お悩み相談
 - 日記
 
- | AI相談機能　|
- | :---: | 
- |![Image from Gyazo](https://gyazo.com/55f812505f70d49d34c32db95f494097)|
- |新規入力フォームから相談することができます。前の質問がある場合は右上の「前の相談から選択」をクリックすると相談一覧が表示されます。追加で質問することも可能です。|
+| AI相談機能 |
+| :---: | 
+| [![Image from Gyazo](https://i.gyazo.com/55f812505f70d49d34c32db95f494097.gif)](https://gyazo.com/55f812505f70d49d34c32db95f494097) |
+| <p align="left">新規入力フォームから相談することができます。前の質問がある場合は右上の「前の相談から選択」をクリックすると相談一覧が表示されます。</p> |
+<br>
 
  | チャット　|
  | :---: | 
- |![Image from Gyazo](https://gyazo.com/ea74fa8d028ac0d6c1eca586a6124a6c)|
+ |[![Image from Gyazo](https://i.gyazo.com/ea74fa8d028ac0d6c1eca586a6124a6c.gif)](https://gyazo.com/ea74fa8d028ac0d6c1eca586a6124a6c)|
  |チャットはリアルタイムで行うことができます。また既読機能もついています。|
+<br>
 
  | お悩み相談　|
  | :---: | 
- |![Image from Gyazo](https://gyazo.com/1bfaa441454d967f823e3e13e3fc00df)|
+ |[![Image from Gyazo](https://i.gyazo.com/1bfaa441454d967f823e3e13e3fc00df.gif)](https://gyazo.com/1bfaa441454d967f823e3e13e3fc00df)|
  |お悩み相談は似ているお悩みを下部に表示する仕組みとなっています。また、お悩み相談・日記は、リアクションやコメントを残すことができます。|
 
  | うちの子日記　|
  | :---: | 
- |![Image from Gyazo](https://gyazo.com/7dd65fa3763cf310c9b79d3093729d01)|
+ |[![Image from Gyazo](https://i.gyazo.com/7dd65fa3763cf310c9b79d3093729d01.gif)](https://gyazo.com/7dd65fa3763cf310c9b79d3093729d01)|
  |自分の日記は「うちの子日記」から見ることができます。カレンダーに日記を記載した日は「日記🐾」と記載されます。それをクリックするとその日の日記詳細を見ることができます。|
 
 
 ## その他の機能
 
-### 通知機能
-### フォロー機能
-### LINEログイン
+ | 通知機能　|
+ | :---: | 
+ |[![Image from Gyazo](https://i.gyazo.com/a14eb38aa16994bc75daf3fb17230e2a.gif)](https://gyazo.com/a14eb38aa16994bc75daf3fb17230e2a)|
+ |通知もリアルタイムで届きます。通知内容をクリックするとその画面に遷移することができます|
 
-# 🔧 技術構成について
+ | フォロー機能　|
+ | :---: | 
+|[![Image from Gyazo](https://i.gyazo.com/7f43d4e4c2e5a15c9c6ba7d2ffd71d93.gif)](https://gyazo.com/7f43d4e4c2e5a15c9c6ba7d2ffd71d93)|
+|お悩み相談や日記などのユーザー名をクリックするとプロフィールページに遷移できます。フォローするボタンがあるのでクリックするとフォローすることができます。|
+
+## 🔧 技術構成について
 
 ## 使用技術
 
