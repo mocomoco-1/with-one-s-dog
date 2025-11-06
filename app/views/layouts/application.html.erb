@@ -2,6 +2,18 @@
 <html>
 
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RHQWVGM8E0"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'G-RHQWVGM8E0');
+  </script>
   <title><%= page_title(yield(:title)) %></title>
   <%= display_meta_tags %>
   <meta name="viewport" content="width=device-width,initial-scale=1">
