@@ -1,15 +1,15 @@
 class DiariesController < ApplicationController
   def index
-    @diaries = Diary.includes(:user).status_published.order(created_at: :desc).page(params[:page]).per(10)
+    @diaries = Diary.includes(:user, images_attachments: :blob).status_published.order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def my_diaries
     if params[:user_id].present? && params[:user_id].to_i != current_user.id
       @user = User.find(params[:user_id])
-      @diaries = @user.diaries.status_published.order(created_at: :desc).page(params[:page]).per(5)
+      @diaries = @user.diaries.includes(images_attachments: :blob).order(created_at: :desc).page(params[:page]).per(5)
     else
       @user = current_user
-      @diaries = current_user.diaries.order(created_at: :desc).page(params[:page]).per(5)
+      @diaries = current_user.diaries.includes(images_attachments: :blob).order(created_at: :desc).page(params[:page]).per(5)
     end
 
     diary_events = @diaries.map do |d|

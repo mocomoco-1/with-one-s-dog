@@ -5,7 +5,7 @@ class ChatRoomsController < ApplicationController
 
   def show
     @chat_room = current_user.chat_rooms.find(params[:id])
-    @chat_messages = @chat_room.chat_messages.includes(:user).order(created_at: :asc)
+    @chat_messages = @chat_room.chat_messages.includes(:user, images_attachments: :blob).order(created_at: :asc)
     @chat_message = ChatMessage.new
     @other_user = @chat_room.other_user(current_user)
     # 相手のChatRoomUserレコードを取得
@@ -13,19 +13,6 @@ class ChatRoomsController < ApplicationController
     # 相手の最終既読IDを取得し、ビューに渡す
     @opponent_last_read_id = @opponent_chat_room_user&.last_read_message_id.to_i
   end
-
-  # def mark_read
-  #   @chat_room = current_user.chat_rooms.find(params[:id])
-  #   chat_room_user = @chat_room.chat_room_users.find_by(user: current_user)
-  #   new_id = params[:last_read_message_id].to_i
-  #   current_last_id = chat_room_user.last_read_message_id || 0
-  #   if new_id > current_last_id
-  #     chat_room_user.update_column(:last_read_message_id, new_id)
-  #     last_read_message = @chat_room.chat_messages.find_by(id: new_id)
-  #     ChatMessageReadBroadcastJob.perform_later(chat_room_user, last_read_message)
-  #   end
-  #   head :ok
-  # end
 
   def create
     opponent = User.find(params[:opponent_id])
@@ -35,7 +22,6 @@ class ChatRoomsController < ApplicationController
       ChatRoomUser.create!(chat_room: @chat_room, user: current_user)
       ChatRoomUser.create!(chat_room: @chat_room, user: opponent)
     end
-    # @chat_room.persisted?は必ずtrueになるが、可読性のために記載
 
     redirect_to chat_room_path(@chat_room)
   end
