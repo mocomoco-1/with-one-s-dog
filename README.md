@@ -47,26 +47,26 @@
 - お悩み相談
 - 日記
 
- | AI相談機能 |
- | :---: | 
- |<video src="https://i.gyazo.com/55f812505f70d49d34c32db95f494097.mp4" controls autoplay loop muted playsinline width="700"></video>|
- | 新規入力フォームから相談することができます。前の質問がある場合は右上の「前の相談から選択」をクリックすると相談一覧が表示されます。</p> |
+| AI相談機能 |
+| :---: | 
+| [![Image from Gyazo](https://i.gyazo.com/55f812505f70d49d34c32db95f494097.gif)](https://gyazo.com/55f812505f70d49d34c32db95f494097) |
+| 新規入力フォームから相談することができます。前の質問がある場合は右上の「前の相談から選択」をクリックすると相談一覧が表示されます。</p> |
 <br>
 
  | チャット　|
  | :---: | 
- |<video src="https://i.gyazo.com/ea74fa8d028ac0d6c1eca586a6124a6c.mp4" controls autoplay loop muted playsinline width="700"></video>|
+ |[![Image from Gyazo](https://i.gyazo.com/ea74fa8d028ac0d6c1eca586a6124a6c.gif)](https://gyazo.com/ea74fa8d028ac0d6c1eca586a6124a6c)|
  |チャットはActionCableを使用しており、リアルタイムで行うことができます。また既読機能もついています。|
 <br>
 
  | お悩み相談　|
  | :---: | 
- |<video src="https://i.gyazo.com/545fe811e8ef00da0b6272ac6b4677fa.mp4" controls autoplay loop muted playsinline width="700"></video>|
+ |[![Image from Gyazo](https://i.gyazo.com/545fe811e8ef00da0b6272ac6b4677fa.gif)](https://gyazo.com/545fe811e8ef00da0b6272ac6b4677fa)|
  |お悩み相談は似ているお悩みを下部に表示する仕組みとなっています。また、お悩み相談・日記は、リアクションやコメントを残すことができます。|
 
  | うちの子日記　|
  | :---: | 
- |<video src="https://i.gyazo.com/8f5e937e6a9d870481cce231958d6f67.mp4" controls autoplay loop muted playsinline width="700"></video>|
+ |[![Image from Gyazo](https://i.gyazo.com/8f5e937e6a9d870481cce231958d6f67.gif)](https://gyazo.com/8f5e937e6a9d870481cce231958d6f67)|
  |自分の日記は「うちの子日記」から見ることができます。カレンダーに日記を記載した日は「日記🐾」と記載されます。それをクリックするとその日の日記詳細を見ることができます。|
 
 
@@ -74,12 +74,12 @@
 
  | 通知機能　|
  | :---: | 
- |<video src="https://i.gyazo.com/a14eb38aa16994bc75daf3fb17230e2a.mp4" controls autoplay loop muted playsinline width="700"></video>|
+ |[![Image from Gyazo](https://i.gyazo.com/a14eb38aa16994bc75daf3fb17230e2a.gif)](https://gyazo.com/a14eb38aa16994bc75daf3fb17230e2a)|
  |通知もリアルタイムで届きます。通知内容をクリックするとその画面に遷移することができます|
 
  | フォロー機能　|
  | :---: | 
- |<video src="https://i.gyazo.com/7f43d4e4c2e5a15c9c6ba7d2ffd71d93.mp4" controls autoplay loop muted playsinline width="700"></video>|
+|[![Image from Gyazo](https://i.gyazo.com/7f43d4e4c2e5a15c9c6ba7d2ffd71d93.gif)](https://gyazo.com/7f43d4e4c2e5a15c9c6ba7d2ffd71d93)|
 |お悩み相談や日記などのユーザー名をクリックするとプロフィールページに遷移できます。フォローするボタンがあるのでクリックするとフォローすることができます。|
 
 ## 🔧 技術構成について
@@ -88,7 +88,7 @@
 
 | カテゴリ | 技術内容 |
 | --- | --- | 
-| サーバーサイド | Ruby on Rails 7.2・Ruby 3.2.5 |
+| サーバーサイド | Ruby on Rails 7.2・Ruby 3.2.2 |
 | フロントエンド | Ruby on Rails・JavaScript |
 | CSSフレームワーク | Tailwindcss + daisyUI |
 | Web API | OpenAI API(GPT-4)・LINE Developers |
