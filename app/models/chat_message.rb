@@ -5,15 +5,9 @@ class ChatMessage < ApplicationRecord
   has_many_attached :images
   after_create :notify_chat_room_users
   before_save :content_or_image_present
-  # メッセージ作成時に自動でブロードキャスト
+
   after_create_commit do
-  # Rails.logger.info "🔄 ChatMessage created - id=#{self.id}"
-  ChatMessageBroadcastJob.perform_later(self)
-    # if image.attached?
-    #   Rails.logger.info "📸 Image attached - processing in background"
-    #   # 画像処理は非同期で実行
-    #   ImageProcessingJob.perform_later(self)
-    # end
+    ChatMessageBroadcastJob.perform_later(self)
   end
 
   def read_by?(user)
