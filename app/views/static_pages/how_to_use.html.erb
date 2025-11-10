@@ -26,37 +26,75 @@
     その思いからこのサービスを作りました。
   </p>
 </div>
+
 <div class="card bg-white card-compact shadow-sm p-4 gap-2 border border-blue-200 mb-2">
   <span class="flex items-center justify-center gap-2 mb-2 text-center text-lg font-bold">
-    <h2>投稿（お悩み相談<i class="far fa-comment-dots"></i>・日記<i class="far fa-edit"></i>）の使い方</h2>
+    <h2>お悩み相談<i class="far fa-comment-dots">の使い方</h2>
   </span>
+  <div class="flex justify-center mb-3">
+    <%= link_to "https://gyazo.com/545fe811e8ef00da0b6272ac6b4677fa", target: "_blank", rel: "noopener" do %>
+    <%= image_tag "https://i.gyazo.com/545fe811e8ef00da0b6272ac6b4677fa.gif",
+                      alt: "お悩み相談説明",
+                      class: "rounded-lg shadow-sm w-full max-w-xs hover:shadow-lg transition" %>
+    <% end %>
+  </div>
   <p class="leading-relaxed">
-    飼い主さん同士で日常や悩みを共有できます。<br>
-    投稿は「日記」と「お悩み相談」に分かれています。
-  <ul>
-    <li><i class="far fa-comment-dots"></i> <i class="font-bold">日記</i>：愛犬との日常や成長記録を投稿。非表示にもできて自分だけの記録とすることもできます。</li>
-    <li><i class="far fa-edit"></i> <i class="font-bold">お悩み相談</i>：悩みや困ったことを投稿し、他の飼い主さんからアドバイスを受ける。</li>
-  </ul>
-  投稿は自由にコメントやリアクションもできます。
+    悩みや困ったことを投稿し、他の飼い主さんからアドバイスを受けることができます。
+    投稿は自由にコメントやリアクションもできます。
+    似ているお悩みが下に表示されるので、ぜひ同じお悩みを持った方の投稿を見てみてください🐕
   </p>
 </div>
+
+<div class="card bg-white card-compact shadow-sm p-4 gap-2 border border-blue-200 mb-2">
+  <span class="flex items-center justify-center gap-2 mb-2 text-center text-lg font-bold">
+    <h2></i>・日記<i class="far fa-edit"></i>）の使い方</h2>
+  </span>
+  <div class="flex justify-center mb-3">
+    <%= link_to "https://gyazo.com/8f5e937e6a9d870481cce231958d6f67", target: "_blank", rel: "noopener" do %>
+    <%= image_tag "https://i.gyazo.com/8f5e937e6a9d870481cce231958d6f67.gif",
+                      alt: "日記説明",
+                      class: "rounded-lg shadow-sm w-full max-w-xs hover:shadow-lg transition" %>
+    <% end %>
+  </div>
+  <p class="leading-relaxed">
+    愛犬との日常や成長記録を投稿。非表示にもできて自分だけの記録とすることもできます。
+    自分の日記は「うちの子日記」から見ることができます。カレンダーに日記を記載した日は「日記🐾」と記載されます。
+    それをクリックするとその日の日記詳細を見ることができます。
+  </p>
+</div>
+
 <div class="card bg-white card-compact shadow-sm p-4 gap-2 border border-blue-200 mb-2">
   <span class="flex items-center justify-center gap-2 mb-2 text-center text-lg font-bold">
     <h2>チャットの使い方</h2><i class="far fa-envelope"></i>
   </span>
+  <div class="flex justify-center mb-3">
+    <%= link_to "https://gyazo.com/8f5e937e6a9d870481cce231958d6f67", target: "_blank", rel: "noopener" do %>
+    <%= image_tag "https://i.gyazo.com/8f5e937e6a9d870481cce231958d6f67.gif",
+                      alt: "チャット説明",
+                      class: "rounded-lg shadow-sm w-full max-w-xs hover:shadow-lg transition" %>
+    <% end %>
+  </div>
   <p class="leading-relaxed">
     お話したい、困ったことや相談したいとき、チャット機能をご利用ください💭
   <ul>
     <li>🔵 <i class="font-bold">フォロー一覧</i>からチャットしたい人を選ぶ</li>
     <li>🔵 チャットしたい人の<i class="font-bold">プロフィール</i>から「チャットする」ボタンをクリック</li>
   </ul>
-  通知も来るようになっています🔔
+  リアルタイムでお話しでき、通知も来るようになっています🔔
   </p>
 </div>
+
 <div class="card bg-white card-compact shadow-sm p-4 gap-2 border border-blue-200 mb-2">
   <span class="flex items-center justify-center gap-2 mb-2 text-center text-lg font-bold">
     <h2>AI「TOMONIくん」の使い方</h2><i class="fas fa-dog"></i>
   </span>
+  <div class="flex justify-center mb-3">
+    <%= link_to "https://gyazo.com/55f812505f70d49d34c32db95f494097", target: "_blank", rel: "noopener" do %>
+    <%= image_tag "https://i.gyazo.com/55f812505f70d49d34c32db95f494097.gif",
+                      alt: "AI相談機能説明",
+                      class: "rounded-lg shadow-sm w-full max-w-xs hover:shadow-lg transition" %>
+    <% end %>
+  </div>
   <p class="leading-relaxed">
     AITOMONIくんは、あなたの愛犬の性格や行動の傾向に合わせてアドバイスを提供するAI機能です。<br>
     保護犬のお悩みに特化しているのでぜひ参考にしてみてください🐕
@@ -67,6 +105,41 @@
   </ul>
   </p>
 </div>
+
+<div class="card bg-white card-compact shadow-sm p-4 gap-2 border border-blue-200 mb-2">
+  <span class="flex items-center justify-center gap-2 mb-2 text-center text-lg font-bold">
+    <h2>フォロー機能</h2>
+  </span>
+  <div class="flex justify-center mb-3">
+    <%= link_to "https://gyazo.com/7f43d4e4c2e5a15c9c6ba7d2ffd71d93", target: "_blank", rel: "noopener" do %>
+    <%= image_tag "https://i.gyazo.com/7f43d4e4c2e5a15c9c6ba7d2ffd71d93.gif",
+                      alt: "フォロー機能説明",
+                      class: "rounded-lg shadow-sm w-full max-w-xs hover:shadow-lg transition" %>
+    <% end %>
+  </div>
+  <p class="leading-relaxed">
+    お悩み相談や日記などのユーザー名をクリックするとプロフィールページに遷移できます。
+    フォローするボタンがあるのでクリックするとフォローすることができます👪
+  </p>
+</div>
+
+<div class="card bg-white card-compact shadow-sm p-4 gap-2 border border-blue-200 mb-2">
+  <span class="flex items-center justify-center gap-2 mb-2 text-center text-lg font-bold">
+    <h2>通知機能</h2>
+  </span>
+  <div class="flex justify-center mb-3">
+    <%= link_to "https://gyazo.com/a14eb38aa16994bc75daf3fb17230e2a", target: "_blank", rel: "noopener" do %>
+    <%= image_tag "https://i.gyazo.com/a14eb38aa16994bc75daf3fb17230e2a.gif",
+                      alt: "通知機能説明",
+                      class: "rounded-lg shadow-sm w-full max-w-xs hover:shadow-lg transition" %>
+    <% end %>
+  </div>
+  <p class="leading-relaxed">
+    通知もリアルタイムで届きます🔔
+    通知内容をクリックするとその画面に遷移することができます。
+  </p>
+</div>
+
 <div class="card bg-white card-compact shadow-sm p-4 gap-2 border border-blue-200">
   <span class="flex items-center justify-center gap-2 mb-2 text-center text-lg font-bold">
     <h2>よくある質問（FAQ）</h2>
