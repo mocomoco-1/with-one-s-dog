@@ -8,8 +8,7 @@
 # 🐕 サービス概要
 
 保護犬と、保護犬と暮らす飼い主さんを、日々の悩みや不安から支えるサポートアプリです。
-
-保護団体とのチャット機能や、飼い主同士のコミュニティ機能を通じて、気軽に相談・共有ができます。
+飼い主同士の情報交換やAIとの相談機能を通じて、気軽に相談・共有ができます。
 
 「迎えた後も、ずっと一緒に幸せに暮らせるように」——安心できる居場所とつながりを提供するサービスです。
 
@@ -57,17 +56,17 @@
  | チャット　|
  | :---: | 
  |[![Image from Gyazo](https://i.gyazo.com/ea74fa8d028ac0d6c1eca586a6124a6c.gif)](https://gyazo.com/ea74fa8d028ac0d6c1eca586a6124a6c)|
- |チャットはリアルタイムで行うことができます。また既読機能もついています。|
+ |チャットはActionCableを使用しており、リアルタイムで行うことができます。また既読機能もついています。|
 <br>
 
  | お悩み相談　|
  | :---: | 
- |[![Image from Gyazo](https://i.gyazo.com/1bfaa441454d967f823e3e13e3fc00df.gif)](https://gyazo.com/1bfaa441454d967f823e3e13e3fc00df)|
+ |[![Image from Gyazo](https://i.gyazo.com/545fe811e8ef00da0b6272ac6b4677fa.gif)](https://gyazo.com/545fe811e8ef00da0b6272ac6b4677fa)|
  |お悩み相談は似ているお悩みを下部に表示する仕組みとなっています。また、お悩み相談・日記は、リアクションやコメントを残すことができます。|
 
  | うちの子日記　|
  | :---: | 
- |[![Image from Gyazo](https://i.gyazo.com/7dd65fa3763cf310c9b79d3093729d01.gif)](https://gyazo.com/7dd65fa3763cf310c9b79d3093729d01)|
+ |[![Image from Gyazo](https://i.gyazo.com/8f5e937e6a9d870481cce231958d6f67.gif)](https://gyazo.com/8f5e937e6a9d870481cce231958d6f67)|
  |自分の日記は「うちの子日記」から見ることができます。カレンダーに日記を記載した日は「日記🐾」と記載されます。それをクリックするとその日の日記詳細を見ることができます。|
 
 
