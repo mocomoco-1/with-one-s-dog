@@ -1,10 +1,11 @@
-<!-- 吹き出し + 名前 -->
+<!-- 吹き出し + 名前 + 時間 -->
 <div class="flex w-full mb-2" data-sender-id="<%= chat_message.user_id %>" data-message-id="<%= chat_message.id %>">
   <div class="flex flex-col max-w-xs">
     <div class="text-xs text-gray-500 mb-1">
       <%= chat_message.user.name %> ・
       <time class="text-xs opacity-50 ml-1"><%= l chat_message.created_at, format: :short %></time>
     </div>
+    <!-- 本文 -->
     <div class="flex gap-2">
       <div class="message-bubble px-3 py-2 rounded-lg leading-tight break-words max-w-sm sm:max-w-md md:max-w-lg">
         <%= simple_format(chat_message.content) %>
