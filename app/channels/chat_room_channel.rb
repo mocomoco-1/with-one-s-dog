@@ -25,9 +25,7 @@ class ChatRoomChannel < ApplicationCable::Channel
     chat_room_user.with_lock do
       current_last_id = chat_room_user.last_read_message_id || 0
       if new_id > current_last_id
-        # DB上に存在するカラムだけ更新する（unread_countは保存しない）
         chat_room_user.update_column(:last_read_message_id, new_id)
-        # chat_room_user.reload を呼ぶとこのインスタンスに最新値が反映される
         chat_room_user.reload
         Rails.logger.info "✅ 既読更新: user=#{current_user.id} #{current_last_id}→#{new_id}"
       else
