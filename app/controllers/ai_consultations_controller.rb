@@ -70,14 +70,13 @@ class AiConsultationsController < ApplicationController
         # JSONのパースに失敗した場合の処理
         @error_message = "AIからの応答を正しく解析できませんでした。もう一度お試しください。"
       end
+
+        respond_to do |format|
+          format.turbo_stream  # app/views/ai_consultations/create.turbo_stream.erb が呼ばれる
+          format.html { render :new, status: :ok }
+        end
     else
-      @error_message = "相談の保存に失敗しました"
-    end
-    respond_to do |format|
-      if @ai_consultation.save
-        format.turbo_stream  # app/views/ai_consultations/create.turbo_stream.erb が呼ばれる
-        format.html { render :new, status: :ok }
-      else
+      respond_to do |format|
         format.turbo_stream do
           render turbo_stream: turbo_stream.replace(
           "ai_consultation_form",
