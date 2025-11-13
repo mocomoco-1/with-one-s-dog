@@ -1,9 +1,10 @@
 import consumer from "./consumer"
-
+import DOMPurify from "dompurify";
 // サブスクリプションのインスタンスを管理する変数を定義
 let chatRoomSubscription = null;
-
-// turbo:load はページが描画されるたびに呼ばれる
+const purify = DOMPurify(window);
+// 重複登録を防ぐ(解除して再登録)
+document.removeEventListener('turbo:load', initChat);
 document.addEventListener('turbo:load', initChat);
 
 // ページを離れる（キャッシュされる）直前に呼ばれる
@@ -35,12 +36,18 @@ function initChat() {
   if (!roomId || !currentUserId) return;
 
   // すでに同じルームのサブスクリプションが存在する場合は、重複作成を防ぐ
-  if (chatRoomSubscription && JSON.parse(chatRoomSubscription.identifier).chat_room_id == roomId) {
-    console.log("♻️ 同じルームのサブスクリプションが既に存在します。");
-    scrollToBottom(messagesElement); // スクロール位置の調整だけ行う
-    return;
+  if (chatRoomSubscription) {
+    try {
+      const identifierObj = JSON.parse(chatRoomSubscription.identifier);
+      if (identifierObj.chat_room_id == roomId) {
+      console.log("同じルームのサブスクリプションがすでに存在します");
+      scrollToBottom(messagesElement);
+      return;
+      }
+    } catch (e){
+      console.warn("identifier のパースに失敗しました:", e);
+    }
   }
-  
   // もし違うルームのサブスクリプションが残っていたら削除
   if (chatRoomSubscription) {
     chatRoomSubscription.unsubscribe();
@@ -105,44 +112,36 @@ function initChat() {
       }
     }
   );
-  // --- スクロールで既読を送る処理 ---
-  // messagesElement.addEventListener("scroll", () => {
-  //   // scrollTop + clientHeight = 現在見えている高さ
-  //   // scrollHeight = 全体の高さ
-  //   const isAtBottom = messagesElement.scrollTop + messagesElement.clientHeight >= messagesElement.scrollHeight - 10;
-  //   if (isAtBottom) {
-  //     console.log("📚 スクロール最下部に到達しました。既読を送信します。");
-  //     sendLatestReadReceipt();
-  //   }
-  // });
+
   // ★メッセージ受信時の処理
   function handleNewMessage(data) {
     if (!data.message) return;
     
-    // 自分のメッセージが重複して表示されるのを防ぐ（念のため）
+    // DOMを作る前に重複チェック
     if (document.querySelector(`[data-message-id="${data.message_id}"]`)) {
-        console.log(`メッセージID ${data.message_id} はすでに存在します。`);
-        return;
+      console.log(`メッセージID ${data.message_id} はすでに存在します。`);
+      return;
     }
     const wrapper = document.createElement("div");
-    wrapper.innerHTML = data.message;
+    wrapper.innerHTML = purify.sanitize(data.message);
     const messageDiv = wrapper.firstElementChild;
     if (!messageDiv) {
-        console.error("メッセージDOMの作成に失敗しました", data.message);
-        return;
+      console.error("メッセージDOMの作成に失敗しました", data.message);
+      return;
     }
     messagesElement.appendChild(messageDiv);
     const { senderId, msgId } = extractMessageData(messageDiv);
     applyAlignment(messageDiv, senderId, currentUserId);
     scrollToBottom(messagesElement);
-    // デバッグ用ログを追加
-    console.log("📝 新メッセージ処理:", {
-        messageId: msgId,
-        senderId: senderId,
-        currentUserId: Number(currentUserId),
-        isRoomOpen: isRoomOpen,
-        shouldSendReceipt: senderId !== Number(currentUserId) && isRoomOpen
-    });
+    // デバッグ用ログ
+    // console.log("📝 新メッセージ処理:", {
+    //     messageId: msgId,
+    //     senderId: senderId,
+    //     currentUserId: Number(currentUserId),
+    //     isRoomOpen: isRoomOpen,
+    //     shouldSendReceipt: senderId !== Number(currentUserId) && isRoomOpen
+    // });
+
     // 相手からのメッセージを受信し、かつ画面を開いているなら既読通知を送る
     const isAtBottom = messagesElement.scrollTop + messagesElement.clientHeight >= messagesElement.scrollHeight - 10;
     if (isAtBottom && senderId !== Number(currentUserId)&& isRoomOpen) {
@@ -155,12 +154,12 @@ function initChat() {
     const readerId = Number(data.reader_id);
     const lastReadId = Number(data.last_read_message_id);
     // デバッグ用ログ
-    console.log("📘 既読通知処理:", {
-      readerId: readerId,
-      lastReadId: lastReadId,
-      currentUserId: Number(currentUserId),
-      shouldApplyMark: readerId !== Number(currentUserId)
-    });
+    // console.log("📘 既読通知処理:", {
+    //   readerId: readerId,
+    //   lastReadId: lastReadId,
+    //   currentUserId: Number(currentUserId),
+    //   shouldApplyMark: readerId !== Number(currentUserId)
+    // });
     // 自分の既読通知は画面に反映する必要はないので無視
     if (readerId === Number(currentUserId)) return;
     console.log(`📣 相手(${readerId})がメッセージ(${lastReadId})まで読みました`);
@@ -181,7 +180,7 @@ function initChat() {
       if (msgId <= lastReadId) {
         addReadMark(msgDiv);
       }
-      // 自分のメッセージを15件チェックしたら終了
+      // 自分のメッセージを25件チェックしたら終了
       if (myMessageCount >= CHECK_LIMIT) break;
     }
     // 自分の送信したメッセージ（かつ、相手が読んだID以下のもの）に既読マークを付ける
