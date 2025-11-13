@@ -19,13 +19,17 @@ class AiConsultationsController < ApplicationController
     details: params[:details]
     )
     if @ai_consultation.save
+      safe_input = {
+        category: params[:category].to_s,
+        situation: params[:situation].to_s,
+        dog_reaction: params[:dog_reaction].to_s,
+        goal: params[:goal].to_s,
+        details: params[:details].to_s
+      }
+      prompt_json = JSON.generate(safe_input)
       prompt = <<-PROMPT
         以下保護犬の飼い主さんからの相談です。
-        1. 悩みの内容: #{@ai_consultation.category}
-        2. いつ起こるか: #{@ai_consultation.situation}
-        3. 愛犬の様子: #{@ai_consultation.dog_reaction}
-        4. 愛犬にどうなってほしいか、一緒に何がしたいか: #{@ai_consultation.goal}
-        5. その他補足: #{@ai_consultation.details}
+        #{prompt_json}
 
         保護犬に詳しいトレーナー兼アドバイザーとして、保護犬特有の背景（トラウマ・社会化不足・環境変化への敏感さ）を考慮して回答してください。
         回答には最新の犬の行動科学や動物福祉の知見（ポジティブ強化、罰を避ける、ストレスサインの読み取りなど）も取り入れてください。

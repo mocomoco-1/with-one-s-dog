@@ -15,13 +15,13 @@
     <h3 class="text-lg font-semibold flex items-center gap-2">
       お悩みの要約🌿
     </h3>
-    <p class="mt-2 leading-relaxed"><%= advice["summary"] %></p>
+    <p class="mt-2 leading-relaxed"><%= sanitize(advice["summary"]) %></p>
   </div>
   <div class="mt-2">
     <h3 class="text-lg font-semibold flex items-center gap-2">
       共感メッセージ🤝
     </h3>
-    <p class="mt-2 leading-relaxed"><%= advice["empathy"] %></p>
+    <p class="mt-2 leading-relaxed"><%= sanitize(advice["empathy"]) %></p>
   </div>
   <div class="mt-2">
     <h3 class="text-lg font-semibold flex items-center gap-2">
@@ -29,7 +29,7 @@
     </h3>
     <ul class="mt-2 list-disc list-inside space-y-2 leading-relaxed">
       <% advice["advice"]["short_term"]&.each do |advice| %>
-      <li><%= advice %></li>
+      <li><%= sanitize(advice) %></li>
       <% end %>
     </ul>
     <h3 class="text-lg font-semibold flex items-center gap-2">
@@ -37,7 +37,7 @@
     </h3>
     <ul class="mt-2 list-disc list-inside space-y-2 leading-relaxed">
       <% advice["advice"]["long_term"]&.each do |advice| %>
-      <li><%= advice %></li>
+      <li><%= sanitize(advice) %></li>
       <% end %>
     </ul>
   </div>
@@ -45,7 +45,7 @@
     <h3 class="text-lg font-semibold flex items-center gap-2">
       応援🏳‍🌈
     </h3>
-    <p class="mt-2 leading-relaxed font-medium"><%= advice["cheer"] %></p>
+    <p class="mt-2 leading-relaxed font-medium"><%= sanitize(advice["cheer"]) %></p>
   </div>
 </div>
 <% end %>
