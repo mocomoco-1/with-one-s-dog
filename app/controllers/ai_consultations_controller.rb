@@ -19,13 +19,17 @@ class AiConsultationsController < ApplicationController
     details: params[:details]
     )
     if @ai_consultation.save
+      safe_input = {
+        category: params[:category].to_s,
+        situation: params[:situation].to_s,
+        dog_reaction: params[:dog_reaction].to_s,
+        goal: params[:goal].to_s,
+        details: params[:details].to_s
+      }
+      prompt_json = JSON.generate(safe_input)
       prompt = <<-PROMPT
         以下保護犬の飼い主さんからの相談です。
-        1. 悩みの内容: #{@ai_consultation.category}
-        2. いつ起こるか: #{@ai_consultation.situation}
-        3. 愛犬の様子: #{@ai_consultation.dog_reaction}
-        4. 愛犬にどうなってほしいか、一緒に何がしたいか: #{@ai_consultation.goal}
-        5. その他補足: #{@ai_consultation.details}
+        #{prompt_json}
 
         保護犬に詳しいトレーナー兼アドバイザーとして、保護犬特有の背景（トラウマ・社会化不足・環境変化への敏感さ）を考慮して回答してください。
         回答には最新の犬の行動科学や動物福祉の知見（ポジティブ強化、罰を避ける、ストレスサインの読み取りなど）も取り入れてください。
@@ -66,14 +70,13 @@ class AiConsultationsController < ApplicationController
         # JSONのパースに失敗した場合の処理
         @error_message = "AIからの応答を正しく解析できませんでした。もう一度お試しください。"
       end
+
+        respond_to do |format|
+          format.turbo_stream  # app/views/ai_consultations/create.turbo_stream.erb が呼ばれる
+          format.html { render :new, status: :ok }
+        end
     else
-      @error_message = "相談の保存に失敗しました"
-    end
-    respond_to do |format|
-      if @ai_consultation.save
-        format.turbo_stream  # app/views/ai_consultations/create.turbo_stream.erb が呼ばれる
-        format.html { render :new, status: :ok }
-      else
+      respond_to do |format|
         format.turbo_stream do
           render turbo_stream: turbo_stream.replace(
           "ai_consultation_form",
