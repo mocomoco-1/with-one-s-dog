@@ -6,7 +6,7 @@ class DiariesController < ApplicationController
   def my_diaries
     if params[:user_id].present? && params[:user_id].to_i != current_user.id
       @user = User.find(params[:user_id])
-      @diaries = @user.diaries.includes(images_attachments: :blob).order(created_at: :desc).page(params[:page]).per(5)
+      @diaries = @user.diaries.status_published.includes(images_attachments: :blob).order(created_at: :desc).page(params[:page]).per(5)
     else
       @user = current_user
       @diaries = current_user.diaries.includes(images_attachments: :blob).order(created_at: :desc).page(params[:page]).per(5)
@@ -60,7 +60,7 @@ class DiariesController < ApplicationController
 
   def show
     @diary = Diary.find(params[:id])
-    unless @diary.status_published? || @diary.user == current_user
+    if !@diary.status_published? && @diary.user != current_user
       redirect_to diaries_path, alert: "この日記は閲覧できません"
     end
     @commentable = @diary

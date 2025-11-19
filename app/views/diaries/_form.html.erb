@@ -1,5 +1,6 @@
 <div data-controller="preview" data-preview-max-width-value="1920" data-preview-max-height-value="1080" data-preview-quality-value="0.8" data-preview-enable-resize-value="true">
   <%= form_with model: diary, local: true do |f| %>
+  <!-- 日付 -->
   <div class="mb-3">
     <%= f.label :written_on, class: "font-bold mb-3 block" do %>
     日付
@@ -7,6 +8,7 @@
     <% end %>
     <%= f.date_field :written_on, class: "input input-secondary" %>
   </div>
+  <!-- 画像 -->
   <div class="mb-3">
     <%= f.label :images, class: "font-bold mb-3 block" %>
     <label class="w-40 btn btn-md btn-secondary">
@@ -33,6 +35,7 @@
     </div>
     <% end %>
   </div>
+  <!-- 本文 -->
   <div class="mb-3">
     <%= f.label :content, class: "font-bold mb-3 block" do %>
     日記
@@ -40,6 +43,7 @@
     <% end %>
     <%= f.text_area :content, class: "input w-full input-secondary p-2 h-80 resize-y leading-1", placeholder: "本文は必須です" %>
   </div>
+  <!-- 公開設定 -->
   <div class="mb-3">
     <%= f.label :status, class: "font-bold block mb-2" do %>
     公開設定
