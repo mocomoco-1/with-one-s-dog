@@ -8,10 +8,10 @@ class Consultation < ApplicationRecord
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :reactions, as: :reactable, dependent: :destroy
   pg_search_scope :search_similar,
-                  against: [ :title, :content ],
+                  against: [ :title ], # 絞り込みの範囲
                   using: {
-                    tsearch: { prefix: true }, # 部分一致を可能に
-                    trigram: {} # 文字列類似度も考慮
+                    tsearch: { any_word: true, prefix: true }, # 語句のどれか1つでも単語の先頭と一致すればヒット
+                    trigram: { threshold: 0.1 } # 文字列類似度も考慮
                   }
   def self.ransackable_attributes(auth_object = nil)
     %w[title content created_at updated_at]
