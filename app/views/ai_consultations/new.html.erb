@@ -13,12 +13,16 @@
     すべて入力しなくてもTOMONIくんは答えてくれますが、<br>
     入力したほうがより正確なアドバイスがもらえます💡
   </p>
+  <!-- 初回フォーム -->
   <%= render "form", ai_consultation: @ai_consultation %>
 </div>
+<!-- 初回アドバイス -->
 <div id="advice_container">
 </div>
+<!-- チャット履歴 -->
 <div id="chat-container">
 </div>
+<!-- 追加フォーム -->
 <div class="w-full">
   <%= turbo_frame_tag "ai_followup_form" do %>
   <% end %>
